@@ -1176,9 +1176,12 @@
                         <label for="attach_doc1">Detail Of Process Change (6M+EAS) <font color='red'>*</font></label>
                       </div>
                       <div class="col-md-1">
+                        <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                      </div>
+                      <div class="col-md-1">
                         <a class="btn btn-success" id="attach_doc1_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
                       </div>
-                      <div class="col-md-7">
+                      <div class="col-md-6">
                         <div class="custom-file">
                           <input type="file" class="custom-file-input" id="attach_doc1" multiple="" name="attach_doc1">
                           <label class="custom-file-label" for="attach_doc1" id="attach_doc1_label">Choose file</label>
@@ -1193,9 +1196,12 @@
                 <label for="attach_doc2">Supplier Inspection Standard </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc2" multiple="" name="attach_doc2">
                   <label class="custom-file-label" for="attach_doc2" id="attach_doc2_label">Choose file</label>
@@ -1210,9 +1216,12 @@
                 <label for="attach_doc3">Control Plan/QCPC </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc3_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc3" multiple="" name="attach_doc3">
                   <label class="custom-file-label" for="attach_doc3" id="attach_doc3_label">Choose file</label>
@@ -1228,9 +1237,12 @@
                 <label for="attach_doc4">FMEA </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach4" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc4_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc4" multiple="" name="attach_doc4">
                   <label class="custom-file-label" for="attach_doc4" id="attach_doc4_label">Choose file</label>
@@ -1246,9 +1258,12 @@
                 <label for="attach_doc5">QA Network </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach5" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc5_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc5" multiple="" name="attach_doc5">
                   <label class="custom-file-label" for="attach_doc5" id="attach_doc5_label">Choose file</label>
@@ -1264,9 +1279,12 @@
                 <label for="attach_doc6">Initial Proces Capability Study (Cp,Cpk) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach6" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc6_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc6" multiple="" name="attach_doc6">
                   <label class="custom-file-label" for="attach_doc6" id="attach_doc6_label">Choose file</label>
@@ -1282,9 +1300,12 @@
                 <label for="attach_doc7">Material Performance Test Results/MiilSheet <font color='red'>*</font></label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach7" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc7_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc7" multiple="" name="attach_doc7">
                   <label class="custom-file-label" for="attach_doc7" id="attach_doc7_label">Choose file</label>
@@ -1299,9 +1320,12 @@
                 <label for="attach_doc8">Procces Flow Diagram </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach8" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc8_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc8" multiple="" name="attach_doc8">
                   <label class="custom-file-label" for="attach_doc8" id="attach_doc8_label">Choose file</label>
@@ -1316,9 +1340,12 @@
                 <label for="attach_doc9">Dimensional Results (Layout Inspection,n=1) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach9" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc9_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc9" multiple="" name="attach_doc9">
                   <label class="custom-file-label" for="attach_doc9" id="attach_doc9_label">Choose file</label>
@@ -1332,9 +1359,12 @@
                 <label for="attach_doc10">Part Submission Warrant (PSW) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach10" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc10_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc10" multiple="" name="attach_doc10">
                   <label class="custom-file-label" for="attach_doc10" id="attach_doc10_label">Choose file</label>
@@ -1348,9 +1378,12 @@
                 <label for="attach_doc11">ISIR + Baloon Drawing (n=3/cavity) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach11" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc11_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc11" multiple="" name="attach_doc11">
                   <label class="custom-file-label" for="attach_doc11" id="attach_doc11_label">Choose file</label>
@@ -1364,9 +1397,12 @@
                 <label for="attach_doc12">Record Of SOC Compliance With Customer Specific Requiretments </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach12" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc12_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc12" multiple="" name="attach_doc12">
                   <label class="custom-file-label" for="attach_doc12" id="attach_doc12_label">Choose file</label>
@@ -1380,9 +1416,12 @@
                 <label for="attach_doc13"> Proof Of SOC Compliance(10 substance)  </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach13" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc13_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc13" multiple="" name="attach_doc13">
                   <label class="custom-file-label" for="attach_doc13" id="attach_doc13_label">Choose file</label>
@@ -1396,9 +1435,12 @@
                 <label for="attach_doc14">IMDS <font color='red'>*</font></label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach14" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc14_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc14" multiple="" name="attach_doc14">
                   <label class="custom-file-label" for="attach_doc14" id="attach_doc14_label">Choose file</label>
@@ -1412,9 +1454,12 @@
                 <label for="attach_doc15">Packaging Specification </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach15" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc15_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc15" multiple="" name="attach_doc15">
                   <label class="custom-file-label" for="attach_doc15" id="attach_doc15_label">Choose file</label>
@@ -1428,9 +1473,12 @@
                 <label for="attach_doc16">QC PLAN </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach16" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc16_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc16" multiple="" name="attach_doc16">
                   <label class="custom-file-label" for="attach_doc16" id="attach_doc16_label">Choose file</label>
@@ -1444,9 +1492,12 @@
                 <label for="attach_doc17">Lot Control System </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach17" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc17_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc17" multiple="" name="attach_doc17">
                   <label class="custom-file-label" for="attach_doc17" id="attach_doc17_label">Choose file</label>
@@ -1460,9 +1511,12 @@
                 <label for="attach_doc18">Supply Chain </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach18" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc18_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc18" multiple="" name="attach_doc18">
                   <label class="custom-file-label" for="attach_doc18" id="attach_doc18_label">Choose file</label>
@@ -1476,9 +1530,12 @@
                 <label for="attach_doc19">Sample Part (After ISIR Ok) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach19" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc19_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc19" multiple="" name="attach_doc19">
                   <label class="custom-file-label" for="attach_doc19" id="attach_doc19_label">Choose file</label>
@@ -1492,9 +1549,12 @@
                 <label for="attach_doc20">Company Profile <font color='red'>*</font></label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach20" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc20_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc20" multiple="" name="attach_doc20">
                   <label class="custom-file-label" for="attach_doc20" id="attach_doc20_label">Choose file</label>
@@ -1508,9 +1568,12 @@
               <label for="attach_doc21">Production Layout Factory </label>
             </div>
             <div class="col-md-1">
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach21" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+            </div>
+            <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc21_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="attach_doc21" multiple="" name="attach_doc21">
                 <label class="custom-file-label" for="attach_doc21" id="attach_doc21_label">Choose file</label>
@@ -1524,9 +1587,12 @@
               <label for="attach_doc22">Capactiy Review </label>
             </div>
             <div class="col-md-1">
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach22" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+            </div>
+            <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc22_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="attach_doc22" multiple="" name="attach_doc22">
                 <label class="custom-file-label" for="attach_doc22" id="attach_doc22_label">Choose file</label>
@@ -1540,9 +1606,12 @@
               <label for="attach_doc23">Quality System Certification </label>
             </div>
             <div class="col-md-1">
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+            </div>
+            <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc23_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6">
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="attach_doc23" multiple="" name="attach_doc23">
                 <label class="custom-file-label" for="attach_doc23" id="attach_doc23_label">Choose file</label>
@@ -1557,9 +1626,12 @@
                 <label for="attach_doc24">Audit Report by DIAT(Spesial Process) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach24" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc24_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc24" multiple="" name="attach_doc24">
                   <label class="custom-file-label" for="attach_doc24" id="attach_doc24_label">Choose file</label>
@@ -1574,9 +1646,12 @@
                 <label for="attach_doc25">Audit Report by Denso OGC (IF Necesary) </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach25" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc25_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc25" multiple="" name="attach_doc25">
                   <label class="custom-file-label" for="attach_doc25" id="attach_doc25_label">Choose file</label>
@@ -1591,9 +1666,12 @@
                 <label for="attach_doc26">Kakotora With Prevention </label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach26" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc26_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc26" multiple="" name="attach_doc26">
                   <label class="custom-file-label" for="attach_doc26" id="attach_doc26_label">Choose file</label>
@@ -1608,9 +1686,12 @@
                 <label for="attach_doc_27">SUPPLIER AUDIT RESULT <br> (For New Supplier Raw material/ Subcont)</label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach27" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc_27_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc_27" multiple="" name="attach_doc_27">
                   <label class="custom-file-label" for="attach_doc_27" id="attach_doc_27_label">Choose file</label>
@@ -1624,9 +1705,12 @@
                 <label for="attach_doc28">DATA LIFE TIME SHOOT TOOLING <font color='red'>*</font></label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach28" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc28_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc28" multiple="" name="attach_doc28">
                   <label class="custom-file-label" for="attach_doc28" id="attach_doc28_label">Choose file</label>
@@ -1640,9 +1724,12 @@
                 <label for="attach_doc29">PARAMETER SETTTING COMPARE OPTIONAL)</label>
               </div>
               <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach29" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+              <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc29_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-6">
                 <div class="custom-file">
                   <input type="file" class="custom-file-input" id="attach_doc29" multiple="" name="attach_doc29">
                   <label class="custom-file-label" for="attach_doc29" id="attach_doc29_label">Choose file</label>
@@ -1685,13 +1772,13 @@
                   <div class="card-footer">
                     <div class="row">
                       <div class="col-lg-3">
-                        <button type="submit" class="btn btn-primary" id="btnsubmit">Save To Draft</button>   <!-- button save ke draft--> 
+                        <button type="submit" class="btn btn-primary" id="btnsubmit">Save And Send</button>   <!-- button save ke draft--> 
                       </div>
                       <div class="col-lg-3">
-                        <button type="button" class="btn btn-success" id="btnsend" onclick="sendDraft()">Send</button>  <!-- button send-->               
+                        <button type="button" class="btn btn-success" id="btnsend" onclick="sendDraft()" hidden>Send</button>  <!-- button send-->               
                       </div>
                       <div class="col-lg-3">
-                        <button type="button" class="btn btn-success" id="btnsend2" onclick="sendDraft2()">Save And Send</button><!-- button save and send--> 
+                        <button type="button" class="btn btn-success" id="btnsend2" onclick="sendDraft2()" hidden>Save And Send</button><!-- button save and send--> 
                       </div>
                       <div class="col-lg-3">
                         <button type="button" class="btn btn-danger float-right" data-dismiss="modal">Close</button>  <!-- button close--> 
@@ -1944,6 +2031,18 @@
       attach_doc1: {
       required: true,
       },
+      attach_doc7: {
+      required: true,
+      },
+      attach_doc14: {
+      required: true,
+      },
+      attach_doc20: {
+      required: true,
+      },
+      attach_doc28: {
+      required: true,
+      },
 
         // ---------------------------------- / Rule input Macro Batas sini 1--------------------------------
 
@@ -2103,6 +2202,22 @@
         required: "Please Attach Document",
         minlength: 3
         },
+        attach_doc7: {
+        required: "Please Attach Document",
+        minlength: 3
+        },
+        attach_doc14: {
+        required: "Please Attach Document",
+        minlength: 3
+        },
+        attach_doc20: {
+        required: "Please Attach Document",
+        minlength: 3
+        },
+        attach_doc28: {
+        required: "Please Attach Document",
+        minlength: 3
+        },
         // ---------------------------------- / Rule input Macro Batas sini 2--------------------------------
 
         //rule input data harus terisi semua
@@ -2160,7 +2275,7 @@
             $('#report_date').val(new Date(result2).toISOString().slice(0, 10));//variable issue date
 
 
-            $('#btnsubmit').text('Save To Draft'); // name Save
+            // $('#btnsubmit').text('Save To Draft'); // name Save
             document.getElementById("btnsubmit").style.visibility = "visible";    // Visible button              
             //Ajax kosongkan data
             document.getElementById("btnsend").style.visibility = "hidden";    // Visible button              
@@ -3062,13 +3177,29 @@
          //untuk hidden supplier data jika klik supplier maka akan muncul beberapa attach file saja
         $('input[type=radio][name=object_type]').change(function() {
           if(this.value == 'NEW SUPPLIER(never been in denso)'){      //1.1
-            $("#attach1").css('display','block'); //detail of proces chane
+          //   if ($('#attach_doc1').val()==''){
+          //     gagal("Please input attachment");
+          //   return ;
+          // }
+          // if ($('#attach_doc7').val()==''){
+          //     gagal("Please input attachment");
+          //   return ;
+          // }
+          // if ($('#attach_doc14').val()==''){
+          //     gagal("Please input attachment");
+          //   return ;
+          // }  
+          // if ($('#attach_doc20').val()==''){
+          //     gagal("Please input attachment");
+          //   return ;
+          // }
+            $("#attach1").css('display','block'); //detail of proces chane *
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
             $("#attach4").css('display','block'); // fmea
             $("#attach5").css('display','block'); // QA Network
             $("#attach6").css('display','block'); //initial process
-            $("#attach7").css('display','block'); //Material Performance
+            $("#attach7").css('display','block'); //Material Performance *
             $("#attach8").css('display','block'); //Procces Flow Diagram
             $("#attach9").css('display','block');  //Dimensional Results (Layout Inspection,n=1)
             $("#attach10").css('display','block'); //Part Submission Warrant (PSW) 
@@ -3093,13 +3224,25 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='NEW SUPPLIER(current denso supplier)'){    //1.2
+            // if ($('#attach_doc1').val()==''){
+            //   gagal("Please input attachment");
+            // return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc14').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
             $("#attach4").css('display','block'); // fmea
             $("#attach5").css('display','block'); // QA Network
             $("#attach6").css('display','block'); //initial process
-            $("#attach7").css('display','block'); //Material Performance
+            $("#attach7").css('display','block'); //Material Performance *
             $("#attach8").css('display','block'); //Procces Flow Diagram
             $("#attach9").css('display','block');  //Dimensional Results (Layout Inspection,n=1)
             $("#attach10").css('display','block'); //Part Submission Warrant (PSW) 
@@ -3124,6 +3267,18 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='ADDITIONAL SUPPLIER(current denso supplier)'){   //1.3
+            // if ($('#attach_doc1').val()==''){
+            //   gagal("Please input attachment");
+            // return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc14').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3155,6 +3310,18 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional  
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='CHANGE SUPPLIER(current denso supplier)'){     //1.4
+            // if ($('#attach_doc1').val()==''){
+            //   gagal("Please input attachment");
+            // return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc14').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3186,6 +3353,10 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional  
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='CHANGE PLACE PRODUCTION(same denso supplier)'){    //1.5
+            // if ($('#attach_doc1').val()==''){
+            //   gagal("Please input attachment");
+            // return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3217,6 +3388,10 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='ADDITIONAL SUPPLIER'){           //1.6
+            // if ($('#attach_doc1').val()==''){
+            //   gagal("Please input attachment");
+            // return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3248,6 +3423,10 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional    
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='CHANGE SUB SUPPLIER(change route)'){     //1.7
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3279,6 +3458,10 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value == 'ADDITIONAL PROCESS'){   //2.1
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3310,6 +3493,10 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             $("#hide_attachment").css('display','block');   
           }else if(this.value == 'CHANGE PROCESS'){     //2.2
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3341,6 +3528,14 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             $("#hide_attachment").css('display','block');   
           }else if(this.value =='CHANGE MATERIAL SPECIFICATION'){       //3.1
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3372,6 +3567,14 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='CHANGE MATERIAL MAKER'){       //3.2
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3403,6 +3606,14 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional 
             // $("#hide_attachment").css('display','none');
           }else if(this.value =='CHANGE PLACE PRODUCTION(same material maker company)'){    //3.3
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
+            // if ($('#attach_doc7').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','block'); //control plan
@@ -3434,6 +3645,14 @@
             $("#attach29").css('display','none');     //Parameter Settting Compare Optional
             // $("#hide_attachment").css('display','none');
           }else if(this.value == 'RENEWAL DIES'){   //4.1
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }  
+            // if ($('#attach_doc28').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','none'); //control plan
@@ -3465,6 +3684,10 @@
             $("#attach29").css('display','block');     //Parameter Settting Compare Optional  
             // $("#hide_attachment").css('display','block');     
           }else if(this.value == 'ADDITIONAL DIES'){   //4.2
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','none'); //control plan
@@ -3496,6 +3719,14 @@
             $("#attach29").css('display','block');     //Parameter Settting Compare Optional
             $("#hide_attachment").css('display','block');        
           }else if(this.value == 'REACTIVATION DIES'){   //4.3
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }  
+            // if ($('#attach_doc28').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','none'); //control plan
@@ -3527,6 +3758,10 @@
             $("#attach29").css('display','block');     //Parameter Settting Compare Optional    
             $("#hide_attachment").css('display','block');   
           }else if(this.value == 'ADDITONAL MACHINE(existing machine)'){   //4.4
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','none'); //control plan
@@ -3558,6 +3793,10 @@
             $("#attach29").css('display','block');     //Parameter Settting Compare Optional   
             $("#hide_attachment").css('display','block');   
           }else if(this.value == 'ADDITONAL MACHINE(new machine)'){   //4.5
+            // if ($('#attach_doc1').val()==''){
+            //     gagal("Please input attachment");
+            //   return ;
+            // }
             $("#attach1").css('display','block'); //detail of proces chane
             $("#attach2").css('display','block'); //supplier inspection
             $("#attach3").css('display','none'); //control plan
@@ -3664,14 +3903,184 @@
    function Simpan_data($trigger){
 
           // //validasi data attachment
+          
+          $('input[type=radio][name=object_type]').change(function() {
+          // console.log(this.value);
+          if(this.value == 'NEW SUPPLIER(never been in denso)'){
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc14').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }  
+            if ($('#attach_doc20').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='NEW SUPPLIER(current denso supplier)'){    //1.2
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc14').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='ADDITIONAL SUPPLIER(current denso supplier)'){   //1.3
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc14').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='CHANGE SUPPLIER(current denso supplier)'){     //1.4
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc14').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='CHANGE PLACE PRODUCTION(same denso supplier)'){    //1.5
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+        }else if(this.value =='ADDITIONAL SUPPLIER'){           //1.6
+            if ($('#attach_doc1').val()==''){
+              gagal("Please input attachment");
+            return ;
+            }
+        }else if(this.value =='CHANGE SUB SUPPLIER(change route)'){     //1.7
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'ADDITIONAL PROCESS'){   //2.1
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'CHANGE PROCESS'){     //2.2
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='CHANGE MATERIAL SPECIFICATION'){       //3.1
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='CHANGE MATERIAL MAKER'){       //3.2
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value =='CHANGE PLACE PRODUCTION(same material maker company)'){    //3.3
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+            if ($('#attach_doc7').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'RENEWAL DIES'){   //4.1
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }  
+            if ($('#attach_doc28').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'ADDITIONAL DIES'){   //4.2
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'REACTIVATION DIES'){   //4.3
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }  
+            if ($('#attach_doc28').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'ADDITONAL MACHINE(existing machine)'){   //4.4
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else if(this.value == 'ADDITONAL MACHINE(new machine)'){   //4.5
+            if ($('#attach_doc1').val()==''){
+                gagal("Please input attachment");
+              return ;
+            }
+        }else{
+          gagal("Please Input Attachment");
+        }
+      });
+
+      
           // if ($('#attach_doc1').val()==''){
-          //     gagal("Please Attach Mandatory Document");
-          //   return ;
-          // }
+          //       gagal("Please input attachment");
+          //     return ;
+          //   }
+          //   if ($('#attach_doc7').val()==''){
+          //       gagal("Please input attachment");
+          //     return ;
+          //   }
+          //   if ($('#attach_doc14').val()==''){
+          //       gagal("Please input attachment");
+          //     return ;
+          //   }  
+          //   if ($('#attach_doc20').val()==''){
+          //       gagal("Please input attachment");
+          //     return ;
+          //   }  
+          //   if ($('#attach_doc28').val()==''){
+          //       gagal("Please input attachment");
+          //     return ;
+          //   }
 
           // Form data
           var fdata = new FormData();
           
+          //validasi attacment mandatory
+           
+          
+
           // Form data collect name value
           var form_data = $('#quickForm').serializeArray();
           $.each(form_data, function (key, input) {
@@ -3712,26 +4121,28 @@
               success: function (data) {
                  
                    // Pesan berhasil
-                  //  berhasil(data.status);
+                   berhasil(data.status);
                    // Reset Form
                    $('#quickForm')[0].reset();               
-                   // location.reload();
+                   location.reload();
                     tabel.draw();
                   //location add
                    if(!vurl=="Add"){
                      $("#modal-default").modal('hide');
                    }
-
-                   $("#modal-default").modal('hide');
+                 
                    
-                  fdata.append("hdrid",data.hdrid);
+                  //  $("#modal-default").modal('hide');
+                   var fdata3 = new FormData();
+                   
+                  fdata3.append('hdrid', data.hdrid);
 
                   $.ajax({
                   url: "<?php echo base_url('C_Mail/ajax_mail_approve')?>",
                   method: "post",
                   processData: false,
                   contentType: false,
-                  data: fdata,
+                  data: fdata3,
                   success: function (data) {
                           tabel.draw();
                         //  location.reload();
@@ -3762,6 +4173,28 @@
                   //   $("#modal-default").modal('hide');
                   // }
                   // $("#modal-default").modal('hide');
+                  var fdata3 = new FormData();
+                   
+                   fdata3.append('hdrid', $('#hdrid').val());
+ 
+                   $.ajax({
+                   url: "<?php echo base_url('C_Mail/ajax_mail_approve')?>",
+                   method: "post",
+                   processData: false,
+                   contentType: false,
+                   data: fdata3,
+                   success: function (data) {
+                           tabel.draw();
+                         //  location.reload();
+                       },
+                       error: function (e) {
+                           //  gagal(e);
+                         berhasil(data.status);
+                         tabel.draw();
+                         // location.reload();
+ 
+                       }
+                   });
               }
           });
 
@@ -4588,6 +5021,104 @@ if (data=='-Select-'){
 
 }
 
+///@see delete_attachment()
+  ///@note fungsi digunakan mengirim data ke email
+  ///@attention 
+  const links = document.getElementsByClassName("btn btn-danger");
+  for (let i=0; i < links.length; i++){
+    const link = links[i];
+    link.addEventListener("click",function(event){
+      event.preventDefault();
+      const value= this.getAttribute("data-value");
+      delete_attachment(value);
+    });
+  }
+
+  function delete_attachment(value){
+    console.log(value);
+    // Url Post delete
+    vurl = "<?php echo base_url('C_PCN/ajax_delete_attachment')?>";
+    // Form data
+    var fdata = new FormData();
+    fdata.append('hdrid', $('#hdrid').val());
+    if (value=='attach1') {
+      fdata.append('attachment', 1 );
+    } else if (value=='attach2'){
+      fdata.append('attachment', 2 );
+    }else if (value=='attach3'){
+      fdata.append('attachment', 3 );
+    }else if (value=='attach4'){
+      fdata.append('attachment', 4 );
+    }else if (value=='attach5'){
+      fdata.append('attachment', 5 );
+    }else if (value=='attach6'){
+    fdata.append('attachment', 6);
+    }else if (value=='attach7'){
+    fdata.append('attachment', 7);
+    }else if (value=='attach8'){
+    fdata.append('attachment', 8);
+    }else if (value=='attach9'){
+    fdata.append('attachment', 9);
+    }else if (value=='attach10'){
+    fdata.append('attachment', 10);
+    }else if (value=='attach11'){
+    fdata.append('attachment', 11);
+    }else if (value=='attach12'){
+    fdata.append('attachment', 12);
+    }else if (value=='attach13'){
+    fdata.append('attachment', 13);
+    }else if (value=='attach14'){
+    fdata.append('attachment', 14);
+    }else if (value=='attach15'){
+    fdata.append('attachment', 15);
+    }else if (value=='attach16'){
+    fdata.append('attachment', 16);
+    }else if (value=='attach17'){
+    fdata.append('attachment', 17);
+    }else if (value=='attach18'){
+    fdata.append('attachment', 18);
+    }else if (value=='attach19'){
+    fdata.append('attachment', 19);
+    }else if (value=='attach20'){
+    fdata.append('attachment', 20);
+    }else if (value=='attach21'){
+    fdata.append('attachment', 21);
+    }else if (value=='attach22'){
+    fdata.append('attachment', 22);
+    }else if (value=='attach23'){
+    fdata.append('attachment', 23);
+    }else if (value=='attach24'){
+    fdata.append('attachment', 24);
+    }else if (value=='attach25'){
+    fdata.append('attachment', 25);
+    }else if (value=='attach26'){
+    fdata.append('attachment', 26);
+    }else if (value=='attach27'){
+    fdata.append('attachment', 27);
+    }else if (value=='attach28'){
+    fdata.append('attachment', 28);
+    }else if (value=='attach29'){
+    fdata.append('attachment', 29);
+    }
+      // Post data
+        //untuk aja data sudah bisa dipost
+        $.ajax({
+            url: vurl, //url
+            method: "post",//jenis method pst
+            processData: false, //false process
+            contentType: false, //false content
+            data: fdata,
+            success: function (data) {
+              // Hide modal delete
+              berhasil(data.status);
+              $('#modal-default').modal('hide').draw();
+      },
+      error: function (e) {
+          //Pesan Gagal
+          //gagal(e);             
+      }
+    });
+  }
 
 </script>
 

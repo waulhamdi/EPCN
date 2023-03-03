@@ -35,6 +35,7 @@ class C_application extends CI_Controller {
         $this->load->model('M_application');//Load model
         $this->load->model('M_superior');//Load model
         $this->load->model('M_PCN');//Load model
+        $this->load->model('M_Mail');//Load model
         // $this->load->library('encrypt');    
                   
       }
@@ -226,16 +227,8 @@ class C_application extends CI_Controller {
          // ********************* 1. Collect data post *********************
         $post_data = $this->input->post(); //untuk parameter update
         $pcn_number=$this->input->post('pcn_number');//untuk parameter update tapi number auto increnete tetap tidak berubah
+        $product=$this->input->post('product_name');//untuk parameter update tapi number auto increnete tetap tidak berubah
         $msg = "success Update"; //jika sudah diupdate maka berhasil
-        // var_dump($post_data['hold_or_go_qc']);
-        // **********************  Upload file (filename,hdrid,table)  *********************   
-    //     if(!empty($_FILES['submital_sign']['name']))//jika document sudah upload maka document bisa ditampilkan
-    //    {
-    //      $this->upload_file_attach('submital_sign',$hdrid,'tb_application');//jika upload data dengan attach file sesual file maka data sudah masuk
-    //    }
- 
-        // var_dump($post_data['qa_nik']);
-        
         // *********************  Merge data All post *********************
         // $post_datamerge=array_merge($post_data,$post_data2);
         $post_datamerge=array_merge($post_data,$post_data);
@@ -245,14 +238,17 @@ class C_application extends CI_Controller {
         $this->M_application->Update_Data($where,$post_datamerge,'tb_application'); // Update Data berdasarkan parameter
         // $action=$this->M_application->ajax_getbyhdrid($pcn_number,'tb_application')->row();
         $next_app = $this->M_PCN->cari_tb_approver($pcn_number);
-        
+
+        $action_res = $this->M_application->search_action($pcn_number);
+
         // Kondisi apabila data null menjadi ''
-        $qc=(isset($post_data['hold_or_go_qc']) ?  $post_data['hold_or_go_qc'] :  '' );
-        $pe=(isset($post_data['hold_or_go_pe']) ?  $post_data['hold_or_go_pe'] :  '' );
-        $mfg=(isset($post_data['hold_or_go_mfg']) ?  $post_data['hold_or_go_mfg'] :  '' );
-        $pc=(isset($post_data['hold_or_go_pc']) ?  $post_data['hold_or_go_pc'] :  '' );
-        $qa=(isset($post_data['hold_or_go_qa']) ?  $post_data['hold_or_go_qa'] :  '' );
-        // var_dump($post_data['hold_or_go_qa']);
+        $qc=$action_res->hold_or_go_qc;
+        $pe=$action_res->hold_or_go_pe;
+        $mfg=$action_res->hold_or_go_mfg;
+        $pc=$action_res->hold_or_go_pc;
+        $qa=$action_res->hold_or_go_qa;
+    
+
         if ($qa == 'Go' && $pe == 'Go' && $mfg == 'Go' && $pc == 'Go' && $qa == 'Go') {
 
             //Update status agar tidak muncul di application response dan lanjut approval
@@ -266,7 +262,7 @@ class C_application extends CI_Controller {
             $where = array('trxid' => 0);        
             $status_email = $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
             
-        }else if($qa == 'Hold' || $pe == 'Hold' || $mfg == 'Hold' || $pc == 'Hold' || $qa == 'Hold') {
+        }else if($qc == 'Hold' || $pe == 'Hold' || $mfg == 'Hold' || $pc == 'Hold' || $qa == 'Hold') {
             
             // Update status in tb_pcn
             $where = array('hdrid' => $pcn_number);//mencari data sudah diupdate        
@@ -275,10 +271,10 @@ class C_application extends CI_Controller {
             //Cari email requester
             $requester = $this->M_application->cari_requester($pcn_number);
             $list_res = $this->M_application->cari_responden($pcn_number)->row();
-            // $list_res = $this->M_application->responden_no_action($pcn_number);
+
             $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
             // $status_transaction = "Hold By:".$rejected_by." With Reason: ".$reason ;
-            $post_data =array('status_transaction' => 'PCN Hold','hdrid'=>$pcn_number,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'Hold','body_content'=>'','comment'=>'','cc_email'=>$cc_email);
+            $post_data =array('status_transaction' => 'PCN Hold','hdrid'=>$pcn_number,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'Hold','body_content'=>'','comment'=>'','cc_email'=>'');
             $post_datamerge=array_merge($post_data,$post_data);   
             $where = array('trxid' => 0);        
             $status_email = $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
@@ -286,6 +282,8 @@ class C_application extends CI_Controller {
         }
         
         $data['status']=$msg;//jika data sudah berhasil diupdate
+        $data['hdrid']=$pcn_number;//jika data sudah berhasil diupdate
+        $data['product']=$product;//jika data sudah berhasil diupdate
 
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -326,12 +324,21 @@ class C_application extends CI_Controller {
 
     function ajax_Send_mail(){
         
-        $pcn_number=$this->input->post('pcn_number'); //untuk menginput id username variable 2
+        $pcn_number=$this->input->post('pcn_number'); // Menampung hasil post field
+        $product=$this->input->post('product_name'); // Menampung hasil post field
+
         $list_res = $this->M_application->cari_responden($pcn_number)->row();
         // $list_res = $this->M_application->responden_no_action($pcn_number);
+        $list_mem = $this->M_application->cari_member($product)->row();
+        $list_name = $this->M_Mail->cari_name($pcn_number)->row();
+        //CC MEMBER
+        $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_res->PC_2.$list_res->PC_3.$list_res->QA_1.$list_res->QA_2.$list_res->QA_3;
+        //CC 5 Responden
         $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
-        // var_dump($cc_email);
-        $post_data =array('status_transaction' => 'Need Your Response','hdrid'=>$pcn_number,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>'','name'=>'','department_code'=>'','department_name'=>'','office_email'=>$list_res->creator,'position_code'=>'','position_name'=>'','subject_email'=>'Need Your Response to Application Response','body_content'=>'','comment'=>'','cc_email'=>$cc_email);
+        //Name 5 responden
+        $name = $list_name->qc_name.','.$list_name->pe_name.','.$list_name->mfg_name.','.$list_name->pc_name.','.$list_name->qa_name;
+               
+        $post_data =array('status_transaction' => 'Need Your Response','hdrid'=>$pcn_number,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>'','name'=>$name,'department_code'=>'','department_name'=>'','office_email'=>$list_res->creator,'position_code'=>'','position_name'=>'','subject_email'=>'Need Your Response to Application Response','body_content'=>'','comment'=>'','cc_email'=>$cc_email.';'.$cc_member);
         $post_datamerge=array_merge($post_data,$post_data);   
         $where = array('trxid' => 0);        
         $status_email = $this->M_application->Update_Data($where, $post_datamerge, 'tb_mail_trigger');

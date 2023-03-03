@@ -132,24 +132,20 @@
                     <!-- Th Macro Batas Sini -->
                     <th>ACTION</th>
                     <th>QCR NUMBER</th>
-                    <th>DATE</th>
-                    <th>PART NUMBER</th>
-                    <th>PART NAME</th>
-                    <th>LOT NUMBER</th>
-                    <th>FINISH TARGET</th>
-                    <th>CHECK ITEM</th>
-                    <th>DRAWING ATTACHED</th>
-                    <th>REASON PURPOSE</th>
-                    <th>CHECK RESULT</th>
-                    <th>DIMENSION</th>
-                    <th>PERFOMANCE</th>
-                    <th>NOISE</th>
-
-
-
-
-
-
+                    <th>BACKGROUND</th>
+                    <th>REASON PROPOSE</th>
+                    <th>CHECK POINT / ITEM</th>
+                    <!-- <th>PIC PROCUREMENT</th> -->
+                    <th>PIC QC</th>
+                    <th>CC TO 1</th>
+                    <th>CC TO 2</th>
+                    <th>QCR ATTACHMENT</th>
+                    <!-- <th>QCR ISSUE</th> -->
+                    <th>QCR REPLY</th>
+                    <th>DATE REPLY</th>
+                    <th>OTHER ATTACHMENT</th>
+                    <th>JUDGMENT</th>
+                    <th>COMMENT</th>
 
                     <!-- /Th Macro Batas Sini -->
                           
@@ -190,12 +186,9 @@
 
               <!-- form -->
               <form role="form" id="quickForm">
-
                 <div class="card-body">
-
                 <!---------------------------------- Form Macro Batas sini ---------------------------------->
-                
-                
+
                 <div class="card card-green">
                   <div class="card-header">
                     <h3 class="card-title">
@@ -203,17 +196,19 @@
                       QCR
                     </h3>
                   </div>
+                </div>
 
               <div class="form-group">
-              <div class="row">
-                  <div class="col-md-4">
-                    <label for="hdrid">QCR NUMBER</label>
-                  </div>
-                  <div class="col-md-8">
-                    <input type="text" name="hdrid" class="form-control" id="hdrid" placeholder="auto generate" readonly>
-                  </div>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="hdrid">QCR NUMBER</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="hdrid" class="form-control" id="hdrid" placeholder="auto generate" readonly>
+                    </div>
+                </div>
               </div>
-            </div>
+<!-- 
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
@@ -229,6 +224,7 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="row">
                   <div class="col-md-4">
@@ -238,7 +234,8 @@
                     <input type="text" name="part_number" class="form-control" id="part_number" >
                   </div>
               </div>
-            </div>   
+            </div> 
+
             <div class="form-group">
               <div class="row">
                   <div class="col-md-4">
@@ -249,6 +246,7 @@
                   </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
@@ -257,7 +255,7 @@
                 <div class="col-md-8">
                   <select class="form-control select2" id="lot_number" name="lot_number" onchange="handleSelectChange_lot_number(event)" style="width: 100%;">
                     <option value='' selected="selected">-Select-</option>
-                    <?php
+                    <php
                       foreach ($lot_number as $value) {
                         echo "<option value='$value'>$value</option>";
                       }
@@ -266,6 +264,7 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
@@ -274,7 +273,7 @@
                 <div class="col-md-8">
                   <select class="form-control select2" id="finish_target" name="finish_target" onchange="handleSelectChange_finish_target(event)" style="width: 100%;">
                     <option value='' selected="selected">-Select-</option>
-                    <?php
+                    <php
                       foreach ($finish_target as $value) {
                         echo "<option value='$value'>$value</option>";
                       }
@@ -283,21 +282,24 @@
                 </div>
               </div>
             </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
                   <label>CHECK ITEM</label>
                 </div>
-                <div class="col-md-2">
-                  <div class="form-group" clearfix>
-                    <div class="icheck-primary d-inline">
-                      <input type="radio" id="check_item" value="n1" name="check_item"  >
-                      <label for="check_item">
-                            n1
-                      </label>
+                  <div class="col-md-2">
+                    <div class="form-group" clearfix>
+                      <div class="icheck-primary d-inline">
+                        <input type="radio" id="check_item" value="n1" name="check_item"  >
+                        <label for="check_item">
+                              n1
+                        </label>
+                      </div>
                     </div>
                   </div>
-                </div>
+              </div>
+            </div>      
 
                 <div class="col-md-4">
                   <div class="form-group" clearfix>
@@ -309,25 +311,23 @@
                     </div>
                   </div>
                 </div>
-                <!-- attach -->
-                <div class="col-md-1">
-                  <div class="form-group" clearfix>???
-                    <!-- <div class="icheck-primary d-inline">
+                 attach -->
+                <!-- <div class="col-md-1">
+                  <div class="form-group" clearfix>
+                    <div class="icheck-primary d-inline">
                       <input type="radio" id="check_item" value="n1" name="check_item"  >
                       <label for="check_item">
                             Follow Marking Drawing
                       </label>
                     </div> -->
-                  </div>
-                </div>
-              </div>
-            </div>
+                  <!-- </div> -->
+                <!-- </div> --> 
 
-            <div class="form-group" clearfix>
+            <!-- <div class="form-group" clearfix>
               <div class="row">
                 <div class="col-md-4">
-                  <!-- <label>CHECK ITEM</label> -->
-                </div>
+                   <label>CHECK ITEM</label> -->
+                <!-- </div>
                 <div class="col-md-2">
                   <div class="form-group">
                     <div class="icheck-primary d-inline">
@@ -337,9 +337,9 @@
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                   <div class="form-group" clearfix>
                     <div class="icheck-primary d-inline">
                       <input type="radio" id="check_item" value="n1" name="check_item"  >
@@ -348,66 +348,132 @@
                       </label>
                     </div>
                   </div>
-                </div>
+                </div>  -->
                     
-                <div class="col-md-1">
-                  <div class="form-group" clearfix>???
-                    <!-- <div class="icheck-primary d-inline">
-                      <input type="radio" id="check_item" value="n1" name="check_item"  >
-                      <label for="check_item">
-                            Follow Marking Drawing
-                      </label>
-                    </div> -->
-                  </div>
-                </div>
-              </div>
-              </div>
-                <div class="form-group">
+
+              <div class="form-group">
                 <div class="row">
                   <div class="col-md-4">
-                    <label for="pcn_number">PURPOSE/REASON REQUEST</label>
+                    <label for="reason">BACKGROUND</label>
                   </div>
                   <div class="col-md-8">
-                  <select class="form-control select2" id="pcn_number" name="pcn_number" onchange="handleSelectChange_pcn(event)" style="width: 100%;">
-                    <option value='' selected="selected">-Select-</option>
-                    <?php
-                      foreach ($Tampil_pcn as $value) {
-                        echo "<option value='$value->hdrid'>$value->hdrid'-'$value->part_number'-'$value->part_name</option>";
-                      }
-                    ?>
-                  </select>
+                    <select class="form-control select2" id="reason" name="reason" onchange="handleSelectChange_pcn(event)" style="width: 100%;">
+                      <option value='' selected="selected">-Select-</option>
+                      <?php
+                        foreach ($Tampil_pcn as $value) {
+                          echo "<option value='$value->hdrid'-'$value->part_number'-'$value->part_name'>$value->hdrid'-'$value->part_number'-'$value->part_name</option>";
+                        }
+                      ?>
+                    </select>
                   </div>
+                </div>
               </div>
-              </div>
+
             <div class="form-group">
               <div class="row">
-                  <div class="col-md-4" style="text-align:center">
-                    <label for="reason_propose">NOTE</label>
+                  <div class="col-md-4">
+                    <label for="note">REASON PROPOSE</label>
                   </div>
                   <div class="col-md-8">
-                    <input type="text" name="reason_purpose" class="form-control" id="reason_purpose" >
+                    <input type="text" name="note" class="form-control" id="note" >
+                  </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-4">
+                    <label for="check_point">CHECK POINT/ITEM</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" name="check_point" class="form-control" id="check_point" >
                   </div>
               </div>
             </div>
             <!-- <div class="form-group">
-              <div class="row">
-                  <div class="col-md-4">
-                    <label for="item_propose">ITEM PROPOSE</label>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>PIC PROCUREMENT</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="pic_pro" name="pic_pro" onchange="handleSelectChange_pic_pro(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>PIC QC</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="pic_qc" name="pic_qc" onchange="handleSelectChange_pic_qc(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                  <div class="col-md-8">
-                    <input type="text" name="item_propose" class="form-control" id="item_propose" >
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>CC TO</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="cc_to1" name="cc_to1" onchange="handleSelectChange_cc_to1(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-              </div>
-            </div> -->
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>CC TO</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="cc_to2" name="cc_to2" onchange="handleSelectChange_cc_to2(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <label for="drawing_attached">DRAWING ATTACHED</label>
+                  <label for="drawing_attached">QCR ATTACHMENT</label>
                 </div>
+                <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
                 <div class="col-md-1">
                   <a class="btn btn-success" id="drawing_attached_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="drawing_attached" multiple="" name="drawing_attached">
                     <label class="custom-file-label" for="drawing_attached" id="drawing_attached_label">Choose file</label>
@@ -416,31 +482,71 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <label for="qcr_attached">QCR ATTACHED</label>
+                  <label for="qcr_issue">QCR ISSUE</label>
                 </div>
                 <div class="col-md-1">
-                  <a class="btn btn-success" id="qcr_attached_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                  <a class="btn btn-success" id="qcr_issue_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
                 </div>
                 <div class="col-md-7">
                   <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="qcr_attached" multiple="" name="qcr_attached">
-                    <label class="custom-file-label" for="qcr_attached" id="qcr_attached_label">Choose file</label>
+                    <input type="file" class="custom-file-input" id="qcr_issue" multiple="" name="qcr_issue">
+                    <label class="custom-file-label" for="qcr_issue" id="qcr_issue_label">Choose file</label>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="qcr_reply">QCR REPLY</label>
+                </div>
+                <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
+                <div class="col-md-1">
+                  <a class="btn btn-success" id="qcr_reply_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                </div>
+                <div class="col-md-6">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="qcr_reply" multiple="" name="qcr_reply">
+                    <label class="custom-file-label" for="qcr_reply" id="qcr_reply_label">Choose file</label>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-4">
+                    <label>DATE REPLY:</label>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerdate_reply" data-target-input="nearest">
+                      <input type="text" id="date_reply" name="date_reply" class="form-control datetimepicker-input" data-target="#timepickerdate_reply"/>
+                        <div class="input-group-append" data-target="#timepickerdate_reply" data-toggle="datetimepicker">
+                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
             <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
-                  <label for="other_attached">OTHER ATTACHED</label>
+                  <label for="other_attached">OTHER ATTACHMENT</label>
                 </div>
+                <div class="col-md-1">
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              </div>
                 <div class="col-md-1">
                   <a class="btn btn-success" id="other_attached_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-6">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" id="other_attached" multiple="" name="other_attached">
                     <label class="custom-file-label" for="other_attached" id="other_attached_label">Choose file</label>
@@ -448,6 +554,33 @@
                 </div>
               </div>
             </div>
+
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="judgment">JUDGMENT</label>
+                </div>
+                <div class="col-md-8">
+                  <select class="form-control select2" id="judgment" name="judgment" style="width: 100%;">
+                    <option value='' selected='selected'>-Select-</option>
+                    <option value='OK'>OK</option>
+                    <option value='NG'>NG</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+                  <div class="col-md-4">
+                    <label for="comment">COMMENT</label>
+                  </div>
+                  <div class="col-md-8">
+                    <input type="text" name="comment" class="form-control" id="comment" >
+                  </div>
+              </div>
+            </div>
+
             <!-- <div class="form-group">
               <div class="row">
                 <div class="col-md-4">
@@ -483,13 +616,14 @@
                 <!---------------------------------- / Form Macro Batas sini ---------------------------------->
 
                 <!-- Close Card Body -->  
+                      
                 </div>
-                  
                   <div class="card-footer">  <!-- footer kepala aplikasi --> 
                     <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>     <!-- button save--> 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>    <!-- button close-->        
                   </div>
-                               
+            </div>
+            </div>              
               </form>    
               <!-- /form  -->
             </div>
@@ -661,38 +795,6 @@
         required: "Please Input date",
         minlength: 3
         },
-        pcn_number: {
-        required: "Please Input pcn_number",
-        minlength: 3
-        },
-        part_number: {
-        required: "Please Input part_number",
-        minlength: 3
-        },
-        part_name: {
-        required: "Please Input part_name",
-        minlength: 3
-        },
-        lot_number: {
-        required: "Please Input lot_number",
-        minlength: 3
-        },
-        finish_target: {
-        required: "Please Input finish_target",
-        minlength: 3
-        },
-        check_item: {
-        required: "Please Input check_item",
-        minlength: 3
-        },
-        reason_propose: {
-        required: "Please Input reason_purpose",
-        minlength: 3
-        },
-        item_propose: {
-        required: "Please Input item_purpose",
-        minlength: 3
-        },
         drawing_attached: {
         required: "Please Input drawing_attached",
         minlength: 3
@@ -758,15 +860,13 @@
               success: function (data) {
 
    		            // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
-                   $('#date').select2().val(data.date).trigger('change');
-                   $('#pcn_number').select2().val(data.pcn_number).trigger('change');
-                    $('#part_number').val(data.part_number);
-                    $('#part_name').val(data.part_name);
-                    $('#lot_number').select2().val(data.lot_number).trigger('change');
-                    $('#finish_target').select2().val(data.finish_target).trigger('change');
-                    $('#check_item').select2().val(data.check_item).trigger('change');
-                    $('#reason_propose').val(data.reason_propose);
-                    $('#item_propose').val(data.item_propose);
+                   $('#reason').select2().val(data.reason).trigger('change');
+                   $('#note').val(data.note);
+                   $('#check_point').val(data.check_point);
+                  //  $('#pic_pro').select2().val(data.pic_pro).trigger('change');
+                   $('#pic_qc').select2().val(data.pic_qc).trigger('change');
+                   $('#cc_to1').select2().val(data.cc_to1).trigger('change');
+                   $('#cc_to2').select2().val(data.cc_to2).trigger('change');
                     document.getElementById('drawing_attached_label').innerHTML=data.drawing_attached;
                     var a = document.getElementById('drawing_attached_view');
                     if(!data.drawing_attached==''){
@@ -774,10 +874,10 @@
                     }else{
                       a.removeAttribute("href");
                     };
-                    document.getElementById('qcr_attached_label').innerHTML=data.qcr_attached;
-                    var a = document.getElementById('qcr_attached_view');
-                    if(!data.qcr_attached==''){
-                      a.href = "<?php echo base_url('assets/upload/qcr') ?>" + data.qcr_attached;
+                    document.getElementById('qcr_reply_label').innerHTML=data.qcr_reply;
+                    var a = document.getElementById('qcr_reply_view');
+                    if(!data.qcr_reply==''){
+                      a.href = "<?php echo base_url('assets/upload/qcr') ?>" + data.qcr_reply;
                     }else{
                       a.removeAttribute("href");
                     };
@@ -788,8 +888,9 @@
                     }else{
                       a.removeAttribute("href");
                     };
-
-
+                    $('#judgment').select2().val(data.judgment).trigger('change');
+                    $('#comment').val(data.comment);
+                    $('#date_reply').val(data.date_reply);
 
                   // ---------------------------------- / Data val Macro  Batas sini ------------------------------
 
@@ -870,7 +971,7 @@
                    berhasil(data.status);
                    // Reset Form
                    $('#quickForm')[0].reset();               
-                   // location.reload();
+                    location.reload();
                     tabel.draw();
                    //location add
                    if(!vurl=="Add"){
@@ -1025,7 +1126,8 @@
 
         tabel = $('#example1').DataTable({ //table
             "processing": true, //processing true jika data masuk table
-            "responsive":true, //respon jika data masuk akan muncul pop up data
+            "scrollX":true,
+            // "responsive":true, //respon jika data masuk akan muncul pop up data
             "serverSide": true,//untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
@@ -1095,18 +1197,20 @@
                 
                 // ---------------------------------- Datatables Macro Batas sini ---------------------------------
                 {"data":"hdrid"},
-                {"data":"date"},
-                {"data":"pcn_number"},
-                {"data":"part_number"},
-                {"data":"part_name"},
-                {"data":"lot_number"},
-                {"data":"finish_target"},
-                {"data":"check_item"},
-                {"data":"reason_propose"},
-                {"data":"item_propose"},
+                {"data":"reason"},
+                {"data":"check_point"},
+                {"data":"note"},
                 {"data":"drawing_attached"},
-                {"data":"qcr_attached"},
+                // {"data":"pic_pro"},
+                {"data":"pic_qc"},
+                {"data":"cc_to1"},
+                {"data":"cc_to2"},
+                // {"data":"qcr_issue"},
+                {"data":"qcr_reply"},
+                {"data":"date_reply"},
                 {"data":"other_attached"},
+                {"data":"judgment"},
+                {"data":"comment"},
 
                 // ---------------------------------- / Datatables Macro Batas sini --------------------------------
 
@@ -1237,7 +1341,7 @@
      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
      function handleSelectChange_pcn(event) {
 
-        var data = $('#pcn_number').select2('data')[0].text;
+        var data = $('#reason').select2('data')[0].text;
       
         if (data=='-Select-'){
             $('#pcn_number').val('');   
@@ -1250,6 +1354,89 @@
             $('#part_number').val(res[1]);
             $('#part_name').val(res[2]);
           };
+  }
+
+   ///@see handleSelectChange_status()
+    ///@note Handle untuk select filter
+    ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+    // function handleSelectChange_pic_pro(event) {
+      
+    //   var data = $('#pic_pro').select2('data')[0].text;
+    
+    // }
+
+    ///@see handleSelectChange_status()
+    ///@note Handle untuk select filter
+    ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+    function handleSelectChange_pic_qc(event) {
+      
+      var data = $('#pic_qc').select2('data')[0].text;
+    
+    }
+
+    ///@see handleSelectChange_status()
+    ///@note Handle untuk select filter
+    ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+    function handleSelectChange_cc_to1(event) {
+      
+      var data = $('#cc_to1').select2('data')[0].text;
+    
+    }
+
+    ///@see handleSelectChange_status()
+    ///@note Handle untuk select filter
+    ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+    function handleSelectChange_cc_to2(event) {
+      
+      var data = $('#cc_to2').select2('data')[0].text;
+    
+    }
+
+    ///@see delete_attachment()
+  ///@note fungsi digunakan mengirim data ke email
+  ///@attention 
+  const links = document.getElementsByClassName("btn btn-danger");
+  for (let i=0; i < links.length; i++){
+    const link = links[i];
+    link.addEventListener("click",function(event){
+      event.preventDefault();
+      const value= this.getAttribute("data-value");
+      delete_attachment(value);
+    });
+  }
+
+  function delete_attachment(value){
+    console.log(value);
+    // Url Post delete
+    vurl = "<?php echo base_url('C_QCR/ajax_delete_attachment')?>";
+    // Form data
+    var fdata = new FormData();
+    fdata.append('hdrid', $('#hdrid').val());
+    if (value=='attach1') {
+      fdata.append('attachment', 1 );
+    } else if (value=='attach2'){
+      fdata.append('attachment', 2 );
+    }else if (value=='attach3'){
+      fdata.append('attachment', 3 );
+    }
+      // Post data
+        //untuk aja data sudah bisa dipost
+        $.ajax({
+            url: vurl, //url
+            method: "post",//jenis method pst
+            processData: false, //false process
+            contentType: false, //false content
+            data: fdata,
+            success: function (data) {
+              // Hide modal delete
+              berhasil(data.status);
+              $('#modal-default').modal('hide').draw();
+      },
+      error: function (e) {
+          //Pesan Gagal
+          //gagal(e);             
+      }
+    });
   }
 </script>
 

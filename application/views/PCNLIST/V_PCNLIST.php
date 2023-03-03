@@ -44,13 +44,13 @@
 
                               <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
                                
-                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?>  <!--untuk membuat rule hanya user bisa add data-->
+                                <!-- <php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?>  untuk membuat rule hanya user bisa add data -->
 
-                                  <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#"> <!--fungsi add data-->
-                                    <i class="fa fa-plus"></i> Add Data <!--judul add data-->
-                                  </a> 
+                                  <!-- <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#"> fungsi add data -->
+                                    <!-- <i class="fa fa-plus"></i> Add Data judul add data-->
+                                  <!-- </a>  -->
 
-                                <?php } ?>
+                                <!-- <php } ?> -->
 
                                 <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
 
@@ -2569,7 +2569,7 @@
             data: fdata,
             success: function (data) {
               // Hide modal delete
-              // $('#modal-default').modal('hide').draw();
+              $('#modal-default').modal('hide').draw();
       },
       error: function (e) {
           //Pesan Gagal

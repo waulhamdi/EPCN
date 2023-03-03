@@ -135,7 +135,7 @@
                     <th>ACTION</th>
                     <th>TRANSACTION ID</th>
                     <th>REMINDER APPROVAL</th>
-                    <th>------</th>
+                    <!-- <th>------</th> -->
                     <th>REMINDER APPLICATION RESPONSE</th>
 
 
@@ -203,7 +203,7 @@
                       </div>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" hidden>
                   <div class="row">
                       <div class="col-md-4">
                         <label for="reminder_qa">--------</label>
@@ -364,9 +364,9 @@
         reminder_procurement: {
         required: true,
         },
-        reminder_qa: {
-        required: true,
-        },
+        // reminder_qa: {
+        // required: true,
+        // },
         reminder_application_response: {
         required: true,
         },
@@ -742,7 +742,7 @@
                  
                 {"data":"hdrid"},
                 {"data":"reminder_procurement"},
-                {"data":"reminder_qa"},
+                // {"data":"reminder_qa"},
                 {"data":"reminder_application_response"},
 
 

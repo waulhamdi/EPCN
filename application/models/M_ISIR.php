@@ -1097,4 +1097,33 @@ class M_ISIR extends CI_Model {
     function ajax_getbyisir($hdrid,$no_cicilan,$table){      
         return $this->db->get_where($table, array('hdrid' => $hdrid,'no_isir'=>$no_cicilan));
     }
+
+    /// @see Max_data_isir()
+    /// @note Select data hdrid terbesar
+    /// @attention Untuk membuat hdrid di ajax_add
+    public function Max_data_isir($hdridm,$table)
+    {
+       $this->db->select_max('no_isir');   
+       $this->db->where('hdrid', $hdridm);  
+       $query = $this->db->get($table);      
+       return  $query;
+    }
+
+    /// @see Tampil_user()
+    /// @note Select data hdrid terbesar
+    /// @attention Untuk membuat hdrid di ajax_add
+    public function Tampil_user()
+    {
+        // $this->db->select(*);
+        // $this->db->from('Tb_user_login');
+        // return $this->db->get()->result();
+ 
+        $DB2 = $this->load->database('db_central_user', TRUE);       
+        $query=$DB2->get('Tb_user_login')->result();
+        $DB2->Close();
+        return  $query;
+ 
+    }
+
+
 }

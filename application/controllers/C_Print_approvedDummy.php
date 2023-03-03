@@ -146,23 +146,27 @@ class C_Print_approvedDummy extends CI_Controller
         $data['tb_PCN'] = $this->m_printDummy->ajax_getbyhdrid($hdrid, 'tb_PCN')->row();
         $data['tb_PCNlist'] = $this->m_printDummy->ajax_getbyno_dokumen($no_dokumen, 'tb_PCNlist')->row();
         $data['tb_approval'] = $this->m_printDummy->ajax_getbyproblem_id($problem_id, 'tb_approval')->result();
-        // var_dump($data['tb_approval']);
+        $data['tb_isir'] = $this->m_printDummy->ajax_getTbIsir($hdrid);
+        $data['tb_qcr'] = $this->m_printDummy->ajax_getQCR($no_dokumen, 'tb_QCR')->row();
+        // var_dump($data['tb_qcr']);
         $data['tb_application'] = $this->m_printDummy->ajax_getbypcn_number($hdrid, 'tb_application')->row();
         
+        $data['status_isir'] = $this->m_printDummy->ajax_getStatusIsir($hdrid);
         
-        $data['written_proc'] = $this->m_printDummy->getListWrittenProc($hdrid);
-        $data['checked_proc'] = $this->m_printDummy->getListCheckedProc($hdrid);
-        $data['approve_proc'] = $this->m_printDummy->getListApproveProc($hdrid);
-        $data['written_qa'] = $this->m_printDummy->getListWrittenQA($hdrid);//print hasil dari tb_response
-        $data['checked_qa'] = $this->m_printDummy->getListCheckedQA($hdrid);
-        $data['final_approve_qa'] = $this->m_printDummy->getListFinalApproveQA($hdrid);//print hasil dari tb_approval
+        $data['written_proc'] = $this->m_printDummy->getListWrittenProc($hdrid);            // position_name writte qa
+        $data['checked_proc'] = $this->m_printDummy->getListCheckedProc($hdrid);            // position_name checked qa
+        $data['checked2_proc'] = $this->m_printDummy->getListChecked2Proc($hdrid);          // position_name checked2 qa
+        $data['approve_proc'] = $this->m_printDummy->getListApproveProc($hdrid);            // position_name approve qa
+        $data['written_qa'] = $this->m_printDummy->getListWrittenQA($hdrid);                // position_name written qa
+        $data['checked_qa'] = $this->m_printDummy->getListCheckedQA($hdrid);                // position_name checked qa
+        $data['approve_qa'] = $this->m_printDummy->getListApproveQA($hdrid);                // position_name approve qa
+        $data['final_written_qa'] = $this->m_printDummy->getListFinalWrittenQA($hdrid);     // position_name final written qa
+        $data['final_checked_qa'] = $this->m_printDummy->getListFinalCheckedQA($hdrid);     // position_name final checked qa
+        $data['final_approve_qa'] = $this->m_printDummy->getListFinalApproveQA($hdrid);     // position_name final approve qa
         
-        $data['final_approve'] = $this->m_printDummy->getFinalApprove($hdrid);//print hasil dari tb_approval_name
+        $data['final_approve'] = $this->m_printDummy->getFinalApprove($hdrid);              // position_code =>10
         // var_dump($data['final_approve']);
         
-        
-        // $data['tb_effectiveness'] = $this->m_printDummy->ajax_getbyhdrid($hdrid, 'tb_input_effectiveness')->row();//print hasil dari tb_effectiveness
-        // $data['array_approval'] = $this->m_printDummy->getApproval($hdrid);//print hasil dari array_approval
         if($data['tb_PCN'] == null){
             $data['nik'] = null;
         }else{

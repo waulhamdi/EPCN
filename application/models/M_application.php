@@ -479,10 +479,28 @@ class M_application extends CI_Model {
     return $query->result();
    }
 
+    ///@see cari_responden()
+    ///@note search email responden
+    ///@attention
    public function cari_responden($pcn_number)
    {
     $query=$this->db->query("select * from fn_view_send_mail('$pcn_number')");
     return $query;
+   }
+
+    ///@see cari_member()
+    ///@note search email member
+    ///@attention
+   public function cari_member($product)
+   {
+    $query=$this->db->query("select * from fn_view_send_mail_member('$product')");
+    return $query;
+   }
+
+   public function search_action($pcn_number)
+   {
+    $query=$this->db->query("select * from tb_application where pcn_number='$pcn_number'");
+    return $query->row();
    }
 
     /// @see cari_requester()
@@ -501,6 +519,8 @@ class M_application extends CI_Model {
         }
 
     }
+ 
+ 
 
     public function get_name_application($nik)
     {

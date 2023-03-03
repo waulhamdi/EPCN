@@ -46,19 +46,18 @@ class C_ISIR extends CI_Controller
     public function Index()
     {
                 
-        $data['process'] = $this->M_ISIR->tampil_process();//select filter temporary and fullscale
-        $data['submital'] = $this->M_ISIR->submital();//untuk select filter submital isir
-        $data['supplier_code'] = $this->M_ISIR->supplier_code();//untuk select filter supplier code
-        $data['supplier_name'] = $this->M_ISIR->supplier_name();//untuk select filter nama supplier
-        // $data['part_number'] = $this->M_ISIR->part_number();//untuk select filter part number
-        // $data['part_name'] = $this->M_ISIR->part_name();//untuk select filter part name
-        // $data['rohs'] = $this->M_ISIR->rohs();//select filter rohs
-        $data['product_adapt_to_dds2004'] = $this->M_ISIR->product_adapt_to_dds2004();//select filter product adapt to dds 2004
-        // $data['imds_id'] = $this->M_ISIR->imds_id();//select filter imds id
+        $data['status'] = ['Accepted','Unaccepted','Deviation Item(Temp.Dev)','Die Deviation(Permanent Dev)'];//select filter temporary and fullscale
+      
+        $data['user'] =$this->M_ISIR->Tampil_user();
 
         // $data['isir'] = $this->M_ISIR->getISIR();
 
-
+        // External link filter
+        $data['Number'] = '';
+        if (isset($_GET['Number'])) {
+            $data['Number'] = $_GET['Number'];
+        }
+        
         $this->load->view('templates/header'); //Tampil header
         $this->load->view('templates/sidebar'); //Tampil Sidebar
         
@@ -77,8 +76,8 @@ class C_ISIR extends CI_Controller
     {
         $nik_session = $this->session->userdata('user_name');
 
-        $tables = "fn_view_isir('$nik')";
-        $search = array('hdrid','transaction_date');
+        $tables = "tb_isir_list";
+        $search = array('hdrid','transaction_date','no_isir','isir','isir_imp','submit_date','pic_pro','qc_result','qc_submit_date','pic_qc','remark','status');
         
       
  
@@ -96,10 +95,10 @@ class C_ISIR extends CI_Controller
     function view_data_where()
     {
         $nik = $this->session->userdata('user_name');
-        $tables = "fn_view_isir('$nik')";
+        $tables = "tb_isir_list";
 
 
-        $search = array('hdrid','transaction_date');
+        $search = array('hdrid','transaction_date','no_isir','isir','isir_imp','submit_date','pic_pro','qc_result','qc_submit_date','pic_qc','remark','status');
         
       
         // jika memakai IS NULL pada where sql
@@ -118,29 +117,38 @@ class C_ISIR extends CI_Controller
         echo $this->M_ISIR->get_tables_where($tables, $search, $where, $isWhere);//untuk get tables where
     }
 
-     ///@see view_data_query()
-    ///@note fungsi digunakan untuk query data 
-    ///@attention 
-    function view_data_query()
-    {
+    /// @see Ajax_Add_Row()
+    /// @note Tambah data cicilan
+    /// @attention HDRID Bisa berupa nik apabila masih dalam tahap ajax_Add()
+    function Ajax_Add_Row(){      
 
-        $query  = "SELECT kategori.name_kategori AS name_kategori, subkat.* FROM subkat 
-                    JOIN kategori ON subkat.id_kategori = kategori.id_kategori";
-        $search = array('name_kategori', 'subkat', 'tgl_add');
-        $where  = null;
-        // $where  = array('name_kategori' => 'Tutorial');
+        $hdridm=$this->input->post('hdrid'); //mengambil dari hdrid
+        $hdrid2=$this->M_ISIR->Max_data_isir($hdridm,'tb_isir')->row();   // Mengambil row dari database
+        // var_dump($hdrid2->no_cicilan);      
+        $kode='T';  
+        if ($hdrid2->no_isir==NULL){ // Jika HDRID belum ada
+           $no_cil=$kode ."01"; // Maka mulai dari 001
+        }else{
+           $hdrid3=$hdrid2->no_isir; // Jika sudah ada 
+           $str = intval(substr($hdrid3, strlen($kode), 2)) + 1;
+           $str = str_pad($str, 2, "0", STR_PAD_LEFT);
+           $no_cil = $kode . $str;
 
-        // jika memakai IS NULL pada where sql
-        $isWhere = null;
-        // $isWhere = 'artikel.deleted_at IS NULL';
-        header('Content-Type: application/json');
-        echo $this->M_Datatables->get_tables_query($query, $search, $where, $isWhere);//untuk connect ke datatables
+        }
+        $no_isir=$no_cil;  // Deklarasi $hdrid = $hdrid3
+        $post_data = array('hdrid' =>$hdridm ,'transaction_date' => mdate('%Y-%m-%d',time()),'no_isir' => $no_isir);
+        // ********************* 4. Merge data post *********************        
+        $post_datamerge=array_merge($post_data,$post_data); // Menggabungkan semua data 
+
+        // ********************* 5. Simpan data     *********************
+        $this->M_ISIR->Input_Data($post_datamerge,'tb_isir'); // Mengirim parameter ke model untuk query 
+
+        $data['status']= $no_isir; // Menarik dan menampung $msg menjadi status
+
+        // return value array
+        $this->output->set_content_type('application/json')->set_output(json_encode($data)); // Memberi tahu browser bahwa data dalam bentuk format json
+
     }
-
-    //    if($this->session->userdata('authenticated')){ // Jika user sudah login (Session authenticated ditemukan)
-    //     }else{
-    //     redirect('auth');
-    //     }
 
     ///@see ajax_add()
      ///@note fungsi digunakan untuk menambah data
@@ -179,47 +187,21 @@ class C_ISIR extends CI_Controller
         $post_data3 = array('transaction_date' => mdate('%Y-%m-%d', time()));//post data sesuai tanggal
         $post_data_transaction_date = mdate('%Y-%m-%d', time());//post data sesuai datetime
         // $issue_date = array('issue_date' => mdate('%Y-%m-%d', time()));
+        $nik= $this->session->userdata('user_name'); // Menarik username dari session dan menampung nya sebagai nik
+        $post_data = array('pic_pro' => $nik );
 
-        // ******************** 3. Collect all data post *********************     
-        $post_data = $this->input->post();//post data
-        $post_data5 = $this->input->post('group_product_id');//post data group_product_id
-        $post_problem_category_id = $this->input->post('problem_category_id');//post data problem category id
-        $product_id2 = $this->input->post('product_id');//post data product id
 
         $msg = "success save" ;
 
         // ********************* 4. Merge data post *********************        
-        $post_datamerge = array_merge($post_data, $post_data2, $post_data3);
+        $post_datamerge = array_merge( $post_data,$post_data2, $post_data3);
 
         // ********************* 5. Simpan data     *********************
 
         $this->M_ISIR->Input_Data($post_datamerge, 'tb_isir');
 
-        // ********************* 6. Upload file jika ada  *********************   
-        // if (!empty($_FILES['file']['name'])) {
-        //     $this->upload_file_attach('file', $hdrid, 'tb_isir');
-        // }
-
-        // **********************  Upload file attach file *********************   
-        if(!empty($_FILES['millsheet']['name']))
-        {
-          $this->upload_file_attach('millsheet',$hdrid,'tb_isir');
-        }
- if(!empty($_FILES['attach_soc']['name']))
-        {
-          $this->upload_file_attach('attach_soc',$hdrid,'tb_isir');
-        }
- if(!empty($_FILES['dimension_result']['name']))
-        {
-          $this->upload_file_attach('dimension_result',$hdrid,'tb_isir');
-        }
- 
-        
-
-
         $data['status'] = $msg;//status
         $data['hdrid'] = $hdrid;//code incnrenete
-        $data['product_id'] = $product_id2;//product id
 
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -273,6 +255,62 @@ class C_ISIR extends CI_Controller
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
+
+
+    /// @see ajax_update_isir()
+    /// @note Update cicilan
+    /// @attention Update cicilan berdasarkan no cicilan,hdrid
+    public function ajax_update_isir()
+	{
+
+         // ********************* 1. Collect data post *********************
+        $post_data=$this->input->post();
+        
+        $hdrid=$this->input->post('hdrid'); // Tarik data input post hdrid
+        $no_isir=$this->input->post('no_isir'); // Tarik data input post hdrid
+        $remark=$this->input->post('remark'); // Tarik data input post hdrid
+        $isir=$this->input->post('isir'); // Tarik data input post hdrid
+        $isir_imp=$this->input->post('isir_imp'); // Tarik data input post hdrid
+        $qc_result=$this->input->post('qc_result'); // Tarik data input post hdrid
+        $status=$this->input->post('status'); // Tarik data input post hdrid
+
+        if(!empty($_FILES['isir']['name']))
+            {
+                $this->upload_file_attach('isir',$hdrid,$no_isir,'tb_isir');
+            }
+        if(!empty($_FILES['isir_imp']['name']))
+            {
+                $this->upload_file_attach('isir_imp',$hdrid,$no_isir,'tb_isir');
+            }
+        if(!empty($_FILES['qc_result']['name']))
+            {
+                $this->upload_file_attach('qc_result',$hdrid,$no_isir,'tb_isir');
+            }
+        if(!empty($_FILES['deviasi']['name']))
+            {
+                $this->upload_file_attach('deviasi',$hdrid,$no_isir,'tb_isir');
+            }
+
+        // *********************  Merge data All post *********************
+        // ,'isir' => '','isir_imp' => '','qc_result' => ''
+        // $post_data = array('remark' => $remark,'status' => $status);
+        $post_datamerge=array_merge($post_data,$post_data);//menggabungkan semua data
+        $post_data_transaction_date = mdate('%Y-%m-%d', time()); // menampung tahun bulan hari jam 
+
+
+        // **********************  Simpan data ************************        
+        $where = array('hdrid' => $hdrid,'no_isir' => $no_isir);// Buat kondisi where untuk dikirim ke model   
+        $this->M_ISIR->Update_Data($where,$post_datamerge,'tb_isir');// Buat kondisi where untuk dikirim ke model
+        $data['status'] = $hdrid; // Menarik dan menampung $msg menjadi status
+        $data['hdrid'] = $hdrid; // Menarik dan menampung $msg menjadi status
+        $data['no_isir'] = $no_isir; // Menarik dan menampung $msg menjadi status
+
+        // return value array
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));// Mengembalikan nilai data format json
+
+    }
+
+
     ///@see ajax_sendDraft()
      ///@note fungsi digunakan untuk membuat draft
      ///@attention
@@ -460,12 +498,28 @@ class C_ISIR extends CI_Controller
    
             
            $where = array('hdrid' => $this->input->post('hdrid'));//untuk delete auto increnete
+           $this->M_ISIR->Delete_Data($where,'tb_isir_list');//untuk delete table ISIR
            $this->M_ISIR->Delete_Data($where,'tb_isir');//untuk delete table ISIR
            $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
            // return value array
            $this->output->set_content_type('application/json')->set_output(json_encode($data));
    
        }
+
+    /// @see ajax_delete_isir()
+    /// @note Delete Data
+    /// @attention Delete data berdasarkan hdrid
+    public function ajax_delete_isir() //function untuk delete
+	{
+
+        $where = array('hdrid' => $this->input->post('hdrid'),'no_isir' => $this->input->post('no_isir')); // Buat array untuk kondisi where di query model 
+        $this->M_ISIR->Delete_Data($where,'tb_isir'); // Mengirim param ke model untuk query delete
+
+        $data['status']="berhasil dihapus"; //pesan saat berhasil dihapus
+        // return value array
+        $this->output->set_content_type('application/json')->set_output(json_encode($data)); // mengembalikkan nilai dari format json
+
+    }
 
          ///@see ajax_getbyhdrid1()
      ///@note fungsi digunakan untuk auto increnete
@@ -479,26 +533,12 @@ class C_ISIR extends CI_Controller
   }
 
 
-      ///@see get form_approver_link_mail
-     ///@note fungsi digunakan memberi data ke email
-     ///@attention 
-     function form_approver_link_mail(){
-        
-      $id_user_reg=$this->input->get('var1'); //untuk menginput id username variable 1
-      $nik=$this->input->get('var2'); //untuk menginput id username variable 2
-      
-      $data['get_approver']=$this->M_ISIR->get_approver($id_user_reg); //untuk request approve
-  $data['get_requester']=$this->M_ISIR->get_requester($id_user_reg); //untuk request auto increnete
-  $data['data']=$this->M_ISIR->get_data($id_user_reg); //untuk request nomor pcn
-      
-      $this->load->view('email/V_ISIR',$data); // Tampil data
-    
-  }
 
-  ///@see upload_file_attach
+
+    ///@see upload_file_attach
     ///@note fungsi attach file bisa diupload
     ///@attention jika path atau ukuran file tidak sesuai function maka attach filenya tidak bisa terisi
-    function upload_file_attach($filename,$hdrid,$table){
+    function upload_file_attach($filename,$hdrid,$no_isir,$table){
 
       if(!empty($_FILES[$filename]['name']))//jika data bisa attach file
       {
@@ -509,7 +549,7 @@ class C_ISIR extends CI_Controller
           $config['max_size']  = '2000';//maxsimal upload
           $config['max_width']  = '1024'; //maksimal lebar form
           $config['max_height']  = '768'; //maskimal tinggi form
-          $config['file_name']=$hdrid.'_'.$filename; //untuk upload attach file
+          $config['file_name']=$hdrid.$no_isir.'_'.$filename; //untuk upload attach file
           $this->load->library('upload', $config);//untuk melihat hasil attach file
           $this->upload->initialize($config); //untuk melihat hasil attach file sudah terinput
 
@@ -526,7 +566,7 @@ class C_ISIR extends CI_Controller
               // $msg = $dataupload['file_name']." berhasil diupload";                    
               $data_update = array($filename =>$dataupload['file_name']);  //data sudah update 
              
-              $where = array('hdrid' => $hdrid);  //untuk update auto increnete      
+              $where = array('hdrid' => $hdrid,'no_isir' => $no_isir);  //untuk update auto increnete      
               $this->M_ISIR->Update_Data($where,$data_update,$table);
 
           }

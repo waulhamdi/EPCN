@@ -4,15 +4,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class m_printDummy extends CI_Model
 {
 
-      ///@see ajax_getbyhdrid()
-     ///@note fungsi untuk code hdrid ditarik ke web
-     ///@attention
+   ///@see ajax_getbyhdrid()
+   ///@note fungsi untuk code hdrid ditarik ke web
+   ///@attention
    public function ajax_getbyhdrid($hdrid, $table)
    {
       return $this->db->get_where($table, array('hdrid' => $hdrid));
    }
 
-   ///@see ajax_getbyhdrid()
+   ///@see ajax_getbyproblem_id()
    ///@note fungsi untuk code hdrid ditarik ke web
    ///@attention
    public function ajax_getbyproblem_id($problem_id, $table)
@@ -20,12 +20,20 @@ class m_printDummy extends CI_Model
       return $this->db->get_where($table, array('problem_id' => $problem_id));
    }
 
-   ///@see ajax_getbyhdrid()
+   ///@see ajax_getbyno_dokumen()
    ///@note fungsi untuk menarik data berdasarkan no dokumen ke web
    ///@attention
    public function ajax_getbyno_dokumen($no_dokumen, $table)
    {
       return $this->db->get_where($table, array('no_dokumen' => $no_dokumen));
+   }
+   
+   ///@see ajax_getbyhdrid()
+   ///@note fungsi untuk menarik data berdasarkan no dokumen ke web
+   ///@attention
+   public function ajax_getQCR($no_dokumen, $table)
+   {
+      return $this->db->get_where($table, array('reason' => $no_dokumen));
    }
 
       ///@see ajax_getbyhdrid()
@@ -66,7 +74,29 @@ class m_printDummy extends CI_Model
       $query = $this->db->get('tb_PCN');
       $result = $query->result();
       return $result;
+   }
 
+   function ajax_getTbIsir($hdrid){
+      $query = $this->db->query("select * from tb_isir where hdrid='$hdrid' order by no_isir asc");
+      if ($query->num_rows() > 0) {
+         return $query->result();
+     }else{
+         $query = (object) array('no_isir'=>'not found');
+         return $query;
+     }
+   }
+
+   function ajax_getStatusIsir($hdrid)
+   {
+      $query = $this->db->query("select status from tb_isir where hdrid='$hdrid'");
+      if ($query->num_rows() > 0) {
+          foreach ($query->result() as $status){
+            $status_isir = $status->status;
+          }
+          return $status_isir;
+      }else{
+          return "";
+      }
    }
 
    function getListWrittenProc($hdrid)
@@ -83,6 +113,17 @@ class m_printDummy extends CI_Model
    function getListCheckedProc($hdrid)
    {
       $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Checked Proc' order by position_code asc");
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          $query = (object) array('name'=>'not found','position_code'=>'not found','nik'=>'not found');
+          return $query;
+      }
+   }
+
+   function getListChecked2Proc($hdrid)
+   {
+      $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Checked 2 Proc' order by position_code asc");
       if ($query->num_rows() > 0) {
           return $query->result();
       }else{
@@ -116,6 +157,39 @@ class m_printDummy extends CI_Model
    function getListCheckedQA($hdrid)
    {
       $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Checked QA' order by position_code asc");
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          $query = (object) array('name'=>'not found','position_code'=>'not found','nik'=>'not found');
+          return $query;
+      }
+   }
+
+   function getListApproveQA($hdrid)
+   {
+      $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Approved QA' order by position_code asc");
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          $query = (object) array('name'=>'not found','position_code'=>'not found','nik'=>'not found');
+          return $query;
+      }
+   }
+   
+   function getListFinalWrittenQA($hdrid)
+   {
+      $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Written QA Final' order by position_code asc");
+      if ($query->num_rows() > 0) {
+          return $query->result();
+      }else{
+          $query = (object) array('name'=>'not found','position_code'=>'not found','nik'=>'not found');
+          return $query;
+      }
+   }
+
+   function getListFinalCheckedQA($hdrid)
+   {
+      $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and position_name = 'Checked QA Final' order by position_code asc");
       if ($query->num_rows() > 0) {
           return $query->result();
       }else{
@@ -223,7 +297,7 @@ class m_printDummy extends CI_Model
           return $hasil;
       }else{
          $query = $this->db->query("select * from tb_PCNlist where no_dokumen='$hdrid'")->row();
-         $query = (object) array('name'=>'not found','status'=>$query->status,'position_code'=>'not found','nik'=>'not found');
+         $query = (object) array('name'=>'not found','status'=>$query->status,'position_code'=>'not found','nik'=>'not found','position_name'=>'not found');
          return $query;
       }
 

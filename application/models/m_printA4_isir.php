@@ -12,12 +12,17 @@ class m_printA4_isir extends CI_Model
       return $this->db->get_where($table, array('hdrid' => $hdrid));
    }
 
-   ///@see ajax_getbyhdrid()
+   ///@see ajax_getTbIsir()
    ///@note fungsi untuk code hdrid ditarik ke web
-   ///@attention
-   public function ajax_getbyproblem_id($problem_id, $table)
-   {
-      return $this->db->get_where($table, array('problem_id' => $problem_id));
+   ///@attention ambil data dari tb_isir
+   function ajax_getTbIsir($hdrid){
+      $query = $this->db->query("select * from tb_isir where hdrid='$hdrid' order by no_isir asc");
+      if ($query->num_rows() > 0) {
+         return $query->result();
+     }else{
+         $query = (object) array('no_isir'=>'not found');
+         return $query;
+     }
    }
 
    ///@see ajax_getbyhdrid()

@@ -465,13 +465,16 @@ class M_PCN extends CI_Model {
                 'status' => "<b>Approved</b>",
                 'current_flow_pic' => "Done",
             ); 
+            $where2 = array('no_dokumen' => $data['problem_id']);
+            $this->Update_Data($where2, $data3, 'tb_PCNlist');
 
              // Update tb_PCN
-            $data3 = (object) array(
+            $data4 = array(
                 'stat' => "approved"
             ); 
             $where = array('hdrid' => $data['problem_id']);
-            $this->Update_Data($where, $data3, 'tb_PCN');
+            $this->Update_Data($where, $data4, 'tb_PCN');
+
 
             
         }else{
@@ -541,21 +544,15 @@ class M_PCN extends CI_Model {
                     'current_flow_pic' => $name
                 );
             }
+
+            
+            // Update tb_PCN
+            $data3 = (object) array(
+                'stat' => "process"
+            );
+            $where = array('hdrid' => $data['problem_id']);
+            $this->Update_Data($where, $data3, 'tb_PCN');
         }
-
-        $where = array('no_dokumen' => $data['problem_id']);
-        // $where_pcn = array('hdrid' => $data['problem_id']);
-        // $data_pcn = (object)array('stat' => "<b>approved</b>"); 
-        $this->Update_Data($where, $data3, 'tb_PCNlist');
-
-        // Update tb_PCN
-        $data3 = (object) array(
-            'stat' => "process"
-        );
-        $where = array('hdrid' => $data['problem_id']);
-        $this->Update_Data($where, $data3, 'tb_PCN');
-
-        // $this->Update_Data($where_pcn, $data_pcn, 'tb_PCN');
         
         return  "Approve Berhasil";
     }
@@ -1445,13 +1442,21 @@ class M_PCN extends CI_Model {
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
                     values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '2', 'Checked Proc', null, null,'unapprove')");
                 }
+            }elseif ($position=='checked 2') {
+                if($nik=='DM11111'){
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Checked 2 Proc', $current_date, null,'Approved')");
+                }else{
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Checked 2 Proc', null, null,'unapprove')");
+                }
             }else {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Approved Proc', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Approved Proc', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Approved Proc', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Approved Proc', null, null,'unapprove')");
                 }
             }
     }
@@ -1471,26 +1476,26 @@ class M_PCN extends CI_Model {
             if ($position=='written') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Written QA', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Written QA', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Written QA', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Written QA', null, null,'unapprove')");
                 }
             }elseif ($position=='checked') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Checked QA', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Checked QA', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Checked QA', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Checked QA', null, null,'unapprove')");
                 }
             }else {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Approved QA', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Approved QA', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Approved QA', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Approved QA', null, null,'unapprove')");
                 }
             }
 }
@@ -1510,26 +1515,34 @@ class M_PCN extends CI_Model {
             if ($position=='written') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Written Proc Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Written Proc Final', $current_date, null,'Approved')");
                 }else {
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Written Proc Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Written Proc Final', null, null,'unapprove')");
                 }
             }elseif ($position=='checked') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Checked Proc Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Checked Proc Final', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Checked Proc Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Checked Proc Final', null, null,'unapprove')");
+                }
+            }elseif ($position=='checked 2') {
+                if($nik=='DM11111'){
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Checked 2 Proc Final', $current_date, null,'Approved')");
+                }else{
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Checked 2 Proc Final', null, null,'unapprove')");
                 }
             }else {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Approved Proc Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Approved Proc Final', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Approved Proc Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Approved Proc Final', null, null,'unapprove')");
                 }
             }
 }
@@ -1549,27 +1562,27 @@ class M_PCN extends CI_Model {
             if ($position=='approved') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Approved QA Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '14', 'Approved QA Final', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Approved QA Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '14', 'Approved QA Final', null, null,'unapprove')");
                 }
              }
              elseif ($position=='checked') {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Checked QA Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '13', 'Checked QA Final', $current_date, null,'Approved')");
                 }else{
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Checked QA Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '13', 'Checked QA Final', null, null,'unapprove')");
                 }
             }else {
                 if($nik=='DM11111'){
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Written QA Final', $current_date, null,'Approved')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Written QA Final', $current_date, null,'Approved')");
                 }else {
                     $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Written QA Final', null, null,'unapprove')");
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Written QA Final', null, null,'unapprove')");
                 }
             }
 }
@@ -1729,8 +1742,8 @@ class M_PCN extends CI_Model {
         // $this->db->query('product');
         return $this->db->distinct()->select('product')->get('tb_superiorqa')->result();
     }
-
-    public function get_pcnlist($hdrid,$current_date)
+    // ,$category,$supplier_name,$product_name,$part_name,$part_no,$description,$perubahan_baru,$perubahan_lama,$start,$shipment,$post_data_transaction_date,$commodity
+    public function update_pcnlist($hdrid)
     {   
         $this->db->select('tb_PCNlist.no_dokumen');
         $this->db->from('tb_PCN');
@@ -1738,12 +1751,30 @@ class M_PCN extends CI_Model {
         $this->db->where('tb_PCN.hdrid',$hdrid);
         return $this->db->get()->result_array();
 
-        $query=("UPDATE tb_PCNlist set 
-        transaction_date='$current_date',
-        category='$category',
-        supplier_name='$supplier_name,
-        product_name='$product_name,
-        
-        ")
+        // $query=("UPDATE tb_PCNlist set 
+        // transaction_date='$post_data_transaction_date',
+        // category='$category',
+        // supplier_name='$supplier_name,
+        // product_name='$product_name,
+        // part_name='$part_name',
+        // part_no='$part_no',
+        // description='$description',
+        // proses_perubahan_baru='$perubahan_baru,
+        // proses_perubahan_lama='$perubahan_lama,
+        // registered='$post_data_transaction_date',
+        // commodity='$commodity',
+        // masspro_schedule='$start.'-'.$shipment'
+        // WHERE no_dokumen='$hdrid'
+        // ");
+
+        // var_dump($query);
     }
+
+    // public function update_tbapplication(){
+    //     $this->db->select('tb_application.hdrid');
+    //     $this->db->from('tb_PCN');
+    //     $this->db->join('tb_application','tb_PCN.hdrid=tb_application.hdrid');
+    //     $this->db->where('tb_PCN.hdrid',$hdrid);
+    //     return $this->db->get()->result_array();
+    // }
 }

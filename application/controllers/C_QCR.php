@@ -43,6 +43,7 @@ class C_QCR extends CI_Controller {
 	public function Index()
 	{
         $data['Tampil_pcn'] = $this->M_QCR->Tampil_pcn();// Menarik dan menampung ke data tipe_transfer
+        $data['user'] =$this->M_QCR->Tampil_user();
         // var_dump( $data['Tampil_pcn'] );
 
         // // $data['QCR'] = $this->M_QCR->Tampil_Data();
@@ -79,7 +80,7 @@ class C_QCR extends CI_Controller {
     function view_data_where()
     {
       $tables = "tb_QCR";//untuk data bisa masuk ke table QCR ke database
-      $search = array('hdrid','date','pcn_number','part_number','part_name','lot_number','finish_target','check_item','reason_propose','item_propose','drawing_attached','qcr_attached','other_attached');//untuk data table QCR bisa masuk sesuai input
+      $search = array('hdrid','reason','note','drawing_attached','qcr_reply','date_reply','other_attached','pic_qc','cc_to1','cc_to2','check_point','judgment','comment');//untuk data table QCR bisa masuk sesuai input
       
       
       
@@ -136,13 +137,13 @@ class C_QCR extends CI_Controller {
          // $product_id = $this->input->post('product_id'); //untuk add data kode id increnete
          // $kodeB = $this->M_tooling->get_product_by_id($product_id);//add data connect ke model
          // $kode = $kodeB->report_no;//fungsi kode increnete
-         $kode = 'QCR-F-';//fungsi kode increnete
+         $kode = 'QCR-';//fungsi kode increnete
  
          // ********************* 0. Generate nomor transaksi  *********************         
          // var_dump($kode);           
          // date_default_timezone_set('Asia/Jakarta');//default tanggal timezone daerah
          // $mdate = $kode.mdate('%Y/%m/', time());//tanggal,bulan,tahun
-         $hdrid2 = $this->M_QCR->Max_data($kode, 'tb_qcr')->row();//untuk max data
+         $hdrid2 = $this->M_QCR->Max_data($kode, 'tb_QCR')->row();//untuk max data
  
          if ($hdrid2->hdrid == NULL) {
              // Jika belum ada maka tidak bisa diisi
@@ -179,9 +180,13 @@ class C_QCR extends CI_Controller {
         {
           $this->upload_file_attach('drawing_attached',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
         }
-        if(!empty($_FILES['qcr_attached']['name']))//jika document sudah upload maka document bisa ditampilkan
+        if(!empty($_FILES['qcr_issue']['name']))//jika document sudah upload maka document bisa ditampilkan
         {
-          $this->upload_file_attach('qcr_attached',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
+          $this->upload_file_attach('qcr_issue',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
+        }
+        if(!empty($_FILES['qcr_reply']['name']))//jika document sudah upload maka document bisa ditampilkan
+        {
+          $this->upload_file_attach('qcr_reply',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
         }
         if(!empty($_FILES['other_attached']['name']))//jika document sudah upload maka document bisa ditampilkan
         {
@@ -215,9 +220,13 @@ class C_QCR extends CI_Controller {
         {
           $this->upload_file_attach('drawing_attached',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
         }
-        if(!empty($_FILES['qcr_attached']['name']))//jika document sudah upload maka document bisa ditampilkan
+        // if(!empty($_FILES['qcr_issue']['name']))//jika document sudah upload maka document bisa ditampilkan
+        // {
+        //   $this->upload_file_attach('qcr_issue',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
+        // }
+        if(!empty($_FILES['qcr_reply']['name']))//jika document sudah upload maka document bisa ditampilkan
         {
-          $this->upload_file_attach('qcr_attached',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
+          $this->upload_file_attach('qcr_reply',$hdrid,'tb_QCR');//jika upload data dengan attach file sesual file maka data sudah masuk
         }
         if(!empty($_FILES['other_attached']['name']))//jika document sudah upload maka document bisa ditampilkan
         {
@@ -293,12 +302,13 @@ class C_QCR extends CI_Controller {
         {
           
             $config['upload_path'] = './assets/upload/qcr/';   //path file
-            $config['allowed_types'] = 'gif|jpg|png|pdf';      //jenis file   
+            $config['allowed_types'] = 'gif|jpg|png|pdf|xlsx|xls|tif|xlsm'; //jenis file   
             $config['overwrite'] = True; //jika file sudah bisa masuk path
-            $config['max_size']  = '2000';//maxsimal upload
+            $config['max_size']  = '20000';//maxsimal upload
             $config['max_width']  = '1024'; //maksimal lebar form
             $config['max_height']  = '768'; //maskimal tinggi form
-            $config['file_name']=$hdrid.'_'.$filename; //untuk upload attach file
+            // $config['file_name']=$hdrid.'_'.$filename; //untuk upload attach file
+            $config['encrypt_name']=FALSE;
             $this->load->library('upload', $config);//untuk melihat hasil attach file
             $this->upload->initialize($config); //untuk melihat hasil attach file sudah terinput
 
@@ -323,6 +333,29 @@ class C_QCR extends CI_Controller {
         }
 
     }
+
+    ///@see ajax_delete_attachment()
+     ///@note fungsi digunakan untuk delete data
+     ///@attention
+     public function ajax_delete_attachment()
+     {
+        $where = array('hdrid' => $this->input->post('hdrid'));//untuk delete auto increnete
+
+        if ($this->input->post('attachment')=='1') {
+          $data = array('drawing_attached' => '');
+        }else if($this->input->post('attachment')=='2'){
+          $data = array('qcr_reply' => '');
+        }else{
+          $data = array('other_attached' => '');
+        }
+
+        $this->M_QCR->Update_Data($where,$data,'tb_QCR');//untuk delete table PCNLIST
+
+        $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
+        // return value array
+        $this->output->set_content_type('application/json')->set_output(json_encode($data));
+
+       }
 
      ///@see get import
      ///@note fungsi digunakan import data

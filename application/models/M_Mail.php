@@ -12,13 +12,20 @@ class M_Mail extends CI_Model {
         $this->db->update($table,$data);
     }
 
+    ///@see get where
+    ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
+    ///@attention
+    function Get_Where($where, $table)
+    {
+        return $this->db->get_where($table, $where);
+    }
     
     ///@see input Update_stat()
     ///@note fungsi digunakan untuk update status agar muncul di application response
     ///@attention
     function Update_stat($problem_id,$date)
     {
-        $query=$this->db->query("select stat from tb_approval where problem_id='$problem_id' and position_code=3 and stat='Approved'");
+        $query=$this->db->query("select stat from tb_approval where problem_id='$problem_id' and position_name='Approved Proc' and stat='Approved'");
        
         if ($query->num_rows() > 0) {
             $where = array('pcn_number' =>$problem_id,'status'=>'Closed');
@@ -57,7 +64,7 @@ class M_Mail extends CI_Model {
     function cari_tb_approver($hdrid)
     {
 
-      $query = $this->db->query("select * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
+      $query = $this->db->query("select top 1 * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
       if ($query->num_rows() > 0) {
           return $query->row();
       }else{
@@ -107,6 +114,74 @@ class M_Mail extends CI_Model {
      $query=$this->db->query("select * from fn_view_send_mail('$pcn_number')");
      return $query;
     }
+
+    public function cari_name($pcn_number)
+    {
+     $query=$this->db->query("select * from tb_application where pcn_number='$pcn_number'");
+     return $query;
+    }
+
+    /// @see insert_isir()
+    /// @note Insert data isir
+    /// @attention Memasukkan data t1-t10 isir 
+    function insert_isir($hdrid,$nik)
+    {   
+
+        $add=1;
+        for ($x = 0; $x <= 8; $x+=1) {
+
+            $query = $this->db->query("
+            INSERT INTO tb_isir
+                (
+                hdrid
+                ,transaction_date
+                ,no_isir
+                ,pic_pro
+                ,pro_name
+                ,pro_email
+                ,pic_qc
+                ,qc_name
+                ,qc_email
+                ,cc_to1
+                ,cc_to2
+                ) 
+                values 
+                (
+                    '$hdrid'
+                    ,getdate()
+                    ,'T0$add'
+                    ,'$nik'
+                    ,(select top 1 name_superiorprocurement from tb_superiorprocurement)
+                    ,(select top 1 email_superiorprocurement from tb_superiorprocurement)
+                    ,'DM1901091'
+                    ,'Tri Wahyuni'
+                    ,'tri.wahyuni.a0c@ap.denso.com'
+                    ,'DM1901004'
+                    ,'DM1901762'
+                )
+            ");
+            $add++;
+            }
+
+        $query2 = $this->db->query("
+            INSERT INTO tb_isir_list
+                (
+                hdrid
+                ,transaction_date
+                ,status
+                ,pic_pro
+                ,status_isir
+                ) 
+                values 
+                (
+                    '$hdrid'
+                    ,getdate()
+                    ,'On Progress T1'
+                    ,'$nik'
+                    ,'Open'
+                )
+            ");
+        }
 
 
 

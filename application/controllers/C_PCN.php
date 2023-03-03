@@ -531,9 +531,9 @@ class C_PCN extends CI_Controller
       
         //  $juml = $this->M_PCN->Count_Data_proc($this->input->post('supplier_name'),$hdrid);
         //       var_dump($juml);
-        //       var_dump($status);
         $data['status'] = $msg;//status
         $data['hdrid'] = $hdrid;//code incnrenete
+
         // $data['product_id'] = $product_id2;//product id
 
         // Send email notifikasi approve ke next approver
@@ -696,7 +696,80 @@ class C_PCN extends CI_Controller
 
       }
 
-    
+    ///@see ajax_delete_attachment()
+     ///@note fungsi digunakan untuk delete data
+     ///@attention
+     public function ajax_delete_attachment()
+     {
+           $where = array('hdrid' => $this->input->post('hdrid'));//untuk delete auto increnete
+   
+           if ($this->input->post('attachment')=='1') {
+             $data = array('attach_doc1' => '');
+           }else if($this->input->post('attachment')=='2'){
+             $data = array('attach_doc2' => '');
+           }else if($this->input->post('attachment')=='3'){
+             $data = array('attach_doc3' => '');
+           }else if($this->input->post('attachment')=='4'){
+             $data = array('attach_doc4' => '');
+           }else if($this->input->post('attachment')=='5'){
+             $data = array('attach_doc5' => '');
+           }else if($this->input->post('attachment')=='6'){
+             $data = array('attach_doc6' => '');
+           }else if($this->input->post('attachment')=='7'){
+            $data = array('attach_doc7' => '');
+          }else if($this->input->post('attachment')=='8'){
+            $data = array('attach_doc8' => '');
+          }else if($this->input->post('attachment')=='9'){
+            $data = array('attach_doc9' => '');
+          }else if($this->input->post('attachment')=='10'){
+            $data = array('attach_doc10' => '');
+          }else if($this->input->post('attachment')=='11'){
+            $data = array('attach_doc11' => '');
+          }else if($this->input->post('attachment')=='12'){
+            $data = array('attach_doc12' => '');
+          }else if($this->input->post('attachment')=='13'){
+            $data = array('attach_doc13' => '');
+          }else if($this->input->post('attachment')=='14'){
+            $data = array('attach_doc14' => '');
+          }else if($this->input->post('attachment')=='15'){
+            $data = array('attach_doc15' => '');
+          }else if($this->input->post('attachment')=='16'){
+            $data = array('attach_doc16' => '');
+          }else if($this->input->post('attachment')=='17'){
+            $data = array('attach_doc17' => '');
+          }else if($this->input->post('attachment')=='18'){
+            $data = array('attach_doc18' => '');
+          }else if($this->input->post('attachment')=='19'){
+            $data = array('attach_doc19' => '');
+          }else if($this->input->post('attachment')=='20'){
+            $data = array('attach_doc20' => '');
+          }else if($this->input->post('attachment')=='21'){
+            $data = array('attach_doc21' => '');
+          }else if($this->input->post('attachment')=='22'){
+            $data = array('attach_doc22' => '');
+          }else if($this->input->post('attachment')=='23'){
+            $data = array('attach_doc23' => '');
+          }else if($this->input->post('attachment')=='24'){
+            $data = array('attach_doc24' => '');
+          }else if($this->input->post('attachment')=='25'){
+            $data = array('attach_doc25' => '');
+          }else if($this->input->post('attachment')=='26'){
+            $data = array('attach_doc26' => '');
+          }else if($this->input->post('attachment')=='27'){
+            $data = array('attach_doc27' => '');
+          }else if($this->input->post('attachment')=='28'){
+            $data = array('attach_doc28' => '');
+          }else if($this->input->post('attachment')=='29'){
+            $data = array('attach_doc29' => '');
+          }
+   
+           $this->M_PCN->Update_Data($where,$data,'tb_PCN');//untuk delete table PCNLIST
+   
+           $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
+           // return value array
+           $this->output->set_content_type('application/json')->set_output(json_encode($data));
+   
+       }
 
     // Delete directory function
     function deleteDir($dirPath) {
@@ -820,12 +893,12 @@ class C_PCN extends CI_Controller
       }
 
        // Send email notifikasi rejected ke user(Procurement requester pcn)
-       $requester = $this->M_PCN->cari_requester($nikreq);
-       $status_transaction = "Rejected By:".$rejected_by." With Reason: ".$reason ;
-       $post_data =array('status_transaction' => 'Rejected','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'Rejected','body_content'=>$status_transaction,'comment'=>'','cc_email'=>'');
-       $post_datamerge=array_merge($post_data,$post_data);   
-       $where = array('trxid' => 0);        
-       $status_email = $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+      //  $requester = $this->M_PCN->cari_requester($nikreq);
+      //  $status_transaction = "Rejected By:".$rejected_by." With Reason: ".$reason ;
+      //  $post_data =array('status_transaction' => 'Rejected','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'Rejected','body_content'=>$status_transaction,'comment'=>'','cc_email'=>'');
+      //  $post_datamerge=array_merge($post_data,$post_data);   
+      //  $where = array('trxid' => 0);        
+      //  $status_email = $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
       
       // $data['stat'] = $reason;
       $data['stat'] = 'Berhasil direject';
@@ -845,9 +918,53 @@ class C_PCN extends CI_Controller
         $hdrid = $this->input->post('hdrid');//update di code increnete
         // $no_dokumen = $this->input->post('no_dokumen');
         $get_app = $this->M_PCN->get_application();
-        $no_dokumen = $this->M_PCN->get_pcnlist($hdrid);
+        $no_dokumen = $this->M_PCN->update_pcnlist($hdrid);
         $no = $no_dokumen[0]['no_dokumen'];
         // var_dump($no);
+
+        //declare field di PCN 
+        $post_data_transaction_date = mdate('%Y-%m-%d', time());
+        $category= $this->input->post('object_type');
+        $supplier_name= $this->input->post('supplier_name');
+        $product_name= $this->input->post('product_name');
+        $part_name= $this->input->post('part_name');
+        $part_no= $this->input->post('part_number');
+        $description= $this->input->post('description_of_process_change');
+        $perubahan_lama= $this->input->post('current_process');
+        $perubahan_baru= $this->input->post('proposed_process');
+        $mstart = $this->input->post('m_or_p_starts');
+        $mshipment= $this->input->post('mass_production_starts_finish');
+        $start = date("F Y", strtotime($mstart));
+        $shipment = date("F Y", strtotime($mshipment));
+        $criteria = $this->input->post('criteria_critical_item');
+        $commodity = $this->input->post('commodity');
+        $comparison =$this->input->post('description_of_process_change');
+
+        //masuk data ke PCN list
+        $pcn_list = array('transaction_date'=>$post_data_transaction_date,
+          'category'=>$category, 
+          'supplier_name'=>$supplier_name, 
+          'product_name'=>$product_name, 
+          'part_name'=>$part_name, 
+          'part_no'=>$part_no, 
+          'description'=>$description, 
+          'proses_perubahan_lama'=>$perubahan_lama, 
+          'proses_perubahan_baru'=>$perubahan_baru,
+          'masspro_schedule'=>$start. '-' .$shipment,
+          'registered'=>$post_data_transaction_date,
+          'commodity'=>$commodity,
+          // 'attachment'=>$attachment['attach_doc'],
+        ); 
+
+        $application = array('transaction_date'=>$post_data_transaction_date,
+            'supplier'=>$supplier_name,
+            'part_number'=>$part_no,
+            'part_name'=>$part_name,
+            'product_name'=>$product_name,
+            'criteria_critical_item'=>$criteria,
+            'current_process'=>$perubahan_lama,
+            'comparison_detail'=>$comparison
+          );
         
         $msg = "success Update";//notif jika diupdate maka success
 
@@ -979,21 +1096,17 @@ class C_PCN extends CI_Controller
                 // *********************  Merge data All post *********************
                 // $post_datamerge=array_merge($post_data,$post_data2);
                 // $post_datamerge = array_merge($post_data, $post_data);
-
-                // **********************  Simpan data ************************  
+                   $post_pcnlist = array_merge($pcn_list, $pcn_list);
+                   $post_application= array_merge($application,$application);
+                // **********************  Simpan data ************************ 
+                
                 $where = array('hdrid' => $hdrid);
                 $where2 = array('no_dokumen' => $no);
-                // if (!empty($data) && is_array($data)) {
-                //   foreach ($get_app as $row) {
-                //     if (in_array("hold", [$row['comment_qc'], $row['comment_pe'], $row['comment_qa'], $row['comment_mfg'], $row['comment_pc']])) { 
-                //       $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_PCN');
-                //       $this->M_PCN->update_application($hdrid);
-                //     }
-                //     $this->M_PCN->Update_Data($where, $post_datamerge, 'tb_application');
-                //   }
-                // };
+            
+                // $this->M_PCN->update_pcnlist($hdrid,$category,$supplier_name,$product_name,$part_name,$part_no,$description,$perubahan_baru,$perubahan_lama,$start,$shipment,$post_data_transaction_date,$commodity);
                 $this->M_PCN->Update_Data($where, $post_data, 'tb_PCN');
-                $this->M_PCN->Update_Data($where2, $post_data, 'tb_PCNlist');
+                $this->M_PCN->Update_Data($where2, $post_pcnlist, 'tb_PCNlist');
+                $this->M_PCN->Update_Data($where, $post_application, 'tb_application');
 
                 $data['status'] = "berhasil update";
 

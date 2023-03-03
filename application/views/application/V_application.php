@@ -352,10 +352,32 @@
                       <option value='' selected="selected">-Select-</option>
                       <?php
                         foreach ($nik as $value) {
-                          echo "<option value='$value->qc_nik'>$value->qc_nik - $value->qc_name - $value->product - $value->qc_pic</option>";
+                          echo "<option value='$value->qc_nik'>$value->qc_nik - $value->qc_name - $value->qc_pic - $value->product</option>";
                         }
                       ?>
                     </select>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qc_name">QCA/QCP NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qc_name" class="form-control" id="qc_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qc_inspection_departement">QCA/QCP EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qc_inspection_departement" class="form-control" id="qc_inspection_departement" readonly>
                     </div>
                 </div>
               </div>
@@ -411,7 +433,7 @@
                         <option value='' selected="selected" >-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                            echo "<option value='$value->pe_nik'>$value->pe_nik - $value->pe_name - $value->product - $value->pe_pic</option>";
+                            echo "<option value='$value->pe_nik'>$value->pe_nik - $value->pe_name - $value->pe_pic - $value->product</option>";
                           }
                         ?>
                       </select>
@@ -419,6 +441,27 @@
                   </div>
                 </div>
                 
+                <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="pe_name">PE NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="pe_name" class="form-control" id="pe_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="pe_departement">PE EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="pe_departement" class="form-control" id="pe_departement" readonly>
+                    </div>
+                </div>
+              </div>
                 
               <div class="form-group">
                 <div class="row">
@@ -472,14 +515,35 @@
                       <option value='' selected="selected">-Select-</option>
                       <?php
                           foreach ($nik as $value) {
-                            echo "<option value='$value->mfg_nik'>$value->mfg_nik - $value->mfg_name - $value->product - $value->mfg_pic</option>";
+                            echo "<option value='$value->mfg_nik'>$value->mfg_nik - $value->mfg_name - $value->mfg_pic - $value->product</option>";
                           }
                         ?>
                     </select>
                     </div>
                 </div>
               </div>
+              
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="mfg_name">MFG NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="mfg_name" class="form-control" id="mfg_name" readonly>
+                    </div>
+                </div>
+              </div>
 
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="mfg_departement">MFG EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="mfg_departement" class="form-control" id="mfg_departement" readonly>
+                    </div>
+                </div>
+              </div>
 
               <div class="form-group">
                 <div class="row">
@@ -533,10 +597,32 @@
                       <option value='' selected="selected">-Select-</option>
                       <?php
                         foreach ($nik as $value) {
-                        echo "<option value='$value->pc_nik'>$value->pc_nik - $value->pc_name - $value->product - $value->pc_pic</option>";
+                        echo "<option value='$value->pc_nik'>$value->pc_nik - $value->pc_name - $value->pc_pic - $value->product</option>";
                         }
                       ?>
                     </select>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="pc_name">PC NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="pc_name" class="form-control" id="pc_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="pc_departement">PC EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="pc_departement" class="form-control" id="pc_departement" readonly>
                     </div>
                 </div>
               </div>
@@ -594,10 +680,32 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                            echo "<option value='$value->qa_nik'>$value->qa_nik - $value->qa_name - $value->product - $value->qa_pic</option>";
+                            echo "<option value='$value->qa_nik'>$value->qa_nik - $value->qa_name - $value->qa_pic - $value->product</option>";
                           }
                         ?>
                       </select>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qa_name">QA NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qa_name" class="form-control" id="qa_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qa_departement">QA EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qa_departement" class="form-control" id="qa_departement" readonly>
                     </div>
                 </div>
               </div>
@@ -679,7 +787,7 @@
                   <div class="card-footer">  <!-- footer kepala aplikasi --> 
                     <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>     <!-- button save--> 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>    <!-- button close-->        
-                    <button type="button" class="btn btn-warning" id="send_email" onclick="Send_mail()">Send</button>    <!-- button close-->        
+                    <button type="button" class="btn btn-warning" id="send_email" onclick="Send_mail()">Send Email</button>    <!-- button close-->        
                   </div>
                                
               </form>    
@@ -1101,18 +1209,18 @@
                    berhasil(data.status);
                    // Reset Form
                    $('#quickForm')[0].reset();               
-                   location.reload();
                     tabel.draw();
                    //location add
                    if(!vurl=="Add"){
                      $("#modal-default").modal('hide');
                    }
+                   location.reload();
                  
               },
                // function error
               error: function (e) {
                   // gagal(e);
-                  location.reload();
+                  // location.reload();
 
                   //pesan gagal
               }
@@ -1457,30 +1565,40 @@
               var value = $("#qc_nik option:selected").text();  
               var res = value.split(" - ");
               $('#qc_nik').val(res[0]);
+              $('#qc_name').val(res[1]);
+              $('#qc_inspection_departement').val(res[2]);
             }
             function handleSelectChange_pe(event) {
               //  By Text
               var value = $("#pe_nik option:selected").text();  
               var res = value.split(" - ");
               $('#pe_nik').val(res[0]);
+              $('#pe_name').val(res[1]);
+              $('#pe_departement').val(res[2]);
             }
             function handleSelectChange_mfg(event) {
               //  By Text
               var value = $("#mfg_nik option:selected").text();  
               var res = value.split(" - ");
               $('#mfg_nik').val(res[0]);
+              $('#mfg_name').val(res[1]);
+              $('#mfg_departement').val(res[2]);
             }
             function handleSelectChange_pc(event) {
               //  By Text
               var value = $("#pc_nik option:selected").text();  
               var res = value.split(" - ");
               $('#pc_nik').val(res[0]);
+              $('#pc_name').val(res[1]);
+              $('#pc_departement').val(res[2]);
             }
             function handleSelectChange_qa(event) {
               //  By Text
               var value = $("#qa_nik option:selected").text();  
               var res = value.split(" - ");
               $('#qa_nik').val(res[0]);
+              $('#qa_name').val(res[1]);
+              $('#qa_departement').val(res[2]);
             }
 
 
@@ -1489,39 +1607,95 @@
           /// @attention Mengirim pcn number sebagai key untuk mencari  email 
           function Send_mail(){
 
-            // Form data
-                
-            var fdata = new FormData();
-                  
-            fdata.append('pcn_number',$('#pcn_number').val());
+          // Form data
+          var fdata = new FormData();
+                    
+          // Form data collect name value
+          var form_data = $('#quickForm').serializeArray();
+          $.each(form_data, function (key, input) {
+            fdata.append(input.name, input.value);
+          });
+          
+          // Penanganan jika ada type check Box uncheck
+          $('#quickForm input[type="checkbox"]:not(:checked)').each(function(i, e) {           
+              fdata.append(e.getAttribute("name"),"Off");
+          });
 
+          // Penanganan jika ada type attach file
+          $('#quickForm input[type="file"]').each(function(i, e) {     
+              // jika ada file attach maka akan ditambahkan  
+              if ($('#'+e.getAttribute("name")).val()) {   
+                var file_data = $('#'+e.getAttribute("name")).prop('files')[0];
+                fdata.append(e.getAttribute("name"),file_data);                            
+              }
+          });
 
-            // Url Post delete
-            vurl = "<?php echo base_url('C_application/ajax_Send_mail')?>";
+          // Print_r(file_data);
 
-            // Post data
-            $.ajax({
-              url: vurl,
-              method: "post",
-              processData: false,
-              contentType: false,
+          // Simpan or Update data          
+          var vurl; 
+            vurl = "<?php echo base_url('C_application/ajax_update')?>";//link update data
+         
+          //untuk aja data sudah bisa dipost
+          $.ajax({
+              url: vurl, //url
+              method: "post",//jenis method pst
+              processData: false, //false process
+              contentType: false, //false content
               data: fdata,
               success: function (data) {
-
-
-                  berhasil(data.status);
-                  location.reload();
-
+                 
+                   // Pesan berhasil
+                   berhasil(data.status);
+                   // Reset Form
+                   $('#quickForm')[0].reset();               
+                    tabel.draw();
+                   //location add
+               
+                  //  location.reload();
+                    // Form data
+                
+                  var fdata2 = new FormData();
+                  
+                  fdata2.append('pcn_number',data.hdrid);
+                  fdata2.append('product',data.product);
+                
+      
+                  // Url Post delete
+                  vurl2 = "<?php echo base_url('C_application/ajax_Send_mail')?>";
+      
+                  // Post data
+                  $.ajax({
+                    url: vurl2,
+                    method: "post",
+                    processData: false,
+                    contentType: false,
+                    data: fdata2,
+                    success: function (data) {
+      
+      
+                        berhasil(data.status);
+                        // location.reload();
+      
+                    },
+                    error: function (e) {
+                      //Pesan Gagal
+                      location.reload();
+                      // berhasil(data.status);
+                        // window.location.reload();
+                        // gagal(e);             
+                    }
+                  });
               },
+               // function error
               error: function (e) {
-                //Pesan Gagal
-                location.reload();
-                // berhasil(data.status);
-                  // window.location.reload();
-                  // gagal(e);             
-              }
-            });
+                  // gagal(e);
+                  // location.reload();
 
+                  //pesan gagal
+              }
+          });
+           
           }
 
   

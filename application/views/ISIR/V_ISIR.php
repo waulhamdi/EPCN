@@ -6,7 +6,7 @@
   <div class="container-fluid"><!--untuk jenis container-->
     <div class="row mb-2"><!-- untuk row aplikasi-->
       <div class="col-sm-6"><!--untuk ukuran panjang container-->
-        <h1 class="m-0 text-dark">ISIR Register</h1><!-- untuk menampilkan judul-->
+        <h1 class="m-0 text-dark">ISIR</h1><!-- untuk menampilkan judul-->
       </div><!-- /.col -->
       <div class="col-sm-6"><!--untuk ukuran panjang container-->
         <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
@@ -128,10 +128,13 @@
               <thead>
 
               <tr>
-
+   
                 <!-- Th Macro Batas Sini -->
                 <th>ACTION</th>
-                <th>ISIR NUMBER</th>
+                <th>PCN NUMBER</th>
+                <th>REMARK</th>
+                <th>STATUS</th>
+              
              
                 <!-- /Th Macro Batas Sini -->
                       
@@ -187,6 +190,8 @@
                   </div>
               </div>
             </div>
+          <div class="btn btn-success"  id="btn_add_row"  onclick="Add_row()"> Tambah isir </div> <!--fungsi untuk approve-->    
+
             <form class="form-horizntal" id="approvalform" role="form">
                   <div class="card-body">
                     <div class="table-responsive">
@@ -197,9 +202,10 @@
 
                                       <th>ACTION</th>
                                       <th>NO ISIR</th>
-                                      <th>ISIR Supplier</th>
-                                      <th>ISIR Detail Improve</th>
-                                      <th>ISIR Result QC</th>
+                                      <th>ISIR SUPPLIER</th>
+                                      <th>ISIR DETAIL IMPROVE</th>
+                                      <th>ISIR RESULT QC</th>
+                                      <th>REMARK</th>
                                       <th>STATUS</th>
                                       <!-- <th>OFFICE EMAIL</th>
                                       <th>POSITION CODE</th>
@@ -230,9 +236,9 @@
                 </div>
                   
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" id="btnsubmit">Save To Draft</button>   <!-- button save ke draft--> 
-                    <button type="button" class="btn btn-success" id="btnsend" onclick="sendDraft()">Send</button>  <!-- button send-->               
-                    <button type="button" class="btn btn-success" id="btnsend2" onclick="sendDraft2()">Save And Send</button>      <!-- button save and send-->           
+                    <button type="submit" class="btn btn-primary" id="btnsubmit" hidden>Save To Draft</button>   <!-- button save ke draft--> 
+                    <!-- <button type="button" class="btn btn-success" id="btnsend" onclick="sendDraft()">Send</button>  button send                -->
+                    <button type="button" class="btn btn-success" id="btnsend2" onclick="sendDraft2()">Save</button>      <!-- button save and send-->           
                     <button type="button" class="btn btn-danger float-right" data-dismiss="modal">Close</button>  <!-- button close--> 
                   </div>
                                
@@ -322,9 +328,39 @@
       </div>
       <!-- /.modal Delete-->
 
+          <!-- modal-delete-isir -->
+          <div class="modal fade" id="modal-delete-isir">
+            <div class="modal-dialog">
+              <div class="modal-content bg-danger">
+                <div class="modal-header">
+                  <h4 class="modal-title">Delete Data Isir</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <label id="hdrid_isir" > </label>Apakah ingin delete <label id="iddeleteisir"> </label> ?              
+                </div>
+
+                <div class="modal-footer justify-content-between">             
+                  <form action="#" method="post">
+                    <button type="button" id="delete" onclick="Delete_data_isir()" class="btn btn-outline-light">Yes</button>    
+                  </form>     
+                  <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>       
+                </div>
+
+              </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal Delete isir-->
+
 
            <!-- modal-isir-->
            <div class="modal fade" id="modal-isir">
+           
             <div class="modal-dialog modal-lg">
               <div class="modal-content bg-white">
                 <div class="modal-header">
@@ -345,6 +381,7 @@
                         </div>
                     </div>
                   </div> 
+                  <form role="form" id="isirForm">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
@@ -354,81 +391,275 @@
                           <input type="text" name="no_isir" class="form-control" id="no_isir" readonly>
                         </div>
                     </div>
-                  </div>     
+                  </div>  
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4">
-                          <label for="isir">ISIR</label>
+                          <label for="remark">REMARK</label>
                         </div>
                         <div class="col-md-8">
-                          <input type="text" name="isir" class="form-control" id="isir">
+                          <input type="text" name="remark" class="form-control" id="remark">
                         </div>
                     </div>
                   </div>  
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label for="isir_supplier_t2">ISIR SUPPLIER</label>
-                    </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="isir_supplier_t2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>PIC PROCUREMENT</label>
                       </div>
-                    <div class="col-md-7">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="isir_supplier_t2" multiple="" name="isir_supplier_t2">
-                        <label class="custom-file-label" for="isir_supplier_t2" id="isir_supplier_t2_label">Choose file</label>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="pic_pro" name="pic_pro" onchange="handleSelectChange_pic_pro(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name - $value->name - $value->office_email - $value->department_name</option>";
+                            }
+                          ?>
+                        </select>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <div class="row">
+              <div class="form-group" hidden>
+                <div class="row">
                     <div class="col-md-4">
-                      <label for="isir_supplier_t2">Detail Improve</label>
+                      <label for="pro_name">PROCUREMENT NAME</label>
                     </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="isir_supplier_t2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                    <div class="col-md-8">
+                      <input type="text" name="pro_name" class="form-control" id="pro_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="pro_email">PRO EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="pro_email" class="form-control" id="pro_email" readonly>
+                    </div>
+                </div>
+              </div>
+
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>PIC QC</label>
                       </div>
-                    <div class="col-md-7">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="isir_supplier_t2" multiple="" name="isir_supplier_t2">
-                        <label class="custom-file-label" for="isir_supplier_t2" id="isir_supplier_t2_label">Choose file</label>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="pic_qc" name="pic_qc" onchange="handleSelectChange_pic_qc(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name - $value->name - $value->office_email - $value->department_name</option>";
+                            }
+                          ?>
+                        </select>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="form-group">
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qc_name">QC NAME</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qc_name" class="form-control" id="qc_name" readonly>
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                      <label for="qc_email">QC EMAIL</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="text" name="qc_email" class="form-control" id="qc_email" readonly>
+                    </div>
+                </div>
+              </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>CC TO</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="cc_to1" name="cc_to1" onchange="handleSelectChange_cc_to1(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>CC TO</label>
+                      </div>
+                      <div class="col-md-8">
+                        <select class="form-control select2" id="cc_to2" name="cc_to2" onchange="handleSelectChange_cc_to2(event)" style="width: 100%;">
+                          <option value='' selected="selected">-Select-</option>
+                          <?php
+                            foreach ($user as $value) {
+                            echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->department_name</option>";
+                            }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <a class="btn btn-success" id="isir_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="isir">ISIR SUPPLIER</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="isir" multiple="" name="isir">
+                          <label class="custom-file-label" for="isir" id="isir_label">Choose file</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+               
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <a class="btn btn-success" id="isir_imp_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="isir_imp">DETAIL IMPROVE</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="isir_imp" multiple="" name="isir_imp">
+                          <label class="custom-file-label" for="isir_imp" id="isir_imp_label">Choose file</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                          <label>SUBMIT DATE:</label>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickersubmit_date" data-target-input="nearest">
+                            <input type="text" id="submit_date" name="submit_date" class="form-control datetimepicker-input" data-target="#timepickersubmit_date"/>
+                              <div class="input-group-append" data-target="#timepickersubmit_date" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <a class="btn btn-success" id="qc_result_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="qc_result">QC RESULT</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="qc_result" multiple="" name="qc_result">
+                          <label class="custom-file-label" for="qc_result" id="qc_result_label">Choose file</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <a class="btn btn-success" id="deviasi_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="deviasi">DEVIASI</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="deviasi" multiple="" name="deviasi">
+                          <label class="custom-file-label" for="deviasi" id="deviasi_label">Choose file</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                          <label>QC SUBMIT DATE:</label>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerqc_submit_date" data-target-input="nearest">
+                            <input type="text" id="qc_submit_date" name="qc_submit_date" class="form-control datetimepicker-input" data-target="#timepickerqc_submit_date"/>
+                              <div class="input-group-append" data-target="#timepickerqc_submit_date" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+
+                <div class="form-group" >
                   <div class="row">
                     <div class="col-md-4">
-                      <label for="isir_supplier_t2">ISIR Result</label>
+                      <label>STATUS</label>
                     </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="isir_supplier_t2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                    <div class="col-md-7">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="isir_supplier_t2" multiple="" name="isir_supplier_t2">
-                        <label class="custom-file-label" for="isir_supplier_t2" id="isir_supplier_t2_label">Choose file</label>
-                      </div>
+                    <div class="col-md-8">
+                      <select class="form-control select2" id="status" name="status" onchange="handleSelectChange_status(event)" style="width: 100%;">
+                        <option value='' selected="selected">-Select-</option>
+                        <?php
+                          foreach ($status as $value) {
+                          echo "<option value='$value'>$value</option>";
+                          }
+                        ?>
+                      </select>
                     </div>
                   </div>
                 </div>
                 
-                <div class="row">
-                  
-                    <div class="btn btn-success"  id="btn_add_row" > OK </div> <!--fungsi untuk approve-->  
-                    <div class="btn btn-warning"  id="btn_add_row" > NG </div> <!--fungsi untuk approve-->    
-                  
-                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                          <label for="comment">COMMENT</label>
+                        </div>
+                        <div class="col-md-8">
+                          <input type="text" name="comment" class="form-control" id="comment">
+                        </div>
+                    </div>
+                  </div> 
+
                 
    
-                   
+                </form>
                 </div>
                 <div class="modal-footer justify-content-between">             
                   <form action="#" method="post">
-                    <button type="button" id="insert_cicilan" onclick="Update_cicilan()" class="btn btn-primary">Save</button>    
+                    <button type="button" id="insert_cicilan" onclick="Update_isir()" class="btn btn-primary">Update</button>    
                   </form>     
                   <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>       
                 </div>
@@ -787,13 +1018,13 @@ minlength: 3
             $('#btnsubmit').text('Save To Draft'); // name Save
             document.getElementById("btnsubmit").style.visibility = "visible";    // Visible button              
             //Ajax kosongkan data
-            document.getElementById("btnsend").style.visibility = "hidden";    // Visible button              
+            // document.getElementById("btnsend").style.visibility = "hidden";    // Visible button              
             document.getElementById("btnsend2").style.visibility = "visible";    // Visible button              
             //Ajax kosongkan data
 
           }else {
 
-            document.getElementById("btnsend").style.visibility = "visible";    // Visible button              
+            // document.getElementById("btnsend").style.visibility = "visible";    // Visible button              
             //Ajax kosongkan data
            
             // Get Hdri ID
@@ -826,7 +1057,7 @@ minlength: 3
             // Disable and button submit dan text form           
             if(status=="View"){
               document.getElementById("btnsubmit").style.visibility = "hidden";   //fungsi hidden tombol submit
-              document.getElementById("btnsend").style.visibility = "hidden";   //fungsi hidden tombol save dan send
+              // document.getElementById("btnsend").style.visibility = "hidden";   //fungsi hidden tombol save dan send
               document.getElementById("btnsend2").style.visibility = "hidden";  //fungsi hidden tombol send
               $('#exampleModalLabel').text('View Data'); //name view              
             }else{
@@ -834,313 +1065,12 @@ minlength: 3
               $('#btnsubmit').text('Update'); //name Update  
               document.getElementById("btnsend2").style.visibility = "hidden"; //fungsi hidden tombol send
               document.getElementById("btnsubmit").style.visibility = "visible";  //fungsi visible tombol submit
+              
             }
           
           }
 
         
-         //untuk hidden supplier data jika klik supplier maka akan muncul beberapa attach file saja
-        $('input[type=radio][name=supplier').change(function() {
-          if(this.value == 'supplier'){
-          }else if(this.value =='NEW SUPPLIER(current denso supplier)'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#20").css('display','none'); //beberapa attach file hidden
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-          }else if(this.value =='ADDITIONAL SUPPLIER(current denso supplier)'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#20").css('display','none');//beberapa attach file hidden
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-          }else if(this.value =='CHANGE SUPPLIER(current denso supplier)'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#20").css('display','none');//beberapa attach file hidden
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-          }else if(this.value =='CHANGE PLACE PRODUCTION(same denso supplier)'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#7").css('display','none');//beberapa attach file hidden
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else if(this.value =='ADDITIONAL SUPPLIER'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#7").css('display','none');//beberapa attach file hidden
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else if(this.value =='CHANGE SUB SUPPLIER(change route)'){//jika dipilih supplier akan menonaktikan beberapa attach file
-            $("#7").css('display','none');//beberapa attach file hidden
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else{
-            $("#supplier").removeAttr("checked"); //untuk check apakah sudah hidden
-            $("#supplier2").css('display','block');//untuk blok attach file sudah dihidden
-            }
-          });
-
- //untuk hidden materia data jika klik material maka akan muncul beberapa attach file saja
-        $('input[type=radio][name=material]').change(function() {
-          if(this.value == 'CHANGE MATERIAL SPECIFICATION'){ //jika dipilih material akan menonaktikan beberapa attach file
-            $("#15").css('display','none');//beberapa attach file hidden
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#22").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');       
-          }else if(this.value =='CHANGE MATERIAL MAKER'){ //jika dipilih material2 akan menonaktikan beberapa attach file
-            $("#15").css('display','none');//beberapa attach file hidden
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#22").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else if(this.value =='CHANGE PLACE PRODUCTION(same material maker company)'){ //jika dipilih material3 akan menonaktikan beberapa attach file
-            $("#15").css('display','none');//beberapa attach file hidden
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#22").css('display','none');
-            $("#23").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else{
-            $("#material").removeAttr("checked");//untuk check apakah sudah hidden
-            $("#material2").css('display','block');//untuk blok attach file sudah dihidden
-            }
-        });
-
-         //untuk hidden quality improvement data jika klik quality improvement maka akan muncul beberapa attach file saja
-        $('input[type=radio][name=quality_improvement').change(function() {
-          if(this.value == 'ADDITIONAL PROCESS'){;//jika dipilih quality improvement akan menonaktikan beberapa attach file
-            $("#5").css('display','none');//beberapa attach file hidden
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#19").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else if(this.value =='CHANGE PROCESS'){//jika dipilih quality improvement 2 akan menonaktikan beberapa attach file
-            $("#5").css('display','none');//beberapa attach file hidden
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#19").css('display','none');
-            $("#20").css('display','none');
-            $("#21").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-          }else{
-            $("#quality_improvement").removeAttr("checked");//untuk check apakah sudah hidden
-            $("#quality_improvement2").css('display','block');//untuk blok attach file sudah dihidden
-            }
-          });
-
-          //untuk hidden tooling machine improvement data jika klik tooling machine improvement maka akan muncul beberapa attach file saja
-          $('input[type=radio][name=tooling_machine').change(function() {
-          if(this.value == 'RENEWAL DIES'){; //jika dipilih tooling machine akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='ADDITIONAL DIES'){//jika dipilih tooling machine 2 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='REACTIVATION DIES'){//jika dipilih tooling machine 3 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='ADDITONAL MACHINE(existing machine)'){//jika dipilih tooling machine 4 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='ADDITONAL MACHINE(new machine)'){//jika dipilih tooling machine 5 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='YOKOTEN MACHINE SPEC'){//jika dipilih tooling machine 6 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else if(this.value =='NEW MACHINE SPEC'){//jika dipilih tooling machine 7 akan menonaktikan beberapa attach file
-            $("#3").css('display','none');//beberapa attach file hidden
-            $("#4").css('display','none');
-            $("#5").css('display','none');
-            $("#6").css('display','none');
-            $("#7").css('display','none');
-            $("#8").css('display','none');
-            $("#9").css('display','none');
-            $("#10").css('display','none');
-            $("#12").css('display','none');
-            $("#13").css('display','none');
-            $("#14").css('display','none');
-            $("#15").css('display','none');
-            $("#16").css('display','none');
-            $("#17").css('display','none');
-            $("#18").css('display','none');
-            $("#22").css('display','none');
-            $("#24").css('display','none');
-            $("#25").css('display','none');
-            $("#26").css('display','none');
-          }else{
-            $("#tooling_machine").removeAttr("checked");//untuk check apakah sudah hidden
-            $("#tooling_machine2").css('display','block');//untuk blok attach file sudah dihidden
-            }
-          });
-
-
-
 
 
   }
@@ -1178,6 +1108,7 @@ minlength: 3
               }
           });
 
+          
           // Print_r(file_data);
 
           // Simpan or Update data          
@@ -1366,9 +1297,7 @@ function sendDraft2() { //variable untuk sendraft2
     var fdata = new FormData();//variable untuk sendraft
 
     var fdata2 = new FormData();             
-    fdata2.append("body_content",""); //fungsi body content
-    fdata2.append("comment",""); //fungsi comment
-    fdata2.append("status_subject","New");//fungsi status subject
+
 
     // Form data collect name value
     var form_data = $('#quickForm').serializeArray();// variable quick form
@@ -1399,7 +1328,7 @@ function sendDraft2() { //variable untuk sendraft2
     
     // Simpan or Update data          
     var vurl;
-    vurl = "<?php echo base_url('C_ISIR/ajax_sendDraft2') ?>"; //link senddraft2
+    vurl = "<?php echo base_url('C_ISIR/ajax_add') ?>"; //link senddraft2
 
     $.ajax({ //ajax pada send draft
       url: vurl, //url
@@ -1408,39 +1337,6 @@ function sendDraft2() { //variable untuk sendraft2
       contentType: false,//false content
       data: fdata,
       success: function(data) {
-
-        // gagal("hello" + data.status);
-        // print_r(data.status);
-        
-        fdata2.append("hdrid",data.status); 
-        fdata2.append("problem_name",$('#problem_name').val());  //status sukses di hdrid
-        fdata2.append("group_product_name",$('#group_product_name').val()); //status sukses di problem name
-        fdata2.append("product_name",$('#product_name').val()); //status sukses di group_product_name
-        fdata2.append("name2",$('#name2').val()); //status sukses di product_name
-        fdata2.append("problem_category_name",$('#problem_category_name').val()); //status sukses di name2
-        fdata2.append("body_content",data.status_transaction); //status sukses di problem_category_name
-        fdata2.append("comment",""); //status group comment
-        fdata2.append("status_subject","");//status_subject
-        fdata2.append('position_code', "2");//status group position_code
-
-        // Kirim email
-        var vurl2; 
-        vurl2 = "<?php echo base_url('C_Email/ajax_send_mail_v2')?>";//link send mail v2
-          $.ajax({
-          url: vurl2, //url
-          method: "post",//jenis method pst
-          processData: false,//false process
-          contentType: false,//false content
-          data: fdata2,
-          success: function (data) {                
-                                                   
-          },
-          error: function (e) {
-              gagal(e);
-             
-          }
-        });
-
 
         berhasil(data.status);    //jika berhasil maka akan muncul notif "berhasil dikirim"
         tabel.draw();
@@ -1550,6 +1446,13 @@ error: function (e) {
     view_modal_isir($(this).attr("data-id"),'Edit');
     })
 
+    //  HDRID selected KonfirmasiReturn
+    $(document).on("click", ".konfirmasiHapusisir", function() {
+    let str = $(this).attr("data-id");
+    const myArr = str.split("#");
+    $('#hdrid_isir').text(myArr[0]);
+    $('#iddeleteisir').text(myArr[1]);
+    })
     // ID Rows selected
     $('#example1').on( 'click', 'tr', function () {
           $('#iddelete2').text($('#example1').DataTable().row( this ).id());             
@@ -1600,11 +1503,11 @@ error: function (e) {
                 
                
         "processing": true,//processing true jika data masuk table
-        // "scrollX" : true,
-        "responsive":true,//respon jika data masuk akan muncul pop up data
+        "scrollX" : true,
+        // "responsive":true,//respon jika data masuk akan muncul pop up data
         "serverSide": true, //untuk data masuk server 
         "ordering": true, // Set true agar bisa di sorting
-        "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+        "order": [[ 1, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
         
           "ajax": {
             // status=="Edit Data"
@@ -1632,7 +1535,7 @@ error: function (e) {
                             // Tombol Edit
                             mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEditIsir" data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-isir"> <i class="fa fa-edit"></i></div>';
                               //Tombol Delete
-                            mnu=mnu+'<div class="btn btn-danger btn-sm konfirmasiHapuscicilan" data-id="'+ row.hdrid +"#"+ row.isir +'" data-toggle="modal" data-target="#modal-delete-cicilan" > <i class="fa fa-trash"></i></div>';
+                            mnu=mnu+'<div class="btn btn-danger btn-sm konfirmasiHapusisir" data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-delete-isir" > <i class="fa fa-trash"></i></div>';
                         return mnu;
                     }  
                 },
@@ -1640,6 +1543,7 @@ error: function (e) {
               {"data":"isir"},
               {"data":"isir_imp"},
               {"data":"qc_result"},
+              {"data":"remark"},
               {"data":"status"},
 
           ],
@@ -1705,7 +1609,7 @@ error: function (e) {
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
                         mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_print_isir/print_isir?var1=') . "'+ data +' &var2=1&var2=1"  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
+                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_PrintA4_isir/print_report2_approved?Number=') . "'+ data +' "  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
                         return mnu;
 
@@ -1713,8 +1617,10 @@ error: function (e) {
                 },
                 
                 // ---------------------------------- Datatables Macro Batas sini ---------------------------------
-                 
+               
                 {"data":"hdrid"},
+                {"data":"remark"},
+                {"data":"status"},
  
 
 
@@ -1785,144 +1691,70 @@ error: function (e) {
 <script type="text/javascript">
 
 
-      ///@see handleSelectChange_proses_temporary_and_fullscale()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-     function handleSelectChange_process(event) {
-
-var data = $('#process').select2('data')[0].text;
-
-            }
-
-    ///@see handleSelectChange_submital_isir()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_submital(event) {
-
-var data = $('#submital').select2('data')[0].text;
-if (data=='-Select-'){
-      $('#improvement_activity').val('');   
- 
-    }else{
-      var res = data.split("-");
-      $('#improvement_activity').val(res[1]);
-    };
-
-            }
+      ///@see handleSelectChange_status()
+      ///@note Handle untuk select filter
+      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+      function handleSelectChange_status(event) {
+        
+        var data = $('#status').select2('data')[0].text;
+   
+        // console.log(data);
+        // if (data =='Accepted') {
+        //    document.getElementById("comment").style.display = "none";
+        //   // $("#comment1").css('display','block');
 
 
-    ///@see handleSelectChange_supplier_code()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_supplier_code(event) {
+        // }else{
+        //    document.getElementById("comment").style.display = "";
+        //   // $("#comment1").css('display','none');
 
-var data = $('#supplier_code').select2('data')[0].text;
-
-            }
-
-    ///@see handleSelectChange_nama_supplier()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_supplier_name(event) {
-
-var data = $('#supplier_name').select2('data')[0].text;
-    if (data=='-Select-'){
-      $('#part_number').val('');   
-      $('#part_name').val('');   
-      $('#tooling_no').val('');   
-      $('#cavity_number').val(''); 
-      $('#material_manufacture').val('');   
-      $('#grade_name').val('');   
-      $('#process_name').val('');  
-      $('#sub_supplier_name').val('');  
-      $('#address').val('');  
-      $('#remarks').val('');  
-      $('#inspected_date').val('');  
-      $('#inspector').val('');  
-      $('#manager').val('');  
-    }else{
-      var res = data.split("-");
-      $('#part_number').val(res[1]);
-      $('#part_name').val(res[2]);
-      $('#tooling_no').val(res[3]);
-      $('#cavity_number').val(res[4]);
-      $('#material_manufacture').val(res[5]);
-      $('#grade_name').val(res[6]);
-      $('#process_name').val(res[7]);
-      $('#sub_supplier_name').val(res[8]);
-      $('#address').val(res[9]);
-      $('#remarks').val(res[10]);
-      $('#inspected_date').val(res[11]);
-      $('#inspector').val(res[12]);
-      $('#manager').val(res[13]);
-    };
-
-            }
-
-    ///@see handleSelectChange_part_number()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif          
-function handleSelectChange_part_number(event) {
-
-var data = $('#part_number').select2('data')[0].text;
-
-            }
-
-    ///@see handleSelectChange_part_number()
-     ///@note fungsi untuk filter data
-     ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_part_name(event) {
-
-var data = $('#part_name').select2('data')[0].text;
-if (data=='-Select-'){
-      $('#no_tooling').val('');   
-      $('#cavity_number').val('');     
-    }else{
-      var res = data.split("-");
-      $('#no_tooling').val(res[1]);
-      $('#cavity_number').val(res[2]);
-
-
+        // }
       
-    };
+      }
 
-            }
+      ///@see handleSelectChange_pic_pro()
+      ///@note Handle untuk select filter
+      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+      function handleSelectChange_pic_pro(event) {
+        
+        var value = $("#pic_pro option:selected").text();  
+        var res = value.split(" - ");
+          $('#pic_pro').val(res[0]);
+          $('#pro_name').val(res[1]);
+          $('#pro_email').val(res[2]);
+      }
 
+      ///@see handleSelectChange_pic_qc()
+      ///@note Handle untuk select filter
+      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+      function handleSelectChange_pic_qc(event) {
+        
+        var value = $("#pic_qc option:selected").text();  
+        var res = value.split(" - ");
+          $('#pic_qc').val(res[0]);
+          $('#qc_name').val(res[1]);
+          $('#qc_email').val(res[2]);
+      }
 
-  ///@see handleSelectChange_rohs()
-  ///@note fungsi untuk filter data
-  ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_rohs(event) {
+      ///@see handleSelectChange_cc_to1()
+      ///@note Handle untuk select filter
+      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+      function handleSelectChange_cc_to1(event) {
+        
+        var data = $('#cc_to1').select2('data')[0].text;
+     
+      }
 
-var data = $('#rohs').select2('data')[0].text;
+      ///@see handleSelectChange_cc_to2()
+      ///@note Handle untuk select filter
+      ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
+      function handleSelectChange_cc_to2(event) {
+        
+        var data = $('#cc_to2').select2('data')[0].text;
+     
+      }
 
-            }
-
-  ///@see ndleSelectChange_product_adapt_to_dds2004()
-  ///@note fungsi untuk filter data
-  ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_product_adapt_to_dds2004(event) {
-
-  var data = $('#product_adapt_to_dds2004').select2('data')[0].text;
-if (data=='-Select-'){
-      $('#imds_id').val('');      
-    }else{
-      var res = data.split("-");
-      $('#imds_id').val(res[1]);
-
-
-      
-    };
-            }
-
-  ///@see ndleSelectChange_product_adapt_to_dds2004()
-  ///@note fungsi untuk filter data
-  ///@attention jika type filter tidak sesuai field maka filter tersebut tidak aktif
-function handleSelectChange_imds_id(event) {
-
-var data = $('#imds_id').select2('data')[0].text;
-
-            }
+  
 
 
 </script>
@@ -1954,6 +1786,9 @@ var data = $('#imds_id').select2('data')[0].text;
     /// @note Menampilkan modal(View,Edit)
     /// @attention Menampilkan modal,mengisi data field apabila status view or edit or add(beberapa field otomatis terisi)
     function view_modal_isir(hdrid1,status){
+
+      
+     
           if (status=="Add"){
 
           }else {
@@ -1976,10 +1811,48 @@ var data = $('#imds_id').select2('data')[0].text;
                   success: function (data) {
 
                       // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
-                      $('#isir').val(data.isir);
-                      $('#isir_imp').val(data.isir_imp);
-                      $('#qc_result').val(data.qc_result);
-                      $('#status').val(data.status);
+                      $('#remark').val(data.remark);
+                  
+                      $('#pic_pro').select2().val(data.pic_pro).trigger('change');
+                      $('#pic_qc').select2().val(data.pic_qc).trigger('change');
+                      $('#cc_to1').select2().val(data.cc_to1).trigger('change');
+                      $('#cc_to2').select2().val(data.cc_to2).trigger('change');
+
+                      document.getElementById('isir_label').innerHTML=data.isir;
+                      var a = document.getElementById('isir_view');
+                      if(!data.isir==''){
+                        a.href = "<?php echo base_url('assets/upload/isir/') ?>" + data.isir;
+                      }else{
+                        a.removeAttribute("href");
+                      };
+                      document.getElementById('isir_imp_label').innerHTML=data.isir_imp;
+                      var a = document.getElementById('isir_imp_view');
+                      if(!data.isir_imp==''){
+                        a.href = "<?php echo base_url('assets/upload/isir/') ?>" + data.isir_imp;
+                      }else{
+                        a.removeAttribute("href");
+                      };
+                      $('#submit_date').val(data.submit_date);
+                      document.getElementById('qc_result_label').innerHTML=data.qc_result;
+                      var a = document.getElementById('qc_result_view');
+                      if(!data.qc_result==''){
+                        a.href = "<?php echo base_url('assets/upload/isir/') ?>" + data.qc_result;
+                      }else{
+                        a.removeAttribute("href");
+                      };
+                      document.getElementById('deviasi_label').innerHTML=data.deviasi;
+                      var a = document.getElementById('deviasi_view');
+                      if(!data.deviasi==''){
+                        a.href = "<?php echo base_url('assets/upload/isir/') ?>" + data.deviasi;
+                      }else{
+                        a.removeAttribute("href");
+                      };
+
+
+                      $('#qc_submit_date').val(data.qc_submit_date);
+                      $('#status').select2().val(data.status).trigger('change');
+                      $('#comment').val(data.comment);
+
                     
                       // ---------------------------------- / Data val Macro  Batas sini ------------------------------
               
@@ -2007,7 +1880,9 @@ var data = $('#imds_id').select2('data')[0].text;
         // $('#exampleModalLabel').text('Edit Data'); //name view 
         // $('#btnsubmit').text('Update'); //name Update  
         document.getElementById("btnsubmit").style.visibility="visible"; 
-
+  
+       
+      
 
     
     }
@@ -2015,6 +1890,174 @@ var data = $('#imds_id').select2('data')[0].text;
       }
 
       }
+
+
+
+      /// @see Add_row
+      /// @note Tambah row cicilan
+      /// @attention Menambah row di list cicilan
+      function Add_row() {
+      
+      var fdata2 = new FormData();
+      // if ($('#hdrid').val() == '') {
+      //   fdata2.append('hdrid','<?php echo $this->session->userdata('user_name'); ?>');
+      // } else {
+        fdata2.append('hdrid',$('#hdrid').val());
+      // }
+        
+    
+      var vurl2; 
+      vurl2 = "<?php echo base_url('C_Isir/Ajax_Add_Row')?>";
+
+                $.ajax({
+                url: vurl2,
+                method: "post",
+                processData: false,
+                contentType: false,
+                data: fdata2,
+                success: function (data) {    
+                  tabel3.draw();
+
+                },
+                error: function (e) {
+                  
+                        berhasil(e);
+                }
+            });
+
+         }
+
+
+        /// @see  Delete_data_isir()
+        /// @note Delete data
+        /// @attention Mengirim hdrid,no cicilan ke controller 
+        function Delete_data_isir(){
+
+        // Form data
+        var fdata = new FormData();
+
+        // Delete by Hdrid
+
+        fdata.append('no_isir',$('#iddeleteisir').text());
+        fdata.append('hdrid',$('#hdrid_isir').text());
+        // Url Post delete
+        vurl = "<?php echo base_url('C_Isir/ajax_delete_isir')?>";
+
+        // Post data
+        $.ajax({
+            url: vurl,
+            method: "post",
+            processData: false,
+            contentType: false,
+            data: fdata,
+            success: function (data) {
+
+                // Hide modal delete
+                $('#modal-delete-isir').modal('hide');
+                // Delete rows datatables
+                $('#detailIsir').DataTable().row("#"+$('#iddeleteisir').text()).remove().draw();
+                // Pesan berhasil
+                berhasil(data.status);   
+
+            },
+            error: function (e) {
+                //Pesan Gagal
+                gagal(e);             
+            }
+        });
+
+        }
+
+        /// @see  Update_isir()
+        /// @note untuk membuat trigger jika data sudah terupdate
+        /// @attention data update notifikasi juga terupdate
+        function Update_isir(){
+
+        // Form data
+        var fdata = new FormData();
+
+        fdata.append('hdrid',$('#hdrid_cil').val());
+        // fdata.append('no_isir',$('#no_isir').val());
+        // fdata.append('remark',$('#remark').val());
+        // fdata.append('isir',$('#isir').val());
+        // fdata.append('isir_imp',$('#isir_imp').val());
+        // fdata.append('qc_result',$('#qc_result').val());
+        // fdata.append('status',$('#status').val());
+
+        var form_data = $('#isirForm').serializeArray();
+          $.each(form_data, function (key, input) {
+            fdata.append(input.name, input.value);
+          });
+          
+          // Penanganan jika ada type check Box uncheck
+          $('#isirForm input[type="checkbox"]:not(:checked)').each(function(i, e) {           
+              fdata.append(e.getAttribute("name"),"Off");
+          });
+
+          // Penanganan jika ada type attach file
+          $('#isirForm input[type="file"]').each(function(i, e) {     
+              // jika ada file attach maka akan ditambahkan  
+              if ($('#'+e.getAttribute("name")).val()) {   
+                var file_data = $('#'+e.getAttribute("name")).prop('files')[0];
+                fdata.append(e.getAttribute("name"),file_data);                            
+              }
+          });
+
+          
+     
+
+        // Url Post delete
+        vurl = "<?php echo base_url('C_Isir/ajax_update_isir')?>";
+
+        // Post data
+        $.ajax({
+            url: vurl,
+            method: "post",
+            processData: false,
+            contentType: false,
+            data: fdata,
+            success: function (data) {
+
+                // Hide modal delete
+                $('#modal-isir').modal('hide');
+                $('#detailIsir').DataTable().row("#"+$('#no_isir').val()).draw();
+                // Pesan berhasil
+                berhasil(data.status);
+
+                //  $("#modal-default").modal('hide');
+                var fdata3 = new FormData();
+                   
+             
+                fdata3.append('hdrid',data.hdrid);
+                fdata3.append('no_isir',data.no_isir);
+                fdata3.append('sender','<?php echo $this->session->userdata('user_name'); ?>');
+
+                  $.ajax({
+                  url: "<?php echo base_url('C_Mail/ajax_mail_isir')?>",
+                  method: "post",
+                  processData: false,
+                  contentType: false,
+                  data: fdata3,
+                  success: function (data) {
+                          tabel.draw();
+                        //  location.reload();
+                      },
+                      error: function (e) {
+                          //  gagal(e);
+                        tabel.draw();
+                        // location.reload();
+
+                      }
+                  });
+                }
+            },
+            error: function (e) {
+                //Pesan Gagal
+                gagal(e);             
+            }
+        });
+
+        }
 
   </script>
 

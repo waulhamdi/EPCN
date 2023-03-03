@@ -245,7 +245,7 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->email</option>";
+                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -299,7 +299,7 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->email</option>";
+                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -353,7 +353,7 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->email</option>";
+                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -405,7 +405,7 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->email</option>";
+                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -459,7 +459,7 @@
                         <option value='' selected="selected">-Select-</option>
                         <?php
                           foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->email</option>";
+                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -630,54 +630,54 @@
 
 				// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
 
-        product: {
-        required: true,
-        },
-        pe_nik: {
-        required: true,
-        },
-        pe_pic: {
-        required: true,
-        },
-        pe_name: {
-        required: true,
-        },
-        qc_nik: {
-        required: true,
-        },
-        qc_pic: {
-        required: true,
-        },
-        qc_name: {
-        required: true,
-        },
-        mfg_nik: {
-        required: true,
-        },
-        mfg_pic: {
-        required: true,
-        },
-        mfg_name: {
-        required: true,
-        },
-        pc_nik: {
-        required: true,
-        },
-        pc_pic: {
-        required: true,
-        },
-        pc_name: {
-        required: true,
-        },
-        qa_nik: {
-        required: true,
-        },
-        qa_pic: {
-        required: true,
-        },
-        qa_name: {
-        required: true,
-        },
+        // product: {
+        // required: true,
+        // },
+        // pe_nik: {
+        // required: true,
+        // },
+        // pe_pic: {
+        // required: true,
+        // },
+        // pe_name: {
+        // required: true,
+        // },
+        // qc_nik: {
+        // required: true,
+        // },
+        // qc_pic: {
+        // required: true,
+        // },
+        // qc_name: {
+        // required: true,
+        // },
+        // mfg_nik: {
+        // required: true,
+        // },
+        // mfg_pic: {
+        // required: true,
+        // },
+        // mfg_name: {
+        // required: true,
+        // },
+        // pc_nik: {
+        // required: true,
+        // },
+        // pc_pic: {
+        // required: true,
+        // },
+        // pc_name: {
+        // required: true,
+        // },
+        // qa_nik: {
+        // required: true,
+        // },
+        // qa_pic: {
+        // required: true,
+        // },
+        // qa_name: {
+        // required: true,
+        // },
 
 
         // ---------------------------------- / Rule input Macro Batas sini 1--------------------------------

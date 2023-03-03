@@ -274,6 +274,7 @@
                         <option value='' selected='selected'>-Select-</option>
                         <option value='written'>Written</option>
                         <option value='checked'>Checked</option>
+                        <option value='checked 2'>Checked 2</option>
                         <option value='approved'>Approved</option>
                       </select>
                     </div>

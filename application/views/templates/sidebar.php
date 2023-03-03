@@ -181,26 +181,26 @@
               <li class="nav-item has-treeview">
 
             <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
-              <a href="#" class="nav-link">
+              <!-- <a href="#" class="nav-link">
                 <i class="nav-icon fa  fa-folder"></i>
                 <p>
                   ISIR
                   <i class="fas fa-angle-left right"></i>
                 </p>
                           
-              </a>
-              <ul class="nav nav-treeview">
+              </a> -->
+              <!-- <ul class="nav nav-treeview"> -->
             <!-- form ISIR -->
                 <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_ISIR" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
-                    ISIR REGISTER
+                    ISIR 
                   </p>
                 </a>
               </li>
             <!-- form ISIR LIST  -->
-               <li class="nav-item">
+               <!-- <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_ISIR_LIST" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
@@ -208,43 +208,45 @@
                   </p>
                 </a>
               </li> 
-            </ul>
+            </ul> -->
 
             
             <!--form QCR-->
             <li class="nav-item has-treeview">
               <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fa  fa-folder"></i>
-                  <p>
-                    QCR
-                    <i class="fas fa-angle-left right"></i>
-                  </p>
-                            
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
+              <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_QCR" class="nav-link">
+                  <i class="nav-icon fa  fa-folder"></i>
+                    <p>
+                      QCR
+                    </p>     
+                </a>
+              </li>
+            </li>
+                <!-- <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                <a href="<php echo base_url() ?>C_QCR" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
                   <p>
                     QCR REGISTER
                   </p>
                 </a>
       
-              </li>
+                  </li>
+              </li>    -->
 
                             
 
                   <!--form QCR LIST-->
-                  <li class="nav-item">
-                      <a href="<?php echo base_url() ?>C_QCRLIST" class="nav-link">
+                  <!-- <li class="nav-item">
+                      <a href="<php echo base_url() ?>C_QCRLIST" class="nav-link">
                         <i class="nav-icon fas fa-user"></i>
                           <p>
                             QCR LIST
                           </p>
                       </a>
                   </li>
-              </ul>
+              </ul> -->
 
 
                   <!--form final approval-->
