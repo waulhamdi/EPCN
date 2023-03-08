@@ -30,8 +30,14 @@ class C_sys_set_app extends CI_Controller {
         $this->load->helper('date');
         $this->load->helper('file');        
         $this->load->model('M_sys_set_app');
-        // $this->load->library('encrypt');    
-                  
+        $this->load->model('UserModel');  //untuk load user model hak akses menu    
+        // $this->load->library('encrypt');   
+
+        // Cari hak akses by controller
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_sys_set_app'); 
+	    if($Hak_akses->found!='found') {
+		    redirect('Auth'); // Kembali ke halaman Auth
+	    }          
       }
 
 	public function Index()
@@ -40,9 +46,15 @@ class C_sys_set_app extends CI_Controller {
         $data['nik'] = $this->M_sys_set_app->Tampil_user();
         // $data['nik_sys_set_app'] = $this->M_sys_set_app->Tampil_user();
         $data['product'] = $this->M_sys_set_app->Tampil_product();
-        
+
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         $this->load->view('templates/header'); //Tampil header
-		$this->load->view('templates/sidebar'); //Tampil Sidebar
+		$this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
 		// // $this->load->view('sys_set_app/V_sys_set_app',$data); // Tampil data
         $this->load->view('sys_set_app/V_sys_set_app',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer

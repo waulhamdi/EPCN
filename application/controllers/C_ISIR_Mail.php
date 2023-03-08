@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class C_product extends CI_Controller {
+class C_ISIR_Mail extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,7 +18,7 @@ class C_product extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 **/
-     /** ---------------------------------------------- product----------------------------------------------**/
+     /** ---------------------------------------------- superior_proc----------------------------------------------**/
 
      public function __construct(){
         parent::__construct();   
@@ -29,12 +29,12 @@ class C_product extends CI_Controller {
 
         $this->load->helper('date');
         $this->load->helper('file');        
-        $this->load->model('M_product');
+        $this->load->model('M_ISIR_Mail');
         $this->load->model('UserModel');  //untuk load user model hak akses menu    
         // $this->load->library('encrypt');    
 
         // Cari hak akses by controller
-	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_product'); 
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_ISIR_Mail'); 
 	    if($Hak_akses->found!='found') {
 		    redirect('Auth'); // Kembali ke halaman Auth
 	    }          
@@ -43,9 +43,9 @@ class C_product extends CI_Controller {
 	public function Index()
 	{
 
-        $data['groups'] = $this->M_product->get_group_product();
-        // var_dump($data);
-        // die;
+        $data['nik'] = $this->M_ISIR_Mail->Tampil_user();
+        $data['nik_ISIR_Mail'] = $this->M_ISIR_Mail->Tampil_user();
+
         $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
         $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
         $data['menu_name'] =  $menu_name; 
@@ -54,8 +54,8 @@ class C_product extends CI_Controller {
        
         $this->load->view('templates/header'); //Tampil header
 		$this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
-		// // $this->load->view('product/V_product',$data); // Tampil data
-        $this->load->view('product/V_product',$data); // Tampil data
+		// // $this->load->view('superior_proc/V_ISIR_Mail',$data); // Tampil data
+        $this->load->view('ISIR_Mail/V_ISIR_Mail',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer
                
     }
@@ -64,27 +64,23 @@ class C_product extends CI_Controller {
      function view_data()
      {
         
-        $tables = "tb_product";        
-        $search = array('hdrid','product_name','report_no','group_product_id','group_product_name');
+        $tables = "tb_isir_mail";
+        $search = array('hdrid','nik','name','email','section');
 
 
-         // jika memakai IS NULL pada where sql
-         $isWhere = null;
-         // $isWhere = 'artikel.deleted_at IS NULL';
-         header('Content-Type: application/json');
-         echo $this->M_product->get_tables($tables,$search,$isWhere);
+        $isWhere = null;
+        // $isWhere = 'artikel.deleted_at IS NULL';
+        header('Content-Type: application/json');
+        echo $this->M_ISIR_Mail->get_tables($tables,$search,$isWhere);
          
      }
 
     // Satu table dengan where
     function view_data_where()
     {
+        $tables = "tb_isir_mail";
+        $search = array('hdrid','nik','name','email','section');
 
-        $tables = "tb_product";        
-        $search = array('hdrid','product_name','report_no','group_product_id','group_product_name');
-
-
-        
         if($_POST['searchByFromdate']==''||$_POST['searchByTodate']==''){
             $where  = array('transaction_date >'=>'2020-01-01');              
         }else{
@@ -95,47 +91,25 @@ class C_product extends CI_Controller {
         $isWhere = null;
         // $isWhere = 'artikel.deleted_at IS NULL';
         header('Content-Type: application/json');
-        echo $this->M_product->get_tables_where($tables,$search,$where,$isWhere);
+        echo $this->M_ISIR_Mail->get_tables_where($tables,$search,$where,$isWhere);
         
     }
 
-    // Multy table / Query
-    function view_data_query()
-    {
-
-        $query  = "SELECT kategori.name_kategori AS name_kategori, subkat.* FROM subkat 
-                    JOIN kategori ON subkat.id_kategori = kategori.id_kategori";
-        $search = array('name_kategori','subkat','tgl_add');
-        $where  = null; 
-        // $where  = array('name_kategori' => 'Tutorial');
-        
-        // jika memakai IS NULL pada where sql
-        $isWhere = null;
-        // $isWhere = 'artikel.deleted_at IS NULL';
-        header('Content-Type: application/json');
-        echo $this->M_Datatables->get_tables_query($query,$search,$where,$isWhere);
-
-    }
-
-
-    //    if($this->session->userdata('authenticated')){ // Jika user sudah login (Session authenticated ditemukan)
-    //     }else{
-    //     redirect('auth');
-    //     }
+ 
 
     public function ajax_add()
 	{
 
         // ********************* 0. Generate nomor transaksi  *********************          
-        $mdate="TR".mdate('%Y%m',time());        
-        $hdrid2=$this->M_product->Max_data($mdate,'tb_product')->row();        
+        $mdate="K";        
+        $hdrid2=$this->M_ISIR_Mail->Max_data($mdate,'tb_ISIR_Mail')->row();        
         if ($hdrid2->hdrid==NULL){
             // Jika belum ada
-           $hdrid3=$mdate."001";
+           $hdrid3=$mdate."1001";
         }else{
            $hdrid3=$hdrid2->hdrid;
            // Jika sudah ada maka naik 1 level
-           $hdrid3="TR".(intval(substr($hdrid3,2,10))+1);
+           $hdrid3="K".(intval(substr($hdrid3,1,4))+1);
         }
         $hdrid=$hdrid3;
        
@@ -148,19 +122,19 @@ class C_product extends CI_Controller {
          // ******************** 3. Collect all data post *********************     
         $post_data = $this->input->post();   
 
-        $msg = "success save";
+        $msg = "Success Save $hdrid";
               
         // ********************* 4. Merge data post *********************        
         $post_datamerge=array_merge($post_data,$post_data2,$post_data3);
 
         // ********************* 5. Simpan data     *********************
 
-        $this->M_product->Input_Data($post_datamerge,'tb_product');
+        $this->M_ISIR_Mail->Input_Data($post_datamerge,'tb_ISIR_Mail');
 
         // ********************* 6. Upload file jika ada  *********************   
         if(!empty($_FILES['file']['name']))
         {
-            $this->upload_file_attach('file',$hdrid,'tb_product');           
+            $this->upload_file_attach('file',$hdrid,'tb_ISIR_Mail');           
         }
        
 
@@ -184,7 +158,7 @@ class C_product extends CI_Controller {
         // **********************  Upload file (filename,hdrid,table)  *********************   
         if(!empty($_FILES['file']['name']))
         {          
-            $this->upload_file_attach('file',$hdrid,'tb_product');          
+            $this->upload_file_attach('file',$hdrid,'tb_ISIR_Mail');          
         }
                 
         // *********************  Merge data All post *********************
@@ -193,9 +167,9 @@ class C_product extends CI_Controller {
 
         // **********************  Simpan data ************************        
         $where = array('hdrid' => $hdrid);        
-        $this->M_product->Update_Data($where,$post_datamerge,'tb_product');
+        $this->M_ISIR_Mail->Update_Data($where,$post_datamerge,'tb_ISIR_Mail');
 
-        $data['status']="berhasil update";
+        $data['status']="Success Update $hdrid";
 
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -207,7 +181,7 @@ class C_product extends CI_Controller {
 
          
         $where = array('hdrid' => $this->input->post('hdrid'));
-        $this->M_product->Delete_Data($where,'tb_product');
+        $this->M_ISIR_Mail->Delete_Data($where,'tb_ISIR_Mail');
         $data['status']="berhasil dihapus";
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -218,23 +192,12 @@ class C_product extends CI_Controller {
     function ajax_getbyhdrid(){      
 
         $hdrid=$this->input->get('hdrid');
-        $data=$this->M_product->ajax_getbyhdrid($hdrid,'tb_product')->row();
+        $data=$this->M_ISIR_Mail->ajax_getbyhdrid($hdrid,'tb_ISIR_Mail')->row();
         echo json_encode($data);
 
     }
 
-    function form_approver_link_mail(){
-        
-        $id_user_reg=$this->input->get('var1');
-        $nik=$this->input->get('var2');
-        
-        $data['get_approver']=$this->M_product->get_approver($id_user_reg); 
-		$data['get_requester']=$this->M_product->get_requester($id_user_reg); 
-		$data['data']=$this->M_product->get_data($id_user_reg); 
-        
-        $this->load->view('email/V_product',$data); // Tampil data
-      
-    }
+
 
     function upload_file_attach($filename,$hdrid,$table){
 
@@ -264,7 +227,7 @@ class C_product extends CI_Controller {
                 $data_update = array($filename =>$dataupload['file_name']);   
                
                 $where = array('hdrid' => $hdrid);        
-                $this->M_product->Update_Data($where,$data_update,$table);
+                $this->M_ISIR_Mail->Update_Data($where,$data_update,$table);
 
             }
 
@@ -280,7 +243,7 @@ class C_product extends CI_Controller {
 		if ($_FILES['excel']['name'] == '') {
 
 			$this->session->set_flashdata('msg', 'File harus diisi');
-            redirect('C_product');
+            redirect('C_ISIR_Mail');
 
 		} else {
 
@@ -306,62 +269,65 @@ class C_product extends CI_Controller {
 				$sheetData = $objPHPExcel->getActiveSheet()->toArray(null,true,true,true);
 
 				$index = 0;
+                $rowexcel = 1;
 
 				foreach ($sheetData as $key => $value) {
 
-                     if ($index > 1 && ucwords($value['D'])!='' ) {
+                       // ********************* 0. Generate nomor transaksi  *********************     
+                       if($rowexcel>2){
 
-
-                        // ********************* 0. Generate nomor transaksi  *********************          
-                        
                             // Cari database sekali saja
-                            if($index==2){
-                                $mdate="TR".mdate('%Y%m',time());        
-                                $hdrid2=$this->M_product->Max_data($mdate,'tb_product')->row();  
+                            if($index==0){
+                                $mdate="K";        
+                                $hdrid2=$this->M_ISIR_Mail->Max_data($mdate,'tb_ISIR_Mail')->row();  
                                 if ($hdrid2->hdrid==NULL){
                                     // Jika belum ada
-                                $hdrid3=$mdate."001";
+                                $hdrid3=$mdate."1001";
                                 //    $resultData[$index]['hdrid'] =   $hdrid3;
                                 }else{
                                     $hdrid3=$hdrid2->hdrid;
                                     // Jika sudah ada maka naik 1 level
-                                    $hdrid3="TR".(intval(substr($hdrid3,2,10))+1);
+                                    $hdrid3="K".(intval(substr($hdrid3,1,4))+1);
                                     // $resultData[$index]['hdrid'] =   $hdrid3;    
                                 }
 
                             }else{
-                                $hdrid3="TR".(intval(substr($hdrid3,2,10))+1);
+                                $hdrid3="K".(intval(substr($hdrid3,1,4))+1);
                             }
 
                             $resultData[$index]['hdrid'] =   $hdrid3;  
                             $resultData[$index]['transaction_date'] = mdate('%Y-%m-%d',time());    
 
-                            // ---------------------------------- Import Macro Batas sini 1---------------------------------
+                        // ---------------------------------- Import Macro Batas sini 1---------------------------------
+
+                            $resultData[$index]['nik'] = ucwords($value['A']);
+                            $resultData[$index]['name'] = ucwords($value['A']);
+                            $resultData[$index]['email'] = ucwords($value['A']);
+                            $resultData[$index]['section'] = ucwords($value['A']);
                         
-                            $group_product_id=$this->M_product->get_hdrid('tb_group_product','group_product_name',ucwords($value['D']));
-                            $resultData[$index]['group_product_id'] = $group_product_id->hdrid;
-                            $resultData[$index]['group_product_name'] = ucwords($value['D']);
-                            $resultData[$index]['product_name'] = ucwords($value['E']);
-                            $resultData[$index]['report_no'] = ucwords($value['F']);
-                                                      
+                        
 
-                     }
+                            // ---------------------------------- / Import Macro Batas sini 1--------------------------------
+                            $index++;
 
-					$index++;
+
+                       }
+                       
+                    $rowexcel++;
 
 				}
 
 				unlink('./assets/excel/' .$data['file_name']);
 
 				if (count($resultData) != 0) {
-					$result = $this->M_product->insert_batch('tb_product',$resultData);
+					$result = $this->M_ISIR_Mail->insert_batch('tb_ISIR_Mail',$resultData);
 					if ($result > 0) {
 						// $this->session->set_flashdata('msg', show_succ_msg('Data Legalitas Perusahaan Berhasil diimport ke database'));
-						redirect('C_product');
+						redirect('C_ISIR_Mail');
 					}
 				} else {
                         // $this->session->set_flashdata('msg', show_msg('Data Legalitas Perusahaan Gagal diimport ke database (Data Sudah terupdate)', 'warning', 'fa-warning'));
-                        redirect('C_product');
+                        redirect('C_ISIR_Mail');
 				}
 
 			}

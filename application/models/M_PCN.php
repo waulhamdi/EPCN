@@ -547,11 +547,11 @@ class M_PCN extends CI_Model {
 
             
             // Update tb_PCN
-            $data3 = (object) array(
-                'stat' => "process"
+            $data4 = (object) array(
+                'stat' => 'process'
             );
             $where = array('hdrid' => $data['problem_id']);
-            $this->Update_Data($where, $data3, 'tb_PCN');
+            $this->Update_Data($where, $data4, 'tb_PCN');
         }
         
         return  "Approve Berhasil";

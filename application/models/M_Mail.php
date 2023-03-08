@@ -12,12 +12,30 @@ class M_Mail extends CI_Model {
         $this->db->update($table,$data);
     }
 
-    ///@see get where
+    ///@see Get_Where
     ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
     ///@attention
     function Get_Where($where, $table)
     {
-        return $this->db->get_where($table, $where);
+        return $this->db->get_where($table, $where)->row();
+    }
+
+    ///@see Get_result
+    ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
+    ///@attention
+    function Get_result($where, $table)
+    {
+        return $this->db->get_where($table, $where)->result();
+    }
+    
+    ///@see Get_Where1
+    ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
+    ///@attention max 1 data
+    function Get_Where1($where, $table)
+    {
+        $this->db->limit(1);
+        $query=$this->db->get_where($table, $where);
+        return $query->row();
     }
     
     ///@see input Update_stat()
@@ -106,6 +124,23 @@ class M_Mail extends CI_Model {
 
     }
 
+    /// @see cari_isir()
+    /// @note Cari user/requester form
+    /// @attention Mencari requester dengan menyamakan column nik
+    function cari_isir($hdrid)
+    {
+
+        $query = $this->db->query("select top 1 * from tb_isir_list where hdrid='$hdrid'");
+        if ($query->num_rows() > 0) {
+            $query = (object) array('isir'=>'found');
+            return $query;
+        }else{
+            $query = (object) array('isir'=>'not found');
+            return $query;
+        }
+
+    }
+
     /// @see cari_responden()
     /// @note Mencari semua list responden
     /// @attention Mencari responden berdasarkan pcn number
@@ -115,11 +150,29 @@ class M_Mail extends CI_Model {
      return $query;
     }
 
+    /// @see get_mail()
+    /// @note Mencari semua list responden
+    /// @attention Mencari responden berdasarkan pcn number
+    public function get_mail()
+    {
+     $query=$this->db->query("select STRING_AGG(email,';')mail from tb_isir_mail");
+     return $query;
+    }
+
     public function cari_name($pcn_number)
     {
      $query=$this->db->query("select * from tb_application where pcn_number='$pcn_number'");
      return $query;
     }
+
+    ///@see cari_member()
+    ///@note search email member
+    ///@attention
+   public function cari_member($product)
+   {
+    $query=$this->db->query("select * from fn_view_send_mail_member('$product')");
+    return $query;
+   }
 
     /// @see insert_isir()
     /// @note Insert data isir
@@ -151,8 +204,8 @@ class M_Mail extends CI_Model {
                     ,getdate()
                     ,'T0$add'
                     ,'$nik'
-                    ,(select top 1 name_superiorprocurement from tb_superiorprocurement)
-                    ,(select top 1 email_superiorprocurement from tb_superiorprocurement)
+                    ,(select top 1 name_superiorprocurement from tb_superiorprocurement where nik_superiorprocurement='$nik')
+                    ,(select top 1 email_superiorprocurement from tb_superiorprocurement  where nik_superiorprocurement='$nik')
                     ,'DM1901091'
                     ,'Tri Wahyuni'
                     ,'tri.wahyuni.a0c@ap.denso.com'
@@ -176,7 +229,7 @@ class M_Mail extends CI_Model {
                 (
                     '$hdrid'
                     ,getdate()
-                    ,'On Progress T1'
+                    ,'On Progress T01'
                     ,'$nik'
                     ,'Open'
                 )

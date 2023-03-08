@@ -1,6 +1,15 @@
+<style>
+  #background {
+      /* background-image: url('https://dev.azure.com/fitakwima3a/9dd192e4-e504-495a-8599-0a21852a9e5f/_apis/wit/attachments/f932e401-e06a-4dc6-97a3-d90439a8b406?fileName=internal-audit%20(2).jpg&download=true&api-version=5.0-preview.2'); */
+      background-image: url("<?php echo base_url() ?>assets/dist/img/Doc.control5.JPG");
+      background-repeat: no-repeat;
+      background-attachment: fixed;  
+      background-size: cover;
+    }
+</style>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" id="background" >
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -11,8 +20,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Dashboard PCN</a></li>
-              <li class="breadcrumb-item active">DMIA E-PCN SYSTEM</li>
+              <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li> -->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -46,9 +55,9 @@
                                    <i class="fa fa-plus"></i> Add Data
                                 </a>
 
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                      <i class="fa fa-binoculars"></i> Custom Filter
-                                </a>
+                                </a> -->
 
                               </h4>
                             </div>
@@ -114,6 +123,8 @@
                     <th>ALLOW ADD</th>
                     <th>ALLOW EDIT</th>
                     <th>ALLOW DELETE</th>
+                    <th>ALLOW IMPORT</th>
+                    <th>ALLOW EXPORT</th>
 
                     <!-- /Th Macro Batas Sini -->
                                     
@@ -179,11 +190,11 @@
                             <option value='0' selected="selected" >-Select-</option>
                                 <!-- TAMBAHKAN KODINGAN DISINI -->
                                 <?php
-                                        foreach ($hasil2 as $value2) {
-                                          echo "<option value='$value2->role_id' >$value2->role_id-$value2->role_name</option>";
-                                            // echo "<option value='$value->id_menu'>$value->id_menu</option>";
-                                        }
-                                        ?>
+                                  foreach ($hasil2 as $value2) {
+                                    echo "<option value='$value2->role_id' >$value2->role_id-$value2->role_name</option>";
+                                      // echo "<option value='$value->menu_id'>$value->menu_id</option>";
+                                  }
+                                ?>
                       </select>
                     </div>
                   </div>
@@ -204,15 +215,15 @@
                       <label>FIND MENU</label>
                     </div>
                     <div class="col-md-8">
-                      <select class="form-control select2" id="id_menu" name="id_menu" onchange="handleSelectChange_menu(event)" style="width: 100%;">
+                      <select class="form-control select2" id="menu_id" name="menu_id" onchange="handleSelectChange_menu(event)" style="width: 100%;">
                           <option value='0' selected="selected">-Select-</option>
                                 <!-- TAMBAHKAN KODINGAN DISINI -->
                                 <?php
-                                        foreach ($hasil as $value) {
-                                          echo "<option value='$value->id_menu'>$value->id_menu-$value->menu_id</option>";
-                                          // echo "<option value='$value->id_menu'>$value->id_menu</option>";
-                                        }
-                                        ?>
+                                  foreach ($hasil as $value) {
+                                    echo "<option value='$value->menu_id'>$value->menu_id-$value->menu_name</option>";
+                                    // echo "<option value='$value->menu_id'>$value->menu_id</option>";
+                                  }
+                                ?>
                       </select>
                     </div>
                   </div>
@@ -236,7 +247,7 @@
                       </div>
 
                      
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <div class="icheck-primary d-inline">
                           <div class="col-md-12">
                               <input type="checkbox" name="allow_add" id="allow_add" >
@@ -247,7 +258,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <div class="icheck-primary d-inline">
                           <div class="col-md-12">
                               <input type="checkbox" name="allow_edit" id="allow_edit" >
@@ -258,7 +269,7 @@
                         </div>
                       </div>
 
-                      <div class="col-md-2">
+                      <div class="col-md-1">
                         <div class="icheck-primary d-inline">
                           <div class="col-md-12">
                               <input type="checkbox" name="allow_delete" id="allow_delete" >
@@ -269,6 +280,27 @@
                         </div>
                       </div>
 
+                      <div class="col-md-1">
+                        <div class="icheck-primary d-inline">
+                          <div class="col-md-12">
+                              <input type="checkbox" name="allow_import" id="allow_import" >
+                              <label for="allow_import">
+                               IMPORT
+                              </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-1">
+                        <div class="icheck-primary d-inline">
+                          <div class="col-md-12">
+                              <input type="checkbox" name="allow_export" id="allow_export" >
+                              <label for="allow_export">
+                               EXPORT
+                              </label>
+                          </div>
+                        </div>
+                      </div>
                   </div>
                 </div>
                
@@ -284,6 +316,7 @@
                                
               </form>    
               <!-- /form  -->
+
 
             </div> 
             <!-- Close modal-content -->  
@@ -308,10 +341,10 @@
             </div>
 
             <div class="modal-footer justify-content-between">             
-              <form action="#" method="post">
-                 <button type="button" id="delete" onclick="Delete_data()" class="btn btn-outline-light">Yes</button>    
-              </form>     
               <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>       
+              <form action="#" method="post">
+                <button type="button" id="delete" onclick="Delete_data()" class="btn btn-outline-light">Yes</button>    
+              </form>     
             </div>
 
           </div>
@@ -362,7 +395,7 @@
         role_name: {
         required: true,
         },
-        id_menu: {
+        menu_id: {
         required: true,
         },
         menu_name: {
@@ -385,8 +418,8 @@
         required: "Please Input role_name",
         minlength: 3
         },
-        id_menu: {
-        required: "Please Input id_menu",
+        menu_id: {
+        required: "Please Input menu_id",
         minlength: 3
         },
         menu_name: {
@@ -460,7 +493,7 @@
 
                     $('#role_id').select2().val(data.role_id).trigger('change');
                     $('#role_name').val(data.role_name);
-                    $('#id_menu').select2().val(data.id_menu).trigger('change');
+                    $('#menu_id').select2().val(data.menu_id).trigger('change');
                     $('#menu_name').val(data.menu_name);      
 
                     if(data.allow_add=='on'){
@@ -482,6 +515,19 @@
                     }else {
                           document.getElementById('allow_delete').checked=false;
                     };
+
+                    if(data.allow_import=='on'){
+                        document.getElementById('allow_import').checked=true;
+                    }else {
+                          document.getElementById('allow_import').checked=false;
+                    };
+
+                    if(data.allow_export=='on'){
+                        document.getElementById('allow_export').checked=true;
+                    }else {
+                          document.getElementById('allow_export').checked=false;
+                    };
+
 
                   // ---------------------------------- / Data val Macro  Batas sini ------------------------------
                                                            
@@ -545,6 +591,19 @@
                fdata.append('allow_delete', '');
             };
 
+            if(document.getElementById('allow_import').checked==true){
+               fdata.append('allow_import', 'on');
+            }else {
+               fdata.append('allow_import', '');
+            };
+
+            if(document.getElementById('allow_export').checked==true){
+               fdata.append('allow_export', 'on');
+            }else {
+               fdata.append('allow_export', '');
+            };
+
+
 
           // Print_r(fdata);
 
@@ -564,15 +623,15 @@
               contentType: false,
               data: fdata,
               success: function (data) {
-                 
+
                    // Pesan berhasil
-                   berhasil(data.status);
+                  berhasil(data.status);
                    // Reset Form
-                   $('#quickForm')[0].reset();               
+                  $('#quickForm')[0].reset();               
                    // location.reload();
                     tabel.draw();
 
-                   if(!vurl=="Add"){
+                  if(!vurl=="Add"){
                      $("#modal-default").modal('hide');
                    }
                  
@@ -696,16 +755,16 @@
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             dom: "lfBrtip",
             buttons: [
-            {
-              extend: 'copyHtml5',
-              className: 'btn btn-secondary',
-              text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',
-            },
-            {
-              extend: 'csvHtml5',
-              className: 'btn btn-info',
-              text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',
-            },
+            // {
+            //   extend: 'copyHtml5',
+            //   className: 'btn btn-secondary',
+            //   text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',
+            // },
+            // {
+            //   extend: 'csvHtml5',
+            //   className: 'btn btn-info',
+            //   text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',
+            // },
             {
               extend: 'excelHtml5',
               className: 'btn btn-success',
@@ -717,14 +776,14 @@
                 $( 'row c', sheet ).attr( 's', '25' );
               }
             },
-            {
-              extend : 'pdfHtml5',             
-              className: 'btn btn-danger',
-              text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF',
-              orientation : 'landscape',
-              pageSize : 'A4',
-              download: 'open'
-            }
+            // {
+            //   extend : 'pdfHtml5',             
+            //   className: 'btn btn-danger',
+            //   text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF',
+            //   orientation : 'landscape',
+            //   pageSize : 'A4',
+            //   download: 'open'
+            // }
           ],
             "ajax":
             {
@@ -747,15 +806,15 @@
                 },
 
                 // ---------------------------------- Datatables Macro Batas sini ---------------------------------
-                 
-                {"data":"hdrid"},
-                // {"data":"role_id"},
-                {"data":"role_name"},
-                // {"data":"id_menu"},
+
+                {"data":"hdrid"},              
+                {"data":"role_name"},             
                 {"data":"menu_name"},              
                 {"data":"allow_add"},
                 {"data":"allow_edit"},
                 {"data":"allow_delete"},
+                {"data":"allow_import"},
+                {"data":"allow_export"},
 
                 // ---------------------------------- / Datatables Macro Batas sini --------------------------------
 
@@ -805,7 +864,7 @@
 
       // });
 
-     
+
     }
 
 </script>
@@ -823,7 +882,7 @@
 
 function handleSelectChange_menu(event) {
 
-  var data = $('#id_menu').select2('data')[0].text;
+  var data = $('#menu_id').select2('data')[0].text;
 
   if (data=='-Select-'){
     $('#menu_name').val('');
@@ -849,7 +908,7 @@ function handleSelectChange_menu(event) {
 
   //  alert(data);
 
-  // $('#id_menu').val(res[0]);
+  // $('#menu_id').val(res[0]);
   //  $('#menu_name').val(data[0].text);
 
 }

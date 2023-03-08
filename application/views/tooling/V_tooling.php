@@ -44,22 +44,16 @@
                         <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
 
                           <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Quality') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_add=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#"><!--fungsi add data-->
                               <i class="fa fa-plus"></i> Add Data <!--judul add data-->
                               </a>
-
-                            <?php } ?>
-
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Quality') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php } }?>
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi add data-->
                                 <i class="fa fa-upload"></i> Import Data <!--judul add data-->
                               </a>
-
-                            <?php } ?>
-
+                            <?php } }?>
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapsefilter"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                  <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
                             </a>
@@ -2411,6 +2405,7 @@ $.ajax({
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             dom: "lfBrtip",
+            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?>
             buttons: [
             {
               extend: 'copyHtml5',//extend html
@@ -2441,6 +2436,7 @@ $.ajax({
               download: 'open' //download 
             }
           ],
+          <?php } }?>
             "ajax":
             {
                 "url": "<?= base_url('C_tooling/view_data_where');?>", // URL file untuk proses select datanya
@@ -2460,8 +2456,12 @@ $.ajax({
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
                         mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                      <?php } }?>
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
                         mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_tooling/print_tooling?var1=') . "'+ data +' &var2='+ data +' &var2=1"  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
                         return mnu;

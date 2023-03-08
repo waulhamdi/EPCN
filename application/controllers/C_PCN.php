@@ -36,7 +36,13 @@ class C_PCN extends CI_Controller
         $this->load->helper('file');
         $this->load->model('M_PCN');
         $this->load->model('M_application');
+        $this->load->model('UserModel');  //untuk load user model hak akses menu  
         // // $this->load->library('encrypt');    
+      // Cari hak akses by controller
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_PCN'); 
+	    if($Hak_akses->found!='found') {
+		    redirect('Auth'); // Kembali ke halaman Auth
+	    }
 
     }
 
@@ -54,8 +60,15 @@ class C_PCN extends CI_Controller
         $data['description_of_process_change'] = $this->M_PCN->tampil_description();//untuk select filter description
         $data['email'] = $this->M_PCN->tampil_email();//untuk select filter description
        
+        //setting akses sidebar
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         $this->load->view('templates/header'); //Tampil header
-        $this->load->view('templates/sidebar'); //Tampil Sidebar
+        $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
         // $this->load->view('PCN/V_PCN',$data); // Tampil data
         $this->load->view('PCN/V_PCN', $data); // Tampil data
         $this->load->view('templates/footer'); //Tampil Footer
@@ -87,7 +100,7 @@ class C_PCN extends CI_Controller
 
         $nik =$this->session->userdata('user_name'); // Menarik username dari session dan menampung nya sebagai nik
 
-        if($this->session->userdata('rolename')=='Administrator PCN'){
+        if($this->session->userdata('rolename')=='Administrator EPCN'){
             $tables = "fn_view_pcn_register('')"; // Terbuka semua tanpa user
         }else{
             $tables = "fn_view_pcn_register('$nik')"; // Maka table yang dipakai
@@ -102,7 +115,7 @@ class C_PCN extends CI_Controller
 
         if ($_POST['searchByFromdate'] == '' || $_POST['searchByTodate'] == '') { //untuk pilihan date
            
-            if($this->session->userdata('rolename')=='Administrator Quality'){ //Jika sebagai administrator maka akan tampil semua
+            if($this->session->userdata('rolename')=='Administrator EPCN'){ //Jika sebagai administrator maka akan tampil semua
                  $where  = array('transaction_date >' => '1900-01-01');
             }else{
                  $where  = array('transaction_date >' => '1900-01-01');//administrator menampilkan data dari tanggal berapa ke tanggal berapa
@@ -111,10 +124,10 @@ class C_PCN extends CI_Controller
 
         } else {
 
-            if($this->session->userdata('rolename')=='Administrator Quality'){//Jika sebagai administrator maka akan tampil semua
+            if($this->session->userdata('rolename')=='Administrator EPCN'){//Jika sebagai administrator maka akan tampil semua
                 $where  = array('submission_date >' => $_POST['searchByFromdate'], 'submission_date<' => $_POST['searchByTodate']);//untuk pilihan date
             }else{
-                $where  = array('submission_date >' => $_POST['searchByFromdate'], 'submission_date <' => $_POST['searchByTodate'],'nik'=>$nik_session);//untuk pilihan date
+                $where  = array('submission_date >' => $_POST['searchByFromdate'], 'submission_date <' => $_POST['searchByTodate'],'nik'=>$nik);//untuk pilihan date
             }
           };
        
@@ -565,7 +578,13 @@ class C_PCN extends CI_Controller
         //  date_default_timezone_set('Asia/Jakarta');
  
          // menampung data untuk approve
-         $data = array(
+        //  $data = array(
+        //   'problem_id' => $problem_id,
+        //   'reason' => null,
+        //   'date_approve' => null,
+        //   'stat' => 'unapprove'
+        //  );
+        $data = array(
           'problem_id' => $problem_id,
           'reason' => null,
           'date_approve' => null,
@@ -1109,6 +1128,7 @@ class C_PCN extends CI_Controller
                 $this->M_PCN->Update_Data($where, $post_application, 'tb_application');
 
                 $data['status'] = "berhasil update";
+                $data['hdrid'] = $hdrid;
 
 
                 // return value array
@@ -1491,6 +1511,8 @@ class C_PCN extends CI_Controller
         $this->M_PCN->Delete_Data($where0,'tb_approval');//untuk delete table PCN
         $this->M_PCN->Delete_Data($where,'tb_PCN');//untuk delete table PCN
         $this->M_PCN->Delete_Data($where,'tb_application');//untuk delete table PCN
+        $this->M_PCN->Delete_Data($where,'tb_isir');//untuk delete table PCN
+        $this->M_PCN->Delete_Data($where,'tb_isir_list');//untuk delete table PCN
         $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));

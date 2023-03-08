@@ -76,7 +76,7 @@
 
         <!-- Add icons to the links using the .nav-icon class  with font-awesome or any other icon font library -->
 
-        <!-- <php if($this->session->userdata('rolename')=='Administrator EPCN' ||  $this->session->userdata('rolename')=='Administrator EPCN' ){ ?>   
+        <!-- <php if($this->session->userdata('rolename')=='Administrator Quality' ||  $this->session->userdata('rolename')=='Administrator Quality' ){ ?>   
           <li class="nav-item has-treeview">
             <a href="<php echo base_url('C_employee') ?>" class="nav-link">              
               <i class="nav-icon fa fa-home"></i>
@@ -88,7 +88,7 @@
         <!-- Form -->
         <li class="nav-item has-treeview">
 
-          <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?> -->
+          <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
 
 
               <!-- link pcn register -->
@@ -156,7 +156,7 @@
               <!-- Form application -->
               <!-- <li class="nav-item has-treeview"> -->
 
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?> -->
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
               <!-- <a href="#" class="nav-link">
                 <i class="nav-icon fa  fa-folder"></i>
                 <p>
@@ -180,7 +180,7 @@
               <!-- Form application -->
               <li class="nav-item has-treeview">
 
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?> -->
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
               <!-- <a href="#" class="nav-link">
                 <i class="nav-icon fa  fa-folder"></i>
                 <p>
@@ -213,7 +213,7 @@
             
             <!--form QCR-->
             <li class="nav-item has-treeview">
-              <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?> -->
+              <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_QCR" class="nav-link">
                   <i class="nav-icon fa  fa-folder"></i>
@@ -266,7 +266,7 @@
             
             
               <!-- Forms Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012') || $this->session->userdata('rolename') == 'User Quality') { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012') || $this->session->userdata('rolename') == 'User Quality') { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_input_problem" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -289,7 +289,7 @@
              </li> -->
 
             <!-- Forms Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Approver Quality' || $this->session->userdata('rolename') == 'Administrator EPCN') { ?> -->
+            <!-- <php if ($this->session->userdata('rolename') == 'Approver Quality' || $this->session->userdata('rolename') == 'Administrator Quality') { ?> -->
               <!-- <li class="nav-item">
                 <a href="<php echo base_url() ?>C_progress" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -304,7 +304,7 @@
         <!-- ppm & case -->
         <!-- <li class="nav-item has-treeview">
 
-          <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?>
+          <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?>
             <a href="#" class="nav-link">
               <i class="nav-icon fa  fa-project-diagram"></i>
               <p>
@@ -318,7 +318,7 @@
           <!-- <ul class="nav nav-treeview"> -->
 
             <!-- ppm & case  Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_ppm_case_target" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -330,7 +330,7 @@
             <php } ?> -->
 
             <!-- ppm & case  Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_ppm_case_target" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -342,7 +342,7 @@
             <php } ?> -->
 
             <!-- ppm & case  Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_ppm_case_target_yearly" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -355,7 +355,7 @@
 
 
             <!-- ppm & case  Input Problem  -->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_ppm_case_input" class="nav-link">
                   <i class="nav-icon fas fa-sticky-note"></i>
@@ -376,7 +376,7 @@
         <!-- User Setting -->
         <li class="nav-item has-treeview">
 
-          <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('rolename') == 'Administrator EPCN') { ?>
+          <?php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('rolename') == 'Administrator Quality') { ?>
             <a href="#" class="nav-link">
               <i class="nav-icon fa  fa-user-cog"></i>
               <p>
@@ -390,7 +390,7 @@
           <ul class="nav nav-treeview">
 
             <!-- Role  -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103011')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103011')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_Role" class="nav-link">
                   <i class="nav-icon fa fa-user-cog"></i>
@@ -399,18 +399,8 @@
               </li>
             <?php } ?>
 
-            <!-- Role  access-->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103011')) { ?>
-              <li class="nav-item">
-                <a href="<?php echo base_url() ?>C_Role_Access" class="nav-link">
-                  <i class="nav-icon fa fa-user-cog"></i>
-                  <p>Role Access</p>
-                </a>
-              </li>
-            <?php } ?>
-
             <!-- User  -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('MN202103009')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('MN202103009')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_User" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
@@ -429,7 +419,7 @@
         <li class="nav-item has-treeview">
 
           <!-- <php if($this->session->userdata('role_id')=='RL202104002' ){ ?> -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('rolename')=='User Procurement') { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('rolename')=='User Procurement') { ?>
 
           <a href="#" class="nav-link">
             <i class="nav-icon fas  fa-tools"></i>
@@ -444,7 +434,7 @@
           <!-- UL Menu Setting  -->
           <ul class="nav nav-treeview">
 
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_Menu" class="nav-link">
                   <i class="nav-icon fas fa-chevron-circle-down"></i>
@@ -456,7 +446,7 @@
             <php } ?> -->
 
              <!-- problem category -->
-            <!-- <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_problem_category" class="nav-link">
                   <i class="nav-icon fas fa-exclamation-circle"></i>
@@ -468,7 +458,7 @@
             <?php } ?> -->
 
                <!-- group product -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_group_product" class="nav-link">
                   <i class="nav-icon fas fa-boxes"></i>
@@ -480,7 +470,7 @@
             <?php } ?>
 
              <!-- product -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_product" class="nav-link">
                   <i class="nav-icon fas fa-box"></i>
@@ -492,7 +482,7 @@
             <?php } ?>
 
              <!-- customer name
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_Customer_name" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
@@ -504,7 +494,7 @@
             <?php } ?> -->
 
              <!-- source information
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_source_information" class="nav-link">
                   <i class="nav-icon fas fa-info-circle"></i>
@@ -517,7 +507,7 @@
 
 
                <!-- setting cc email
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_setting_approval" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -529,7 +519,7 @@
             <?php } ?> -->
 
                <!-- setting superior -->
-            <!-- <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <!-- <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_superior" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -540,7 +530,7 @@
               </li>
             <?php } ?> -->
 
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_superior_proc" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -551,7 +541,7 @@
               </li>
             <?php } ?>
 
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_superior_qa" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -562,7 +552,7 @@
               </li>
             <?php } ?>
 
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_superior_qc" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -573,7 +563,7 @@
               </li>
             <?php } ?>
 
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_reminder" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -584,7 +574,7 @@
               </li>
             <?php } ?>
          
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_sys_set_app" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -595,7 +585,7 @@
               </li>
             <?php } ?>
             
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+            <?php if ($this->session->userdata('rolename') == 'Administrator Quality' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_ISIR_Mail" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -607,7 +597,7 @@
             <?php } ?>
 
              <!-- delegation -->
-             <!-- <?php if ($this->session->userdata('rolename') == 'Administrator EPCN') { ?>
+             <!-- <?php if ($this->session->userdata('rolename') == 'Administrator Quality') { ?>
               <li class="nav-item">
                 <a href="<?php echo base_url() ?>C_delegation" class="nav-link">
                   <i class="nav-icon fas fa-cogs"></i>
@@ -620,7 +610,7 @@
             
 
              <!-- departement-->
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('WT202105007')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('WT202105007')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_Department" class="nav-link">
                   <i class="nav-icon fas fa-building"></i>
@@ -631,7 +621,7 @@
               </li>
             <php } ?> -->
 
-            <!-- <php if ($this->session->userdata('rolename') == 'Administrator EPCN' ||  $this->session->userdata('WT202105007')) { ?>
+            <!-- <php if ($this->session->userdata('rolename') == 'Administrator Quality' ||  $this->session->userdata('WT202105007')) { ?>
               <li class="nav-item">
                 <a href="<php echo base_url() ?>C_Position" class="nav-link">
                   <i class="nav-icon fas fa-building"></i>
@@ -659,38 +649,6 @@
         </li> -->
         <!-- /Monitoring Problem  -->
 
-        <!-- Menu Setting -->
-        <li class="nav-item has-treeview">
-
-          <?php if ($this->session->userdata('rolename') == 'Administrator EPCN') { ?>
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-bars"></i>
-              <p>
-                Menu Setting
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-          <?php } ?>
-
-          <!-- UL User Setting -->
-          <ul class="nav nav-treeview">
-
-            <!-- Menu  -->
-            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN') { ?>
-              <ul class="nav-item">
-                <a href="<?php echo base_url() ?>C_Menu" class="nav-link">
-                  <i class="nav-icon fas fa-bars text-secondary"></i>
-                  <p>Menu</p>
-                </a>
-              </ul>
-            <?php } ?>
-
-
-          </ul>
-          <!-- /UL User Setting -->
-
-        </li>
-        <!-- /Menu Setting -->
         
         <!-- User Guide -->
         <li class="nav-item has-treeview">

@@ -43,6 +43,20 @@ class m_printDummy extends CI_Model
      {
         return $this->db->get_where($table, array('pcn_number' => $hdrid));
      }
+    
+     ///@see Get_Where()
+     ///@note get table with condition
+     ///@attention
+     public function Get_Where($condition, $table)
+     {
+        $query=$this->db->get_where($table,$condition);
+         if ($query->num_rows() > 0) {
+            return $query->row();
+         }else{
+            $query = (object) array('status_isir'=>'not found');
+            return $query;
+         }
+     }
 
    //    ///@see ajax_getbyproblemid()
    //   ///@note fungsi untuk ambil data problem_id

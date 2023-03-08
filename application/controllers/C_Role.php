@@ -27,8 +27,14 @@ class C_Role extends CI_Controller {
         $this->load->helper('date');
         $this->load->helper('file');        
         $this->load->model('M_Role');
+        $this->load->model('UserModel');  //untuk load user model hak akses menu     
         // $this->load->library('encrypt');    
-                  
+
+        // Cari hak akses by controller
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_Role'); 
+	    if($Hak_akses->found!='found') {
+		    redirect('Auth'); // Kembali ke halaman Auth
+	    }         
       }
 
 
@@ -36,9 +42,15 @@ class C_Role extends CI_Controller {
 	{
         $data['hasil'] =$this->M_Role->get_tb_menu();
         // // $data['Role'] = $this->M_Role->Tampil_Data();
+
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         $this->load->view('templates/header'); //Tampil header
-		$this->load->view('templates/sidebar'); //Tampil Sidebar
-		// // $this->load->view('Role/V_Role',$data); // Tampil data
+		$this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
         $this->load->view('Role/V_Role',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer
                

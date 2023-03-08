@@ -142,13 +142,15 @@ class C_Print_approvedDummy extends CI_Controller
         // $name = $this->input->get('var3');      //name
          
         // $data['username'] = $this->session->userdata('username');
+        $where1 = array('hdrid' =>$hdrid);
 
         $data['tb_PCN'] = $this->m_printDummy->ajax_getbyhdrid($hdrid, 'tb_PCN')->row();
         $data['tb_PCNlist'] = $this->m_printDummy->ajax_getbyno_dokumen($no_dokumen, 'tb_PCNlist')->row();
         $data['tb_approval'] = $this->m_printDummy->ajax_getbyproblem_id($problem_id, 'tb_approval')->result();
         $data['tb_isir'] = $this->m_printDummy->ajax_getTbIsir($hdrid);
+        $data['tb_isir_list'] = $this->m_printDummy->Get_Where($where1,'tb_isir_list');
+        // var_dump($data['tb_isir_list']);
         $data['tb_qcr'] = $this->m_printDummy->ajax_getQCR($no_dokumen, 'tb_QCR')->row();
-        // var_dump($data['tb_qcr']);
         $data['tb_application'] = $this->m_printDummy->ajax_getbypcn_number($hdrid, 'tb_application')->row();
         
         $data['status_isir'] = $this->m_printDummy->ajax_getStatusIsir($hdrid);

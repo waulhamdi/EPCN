@@ -45,21 +45,19 @@
                         <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
 
                           <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_add=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#" ><!--fungsi add data-->
                               <i class="fa fa-plus"></i> Add Data <!--judul add data-->
                               </a>
 
-                            <?php } ?>
+                            <?php } }?>
 
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
                                 <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
                               </a>
 
-                            <?php } ?>
+                            <?php } }?>
 
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapsefilter"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                  <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
@@ -742,7 +740,7 @@
                           <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                  <label>TRIAL MANUFACTURING:</label>
+                                  <label>TRIAL MANUFACTURING COMPLETED:<br>( Prototype completed )</label>
                                 </div>
                                 <div class="col-md-4">
                                 <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickertrial_manufacturing" data-target-input="nearest">
@@ -770,7 +768,36 @@
                             <br>
                             <br>
 
-
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <label>PROCESS CAPABILITY STUDY COMPLETED:</label>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerprocess_capability_study" data-target-input="nearest">
+                                    <input type="text" id="process_capability_study" name="process_capability_study" class="form-control datetimepicker-input" data-target="#timepickerprocess_capability_study"/>
+                                      <div class="input-group-append" data-target="#timepickerprocess_capability_study" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                <label>TO</label>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerprocess_capability_study_completed_finish" data-target-input="nearest">
+                                    <input type="text" id="process_capability_study_completed_finish" name="process_capability_study_completed_finish" class="form-control datetimepicker-input" data-target="#timepickerprocess_capability_study_completed_finish"/>
+                                      <div class="input-group-append" data-target="#timepickerprocess_capability_study_completed_finish" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
                           <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -789,7 +816,7 @@
                           <div class="form-group">
                             <div class="row mb-2">
                                 <div class="col-md-4">
-                                  <label>INITIAL SAMPLE INSPECTION COMPLETED:</label>
+                                  <label>INITIAL SAMPLE INSPECTION COMPLETED:<br>(Supplier)</label>
                                 </div>
                                 <div class="col-md-4">
                                 <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerinitial_sample_inspection_completed" data-target-input="nearest">
@@ -910,7 +937,7 @@
                           <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                  <label>TIMING DENSO APPROVAL:</label>
+                                  <label>TIMING DENSO APPROVAL:<br><p style=''>(Min. 6 Months after documents completed if AINE inform to customer)</p></label>
                                 </div>
                                 <div class="col-md-4">
                                   <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickertiming_denso_approval" data-target-input="nearest">
@@ -997,8 +1024,6 @@
                                   </div>
                                 </div>
                             </div>
-                            <br>
-                            <br>
                           <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -1029,7 +1054,7 @@
                                 </div>
                             </div>
                           </div> -->
-                          <div class="form-group">
+                          <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
                                   <label>ENTRY SAMPLE START:</label>
@@ -1058,7 +1083,7 @@
                                 </div>
                             </div>
                             <br>
-                            <br>
+                            <br> -->
                           <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -1089,36 +1114,6 @@
                                 </div>
                             </div>
                           </div> -->
-                          <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-4">
-                                  <label>PROCESS CAPABILITY STUDY:</label>
-                                </div>
-                                <div class="col-md-4">
-                                <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerprocess_capability_study" data-target-input="nearest">
-                                    <input type="text" id="process_capability_study" name="process_capability_study" class="form-control datetimepicker-input" data-target="#timepickerprocess_capability_study"/>
-                                      <div class="input-group-append" data-target="#timepickerprocess_capability_study" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                          </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                <label>TO</label>
-                                </div>
-                                <div class="col-md-4">
-                                <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickerprocess_capability_study_completed_finish" data-target-input="nearest">
-                                    <input type="text" id="process_capability_study_completed_finish" name="process_capability_study_completed_finish" class="form-control datetimepicker-input" data-target="#timepickerprocess_capability_study_completed_finish"/>
-                                      <div class="input-group-append" data-target="#timepickerprocess_capability_study_completed_finish" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                      </div>
-                                  </div>
-                                </div>
-                            </div>
-                            <br>
-                            <br>
                           <!-- <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
@@ -1175,7 +1170,7 @@
                       <div class="col-md-4">
                         <label for="attach_doc1">Detail Of Process Change (6M+EAS) <font color='red'>*</font></label>
                       </div>
-                      <div class="col-md-1">
+                      <div class="col-md-1" id='delete_attach1'>
                         <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
                       </div>
                       <div class="col-md-1">
@@ -1195,8 +1190,8 @@
               <div class="col-md-4">
                 <label for="attach_doc2">Supplier Inspection Standard </label>
               </div>
-              <div class="col-md-1">
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              <div class="col-md-1" id='delete_attach2'>
+                <a class="btn btn-danger"  data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1215,7 +1210,7 @@
               <div class="col-md-4">
                 <label for="attach_doc3">Control Plan/QCPC </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach3'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1236,7 +1231,7 @@
               <div class="col-md-4">
                 <label for="attach_doc4">FMEA </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach4'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach4" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1257,7 +1252,7 @@
               <div class="col-md-4">
                 <label for="attach_doc5">QA Network </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach5'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach5" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1278,7 +1273,7 @@
               <div class="col-md-4">
                 <label for="attach_doc6">Initial Proces Capability Study (Cp,Cpk) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach6'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach6" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1299,7 +1294,7 @@
               <div class="col-md-4">
                 <label for="attach_doc7">Material Performance Test Results/MiilSheet <font color='red'>*</font></label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach7'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach7" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1319,7 +1314,7 @@
               <div class="col-md-4">
                 <label for="attach_doc8">Procces Flow Diagram </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach8'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach8" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1339,7 +1334,7 @@
               <div class="col-md-4">
                 <label for="attach_doc9">Dimensional Results (Layout Inspection,n=1) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach9'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach9" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1358,7 +1353,7 @@
               <div class="col-md-4">
                 <label for="attach_doc10">Part Submission Warrant (PSW) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach10'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach10" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1377,7 +1372,7 @@
               <div class="col-md-4">
                 <label for="attach_doc11">ISIR + Baloon Drawing (n=3/cavity) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach11'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach11" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1396,7 +1391,7 @@
               <div class="col-md-4">
                 <label for="attach_doc12">Record Of SOC Compliance With Customer Specific Requiretments </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach12'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach12" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1415,7 +1410,7 @@
               <div class="col-md-4">
                 <label for="attach_doc13"> Proof Of SOC Compliance(10 substance)  </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach13'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach13" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1434,7 +1429,7 @@
               <div class="col-md-4">
                 <label for="attach_doc14">IMDS <font color='red'>*</font></label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach14'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach14" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1453,7 +1448,7 @@
               <div class="col-md-4">
                 <label for="attach_doc15">Packaging Specification </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach15'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach15" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1472,7 +1467,7 @@
               <div class="col-md-4">
                 <label for="attach_doc16">QC PLAN </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach16'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach16" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1491,7 +1486,7 @@
               <div class="col-md-4">
                 <label for="attach_doc17">Lot Control System </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach17'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach17" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1510,7 +1505,7 @@
               <div class="col-md-4">
                 <label for="attach_doc18">Supply Chain </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach18'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach18" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1529,7 +1524,7 @@
               <div class="col-md-4">
                 <label for="attach_doc19">Sample Part (After ISIR Ok) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach19'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach19" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1548,7 +1543,7 @@
               <div class="col-md-4">
                 <label for="attach_doc20">Company Profile <font color='red'>*</font></label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach20'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach20" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1567,7 +1562,7 @@
             <div class="col-md-4">
               <label for="attach_doc21">Production Layout Factory </label>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1" id='delete_attach21'>
               <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach21" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
             </div>
             <div class="col-md-1">
@@ -1586,7 +1581,7 @@
             <div class="col-md-4">
               <label for="attach_doc22">Capactiy Review </label>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1" id='delete_attach22'>
               <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach22" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
             </div>
             <div class="col-md-1">
@@ -1605,7 +1600,7 @@
             <div class="col-md-4">
               <label for="attach_doc23">Quality System Certification </label>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-1" id='delete_attach23'>
               <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
             </div>
             <div class="col-md-1">
@@ -1625,7 +1620,7 @@
               <div class="col-md-4">
                 <label for="attach_doc24">Audit Report by DIAT(Spesial Process) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach24'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach24" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1645,7 +1640,7 @@
               <div class="col-md-4">
                 <label for="attach_doc25">Audit Report by Denso OGC (IF Necesary) </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach25'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach25" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1665,7 +1660,7 @@
               <div class="col-md-4">
                 <label for="attach_doc26">Kakotora With Prevention </label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach26'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach26" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1685,7 +1680,7 @@
               <div class="col-md-4">
                 <label for="attach_doc_27">SUPPLIER AUDIT RESULT <br> (For New Supplier Raw material/ Subcont)</label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach27'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach27" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1704,7 +1699,7 @@
               <div class="col-md-4">
                 <label for="attach_doc28">DATA LIFE TIME SHOOT TOOLING <font color='red'>*</font></label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach28'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach28" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -1720,10 +1715,10 @@
           </div>
           <div class="form-group" id='attach29'>
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-4" >
                 <label for="attach_doc29">PARAMETER SETTTING COMPARE OPTIONAL)</label>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1" id='delete_attach29'>
                 <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach29" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
               </div>
               <div class="col-md-1">
@@ -3158,15 +3153,73 @@
             
             // Disable and button submit dan text form           
             if(status=="View"){
+              $('#exampleModalLabel').text('View Data'); //name view              
               document.getElementById("btnsubmit").style.visibility = "hidden";   //fungsi hidden tombol submit
               document.getElementById("btnsend").style.visibility = "hidden";   //fungsi hidden tombol save dan send
               document.getElementById("btnsend2").style.visibility = "hidden";  //fungsi hidden tombol send
-              $('#exampleModalLabel').text('View Data'); //name view              
+              document.getElementById("delete_attach1").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach2").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach3").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach4").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach5").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach6").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach7").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach8").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach9").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach10").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach11").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach12").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach13").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach14").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach15").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach16").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach17").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach18").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach19").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach20").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach21").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach22").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach23").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach24").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach25").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach26").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach27").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach28").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
+              document.getElementById("delete_attach29").style.visibility = "hidden";  //fungsi hidden tombol delete attachment
             }else{
               $('#exampleModalLabel').text('Edit Data'); //name view 
               $('#btnsubmit').text('Update'); //name Update  
               document.getElementById("btnsend2").style.visibility = "hidden"; //fungsi hidden tombol send
               document.getElementById("btnsubmit").style.visibility = "visible";  //fungsi visible tombol submit
+              document.getElementById("delete_attach1").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach2").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach3").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach4").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach5").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach6").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach7").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach8").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach9").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach10").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach11").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach12").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach13").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach14").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach15").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach16").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach17").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach18").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach19").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach20").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach21").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach22").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach23").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach24").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach25").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach26").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach27").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach28").style.visibility = "visible";  //fungsi visible tombol delete attachment
+              document.getElementById("delete_attach29").style.visibility = "visible";  //fungsi visible tombol delete attachment
             }
           
           }
@@ -4124,7 +4177,7 @@
                    berhasil(data.status);
                    // Reset Form
                    $('#quickForm')[0].reset();               
-                   location.reload();
+                  //  location.reload();
                     tabel.draw();
                   //location add
                    if(!vurl=="Add"){
@@ -4145,7 +4198,7 @@
                   data: fdata3,
                   success: function (data) {
                           tabel.draw();
-                        //  location.reload();
+                         location.reload();
                       },
                       error: function (e) {
                           //  gagal(e);
@@ -4582,6 +4635,8 @@ error: function (e) {
             "serverSide": true, //untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+
+            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?>
             dom: "lfBrtip",
             buttons: [
             {
@@ -4624,6 +4679,7 @@ error: function (e) {
                 }
 
             },
+            <?php } }?>
             "deferRender": true,
             "aLengthMenu": [[5, 10,100,1000,10000,100000,1000000,1000000000],[ 5, 10, 100,1000,10000,100000,1000000,"All"]], // Combobox Limit
             "columns": [
@@ -4633,7 +4689,12 @@ error: function (e) {
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
+                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                      <?php } }?>
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
+                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +' &var2=1&var2=1")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
                         return mnu;
@@ -5032,10 +5093,8 @@ if (data=='-Select-'){
       const value= this.getAttribute("data-value");
       delete_attachment(value);
     });
-  }
-
+  };
   function delete_attachment(value){
-    console.log(value);
     // Url Post delete
     vurl = "<?php echo base_url('C_PCN/ajax_delete_attachment')?>";
     // Form data

@@ -1,27 +1,18 @@
-<style>
-  #background {
-      /* background-image: url('https://dev.azure.com/fitakwima3a/9dd192e4-e504-495a-8599-0a21852a9e5f/_apis/wit/attachments/f932e401-e06a-4dc6-97a3-d90439a8b406?fileName=internal-audit%20(2).jpg&download=true&api-version=5.0-preview.2'); */
-      background-image: url("<?php echo base_url() ?>assets/dist/img/Doc.control5.JPG");
-      background-repeat: no-repeat;
-      background-attachment: fixed;  
-      background-size: cover;
-    }
-</style>
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" id="background">
+  <div class="content-wrapper">
 
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Menu</h1>
+            <h1 class="m-0 text-dark">Email ISIR</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <!-- <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li> -->
+              <li class="breadcrumb-item"><a href="#">Dashboard PCN</a></li>
+              <li class="breadcrumb-item active">DMIA E-PCN SYSTEM</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -52,52 +43,44 @@
                           <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
                           <div class="card card-primary">
 
-                            <!-- <div class="card-header"> -->
                             <div class="card-header">
 
-                              <!-- <h4 class="card-title"> -->
                               <h4 class="card-title">
+                               
+                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
 
-                                <!-- Jika ketemu hak akses -->
-                                <?php if (!empty($hak_akses)) { ?> 
-                                  <!-- Jika allow add = true -->
-                                  <?php if ($hak_akses->allow_add=='on') { ?>
-                                    <!-- menampilkan tombol add data-->
-                                    <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#">
-                                      <i class="fa fa-plus"></i> Add Data
-                                    </a>
-                                  <?php } ?>
-                                  <!-- /Jika allow add = true -->
+                                  <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#">
+                                    <i class="fa fa-plus"></i> Add Data
+                                  </a>
+
                                 <?php } ?>
-                                <!-- /Jika ketemu hak akses -->
 
-                                <!-- Jika ketemu hak akses -->
-                                <?php if (!empty($hak_akses)) { ?>
-                                  <!-- Jika allow_import = true -->
-                                  <?php if ($hak_akses->allow_import=='on') { ?>
-                                      <!-- <a data-toggle="modal" data-target="#modal-import"  href="#">
-                                        <i class="fa fa-upload"></i> Import Data
-                                      </a> -->
-                                  <?php } ?>
-                                 <!-- /Jika allow add = true -->
-                                <?php } ?>
-                                <!-- /Jika ketemu hak akses -->
+                                <?php //if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
 
-                                <!-- custom filter bebas semua user -->
-                                <!-- <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                  <!-- <a data-toggle="modal" data-target="#modal-import"  href="#">
+                                    <i class="fa fa-upload"></i> Import Data
+                                  </a> -->
+
+                                <?php //} ?>
+
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                                      <i class="fa fa-binoculars"></i> Custom Filter
-                                </a> -->
+                                </a>
+
+                                <!-- <a href="<php echo base_url('C_Email/send2')?> "  Onclick='Delete_data()' >
+                                   <i class="fa fa-plus"></i> Send Mail
+                                </a>
+
+                                <button type="button" id="delete" onclick="Send_mail()" class="btn btn-outline-light">Send Mail 2</button>     -->
 
                               </h4>
-                              <!-- /<h4 class="card-title"> -->
 
                             </div>
-                            <!-- /<div class="card-header"> -->
 
                             <div id="collapseOne" class="panel-collapse collapse in">
                               <div class="card-body">
 
-                                  <!-- Date from-->
+                                  <!-- Date -->
                                   <div class="form-group">                                
 
                                     <label>Date From:</label>
@@ -147,19 +130,16 @@
 
                   <tr>
 
-                    <!-- Th Macro Batas Sini (kolom datatable)-->
- 
+                    <!-- Th Macro Batas Sini -->
+
                     <th>ACTION</th>
                     <th>TRANSACTION ID</th>
-                    <th>MENU ID</th>
-                    <th>MENU NAME</th>
-                    <th>CONTROLLER</th>
-                    <th>PARENT ID</th>
-                    <th>LEVEL</th>
-                    <th>ICON</th>
+                    <th>NIK</th>
+                    <th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>SECTION</th>
 
-
-                    <!-- /Th Macro Batas Sini (kolom datatable)-->
+                    <!-- /Th Macro Batas Sini -->
                           
                   </tr>
 
@@ -183,8 +163,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-
-  <!-- ##################################### modal-default (Add,Edit,Delete) #####################################  -->
+  <!-- ##################################### Batas Modal #####################################  -->
 
      <!-- modal-Add / Update -->
      <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -202,9 +181,9 @@
 
                 <div class="card-body">
 
-                <!---------------------------------- Form Macro Batas sini (Form Add,Edit,View)---------------------------------->
+                <!---------------------------------- Form Macro Batas sini ---------------------------------->
 
-               <div class="form-group">
+                <div class="form-group">
                   <div class="row">
                       <div class="col-md-4">
                         <label for="hdrid">TRANSACTION ID</label>
@@ -216,45 +195,15 @@
                 </div>
                 <div class="form-group">
                   <div class="row">
-                      <div class="col-md-4">
-                        <label for="menu_id">MENU ID</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="menu_id" class="form-control" id="menu_id" >
-                      </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="menu_name">MENU NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="menu_name" class="form-control" id="menu_name" >
-                      </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="controller">controller</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="controller" class="form-control" id="controller" >
-                      </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
                     <div class="col-md-4">
-                      <label>PARENT ID</label>
+                      <label>NIK</label>
                     </div>
                     <div class="col-md-8">
-                      <select class="form-control select2" id="parentid" name="parentid" onchange="handleSelectChange_parentid(event)" style="width: 100%;">
+                      <select class="form-control select2" id="nik" name="nik" onchange="handleSelectChange_nik(event)" style="width: 100%;">
                         <option value='' selected="selected">-Select-</option>
                         <?php
-                          foreach ($parent_id as $value) {
-                          echo "<option value='$value->menu_id'>$value->menu_id-$value->menu_name</option>";
+                          foreach ($nik as $value) {
+                          echo "<option value='$value->user_name'>$value->user_name - $value->name - $value->department_name - $value->office_email</option>";
                           }
                         ?>
                       </select>
@@ -263,39 +212,51 @@
                 </div>
                 <div class="form-group">
                   <div class="row">
-                    <div class="col-md-4">
-                      <label>level</label>
-                    </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="level" name="level"  style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <option value='1' >1</option>
-                        <option value='2' >2</option>                        
-                      </select>
-                    </div>
+                      <div class="col-md-4">
+                        <label for="name">NAME</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" name="name" class="form-control" id="name" >
+                      </div>
                   </div>
                 </div>
                 <div class="form-group">
                   <div class="row">
                       <div class="col-md-4">
-                        <label for="icon">icon</label>
+                        <label for="section">SECTION</label>
                       </div>
                       <div class="col-md-8">
-                        <input type="text" name="icon" class="form-control" id="icon" >
+                        <input type="text" name="section" class="form-control" id="section" >
+                      </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="row">
+                      <div class="col-md-4">
+                        <label for="email">EMAIL</label>
+                      </div>
+                      <div class="col-md-8">
+                        <input type="text" name="email" class="form-control" id="email" >
                       </div>
                   </div>
                 </div>
 
 
 
-                
-                <!---------------------------------- / Form Macro Batas sini (Form Add,Edit,View)---------------------------------->
+
+
+                <!-- /.card -->
+                <!-- </div> -->
+                <!-- /.card-body -->
+                <!-- </div> -->
+                <!-- /.card -->
+                <!---------------------------------- / Form Macro Batas sini ---------------------------------->
 
                 <!-- Close Card Body -->  
                 </div>
                   
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>              
+                    <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>                 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                   
                   </div>
                                
@@ -309,8 +270,7 @@
       </div>
       <!-- Close modal-Add / Update -->  
 
-  <!-- ##################################### modal-delete #####################################  --> 
-
+      <!-- modal-delete -->
       <div class="modal fade" id="modal-delete">
         <div class="modal-dialog">
           <div class="modal-content bg-danger">
@@ -326,10 +286,10 @@
             </div>
 
             <div class="modal-footer justify-content-between">             
-              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>       
               <form action="#" method="post">
-                <button type="button" id="delete" onclick="Delete_data()" class="btn btn-outline-light">Yes</button>    
+                 <button type="button" id="delete" onclick="Delete_data()" class="btn btn-outline-light">Yes</button>    
               </form>     
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">No</button>       
             </div>
 
           </div>
@@ -338,9 +298,8 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal Delete-->
-  <!-- ##################################### / modal-delete #####################################  --> 
 
-  <!-- ##################################### modal-import #####################################  --> 
+      <!-- modal-import -->
       <div class="modal fade" id="modal-import">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -353,7 +312,7 @@
 
             <div class="modal-body">
                
-              <form method="POST" action="<?php echo base_url('c_Menu/import'); ?>" enctype="multipart/form-data">
+              <form method="POST" action="<?php echo base_url('C_ISIR_Mail/import'); ?>" enctype="multipart/form-data">
 
                   <div class="input-group form-group">
                     <span class="input-group-addon" id="sizing-addon2">
@@ -386,49 +345,55 @@
       </div>
       <!-- /.modal Delete-->
 
-  <!-- ##################################### /modal-import #####################################  -->  
+      
 
 <script type="text/javascript">
 
- /// @see
- /// @note 
-  $(document).ready(function () { // Jika dokumen terbuka
-    $.validator.setDefaults({
-      submitHandler: function () { //menangani submit data
+  $(document).ready(function () {
 
-        var status=$('#exampleModalLabel').text();       
-        if (status=="Add Data"){ // jika form adalah Add Data         
-           Simpan_data("Add"); // Fungsi simpan data  // Ajax insert data
-        }else if(status=="Edit Data"){ // jika form adalah Edit Data            
-           Simpan_data("Update"); // Ajax update data
+    $.validator.setDefaults({
+      submitHandler: function () {
+
+        //berhasil( "Form successful submitted!" );
+        var status=$('#exampleModalLabel').text();
+       
+        if (status=="Add Data"){
+
+          // Ajax insert data
+           Simpan_data("Add");
+
+        }else if(status=="Edit Data"){
+
+           // Ajax update data
+           Simpan_data("Update");
+
         }else{
+
           berhasil(status);
+
         }
 
       }
     });
 
-    $('#quickForm').validate({ //Validasi input data
+    $('#quickForm').validate({
       rules: {
 
 				// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
 
-        menu_id: {
+        nik: {
         required: true,
         },
-        menu_name: {
+        name: {
         required: true,
         },
-        controller: {
+        email: {
         required: true,
         },
-      
-        level: {
+        section: {
         required: true,
         },
-        // icon: {
-        // required: true,
-        // },
+
 
 
         // ---------------------------------- / Rule input Macro Batas sini 1--------------------------------
@@ -438,30 +403,27 @@
     
 				// ---------------------------------- Rule input Macro Batas sini 2---------------------------------
 
+        nik: {
+        required: "Please Input nik",
+        minlength: 3
+        },
+        name: {
+        required: "Please Input name",
+        minlength: 3
+        },
+        email: {
+        required: "Please Input email",
+        minlength: 3
+        },
+        section: {
+        required: "Please Input section",
+        minlength: 3
+        },
 
-        menu_id: {
-        required: "Please Input menu_id",
-        minlength: 3
-        },
-        menu_name: {
-        required: "Please Input menu_name",
-        minlength: 3
-        },
-        controller: {
-        required: "Please Input controller",
-        minlength: 3
-        },       
-        level: {
-        required: "Please Input level",
-        minlength: 3
-        },
-        // icon: {
-        // required: "Please Input icon",
-        // minlength: 3
-        // },
 
 
         // ---------------------------------- / Rule input Macro Batas sini 2--------------------------------
+
 
       },
       errorElement: 'span',
@@ -476,53 +438,45 @@
         $(element).removeClass('is-invalid');
       }
     });
-
   });
 </script>
 
 <script type="text/javascript">
+
+  // Untuk Add,Edit,delete.
   
-  /// @see fungsi view modal
-   /// @note Jika tombol Add maka clear form dan jika tombol edit maka munculkan data 
   function view_modal(hdrid1,status){
                              
-          if (status=="Add"){ // Jika tombol Add
+          if (status=="Add"){
 
             $('#exampleModalLabel').text('Add Data');  // name view
             $('#quickForm')[0].reset(); // reset form   
             $('#btnsubmit').text('Save'); // name Save
-            document.getElementById("btnsubmit").style.visibility = "visible";    // tombol submit dimunculkan         
-           
+            document.getElementById("btnsubmit").style.visibility = "visible";    // Visible button              
+            //Ajax kosongkan data
 
-          }else { // Jika tombol Edit
+          }else {
            
             // Get Hdri ID
             $('#hdrid').val(hdrid1);
             var hdrid=hdrid1;   
 
-             // Ajax get data berdasarkan ID
+            // Ajax isi data
               $.ajax({
-              url: "<?php echo base_url('C_Menu/ajax_getbyhdrid')?>",
+              url: "<?php echo base_url('C_ISIR_Mail/ajax_getbyhdrid')?>",
               method: "get",
               dataType : "JSON",              
               data: {hdrid:hdrid1},
               success: function (data) {
 
-   		            // ---------------------------------- Data val Macro Batas sini ---------------------------------         
-                   
-                    $('#menu_id').val(data.menu_id);
-                    $('#menu_name').val(data.menu_name);
-                    $('#controller').val(data.controller);
-                    $('#parentid').select2().val(data.parentid).trigger('change');
-                    $('#level').select2().val(data.level).trigger('change');
-                    $('#icon').val(data.icon);
+   		            // ---------------------------------- Data val Macro Batas sini ---------------------------------    
 
-
+                  $('#nik').select2().val(data.nik).trigger('change');
+                  $('#name').val(data.name);
+                  $('#email').val(data.email);
+                  $('#section').val(data.section);
 
                   // ---------------------------------- / Data val Macro  Batas sini ------------------------------
-                  
-                  tabel.draw();
-                  // location.reload();
 
                                                            
                   },
@@ -550,14 +504,12 @@
 
 <script type="text/javascript">
 
-  /// @see fungsi ajax simpan data(Add/update)
-  /// @note untuk memproses data Add / update
    function Simpan_data($trigger){
 
-          // Buat Form data
+          // Form data
           var fdata = new FormData();
           
-          // Isi semua post data ke form data
+          // Form data collect name value
           var form_data = $('#quickForm').serializeArray();
           $.each(form_data, function (key, input) {
             fdata.append(input.name, input.value);
@@ -577,16 +529,16 @@
               }
           });
 
+          // Print_r(file_data);
 
           // Simpan or Update data          
           var vurl; 
           if($trigger == 'Add') {            
-            vurl = "<?php echo base_url('C_Menu/ajax_add')?>"; // jika trigger ADD
+            vurl = "<?php echo base_url('C_ISIR_Mail/ajax_add')?>";
           } else {           
-            vurl = "<?php echo base_url('C_Menu/ajax_update')?>"; // Jika trigger update
+            vurl = "<?php echo base_url('C_ISIR_Mail/ajax_update')?>";
           }
-          
-          //Ajax post data
+                  
           $.ajax({
               url: vurl,
               method: "post",
@@ -597,16 +549,12 @@
                  
                    // Pesan berhasil
                    berhasil(data.status);
-                   // datatables reload
-                  //  location.reload();
-                   // Reset Form inputan
+                   // Reset Form
                    $('#quickForm')[0].reset();               
-                  
-                  
-                    // $("#modal_default").modal('hide');
+                   location.reload();
                     tabel.draw();
 
-                   if(!vurl=="Add"){ // Jika Add maka form Add nututp
+                   if(!vurl=="Add"){
                      $("#modal-default").modal('hide');
                    }
                  
@@ -629,7 +577,7 @@
       // Delete by Hdrid
       fdata.append('hdrid',$('#iddelete').text());
       // Url Post delete
-      vurl = "<?php echo base_url('C_Menu/ajax_delete')?>";
+      vurl = "<?php echo base_url('C_ISIR_Mail/ajax_delete')?>";
 
       // Post data
       $.ajax({
@@ -645,8 +593,7 @@
               // Delete rows datatables
               $('#example1').DataTable().row("#"+$('#iddelete2').text()).remove().draw();
               // Pesan berhasil
-              berhasil(data.status); 
-              // location.reload()  
+              berhasil(data.status);   
 
           },
           error: function (e) {
@@ -751,52 +698,45 @@
 
         tabel = $('#example1').DataTable({
             "processing": true,
+            // "scrollX": true,
             "responsive":true,
             "serverSide": true,
-            // "scrollX":true,
-            // "scrollY":300,
             "ordering": true, // Set true agar bisa di sorting
-            "order": [[ 2, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
-
-            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?> //Jika hak akses allow export
-
-                dom: "lfBrtip",
-                buttons: [
-                // {
-                //   extend: 'copyHtml5',
-                //   className: 'btn btn-secondary',
-                //   text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',
-                // },
-                // {
-                //   extend: 'csvHtml5',
-                //   className: 'btn btn-info',
-                //   text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',
-                // },
-                {
-                  extend: 'excelHtml5',
-                  className: 'btn btn-success',
-                  text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',
-                  customize: function ( xlsx ){
-                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                    // jQuery selector to add a border
-                    $( 'row c', sheet ).attr( 's', '25' );
-                  }
-                },
-                // {
-                //   extend : 'pdfHtml5',             
-                //   className: 'btn btn-danger',
-                //   text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF',
-                //   orientation : 'landscape',
-                //   pageSize : 'A4',
-                //   download: 'open'
-                // }
-              ],
-
-            <?php } } ?>
-
+            "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+            dom: "lfBrtip",
+            buttons: [
+            {
+              extend: 'copyHtml5',
+              className: 'btn btn-secondary',
+              text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',
+            },
+            {
+              extend: 'csvHtml5',
+              className: 'btn btn-info',
+              text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',
+            },
+            {
+              extend: 'excelHtml5',
+              className: 'btn btn-success',
+              text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',
+              customize: function ( xlsx ){
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                // jQuery selector to add a border
+                $( 'row c', sheet ).attr( 's', '25' );
+              }
+            },
+            {
+              extend : 'pdfHtml5',             
+              className: 'btn btn-danger',
+              text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF',
+              orientation : 'landscape',
+              pageSize : 'A4',
+              download: 'open'
+            }
+          ],
             "ajax":
             {
-                "url": "<?= base_url('C_Menu/view_data_where');?>", // URL file untuk proses select datanya
+                "url": "<?= base_url('C_ISIR_Mail/view_data_where');?>", // URL file untuk proses select datanya
                 "type": "POST",
                 "data": function(data){     
                   data.searchByFromdate = $('#search_fromdate').val();
@@ -811,29 +751,16 @@
                     render: function (data, type, row, meta) {
                         // return meta.row + meta.settings._iDisplayStart + 1;
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                     
                         mnu='';
-                        mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView" style="margin-left:3.5 vh" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                       
-                        //Tombol Edit
-                        <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
-                            mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" style="margin-left:1vh" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        <?php } } ?>
-
-                        //Tombol Delete
-                        <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
-                            mnu=mnu+'<div class="btn btn-danger btn-sm konfirmasiHapus" style="margin-left:1vh" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        <?php } } ?>
-
-
-                        // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator')) { ?>
-                        //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                         
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>  <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        // <php } if ($this->session->userdata('WT202105008Delete')||$this->session->userdata('rolename')=='Administrator') { ?>
-                        //   mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> ';
-                        // <php } ?>
+                        mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
+                        <?php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
+                          mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                          // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                        <?php } if ($this->session->userdata('WT202105008Delete')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
+                          mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                          // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> ';
+                        <?php } ?>
+                         mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         
                         return mnu;
 
@@ -842,13 +769,11 @@
                 
                 // ---------------------------------- Datatables Macro Batas sini ---------------------------------
                  
-                  {"data":"hdrid"},
-                  {"data":"menu_id"},
-                  {"data":"menu_name"},
-                  {"data":"controller"},
-                  {"data":"parentid"},
-                  {"data":"level"},
-                  {"data":"icon"},
+                {"data":"hdrid"},
+                {"data":"nik"},
+                {"data":"name"},
+                {"data":"email"},
+                {"data":"section"},
 
                 // ---------------------------------- / Datatables Macro Batas sini --------------------------------
 
@@ -913,35 +838,21 @@
 
 <script type="text/javascript">
 
-  ///@see menghandle select filter change nik
-  ///@note ketika nik di select
   function handleSelectChange_nik(event) {
-
-    //  By Text
-    var value = $("#nik option:selected").text();  // ambil data yang diselect
-    var res = value.split("-"); // split data yang diselect berdasarkan (-)
-    $('#name').val(res[1]);  // Isi data hasil dari split
-
-  }
-
-  ///@see menghandle select filter change section
-  ///@note ketika nik di select
-  function handleSelectChange_parentid(event) {
-
-    //  By Value
-    var selectElement = event.target; // ambil data yang diselect
-    var value = selectElement.value; // ambil berdasarkan value 
-
-    if(value==''){     
-      $('#level').select2().val('1').trigger('change');
-    }   
-    else{      
-      $('#level').select2().val('2').trigger('change');
-    }
-    
+ 
+  //  By Text
+  var value = $("#nik option:selected").text();  
+  var res = value.split(" - ");
+  $('#nik').val(res[0]);
+  $('#name').val(res[1]);
+  $('#section').val(res[2]);
+  $('#email').val(res[3]);
 
   }
 
+
+
+  
 </script>
 
 

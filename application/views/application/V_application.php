@@ -49,23 +49,16 @@
                             <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
 
                               <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
-                               
-                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?>  <!--untuk membuat rule hanya user bisa add data-->
-
+                                <?php if(!empty($hak_akses)){ if ($hak_akses->allow_add=='on') { ?>
                                   <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#"> <!--fungsi add data-->
                                     <i class="fa fa-plus"></i> Add Data <!--judul add data-->
                                   </a>
-
-                                <?php } ?>
-
-                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                                <?php } }?>
+                                <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
                                   <a data-toggle="modal" data-target="#modal-import"  href="#"> <!--fungsi add data-->
                                     <i class="fa fa-upload"></i> Import Data<!--judul add data-->
                                   </a>
-
-                                <?php } ?>
-
+                                <?php } }?>
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                      <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
                                 </a>
@@ -388,7 +381,7 @@
                       <label for="comment_qc">CONCERN ITEM/WORRY POINT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="comment_qc" class="form-control" id="comment_qc" readonly>
+                      <input type="text" name="comment_qc" class="form-control" id="comment_qc" disabled>
                     </div>
                 </div>
               </div>
@@ -398,7 +391,7 @@
                       <label for="confirm_qc">CONFIRMATION REQUIREMENT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="confirm_qc" class="form-control" id="confirm_qc" readonly >
+                      <input type="text" name="confirm_qc" class="form-control" id="confirm_qc" disabled >
                     </div>
                 </div>
               </div>
@@ -469,7 +462,7 @@
                       <label for="comment_pe">CONCERN ITEM/WORRY POINT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="comment_pe" class="form-control" id="comment_pe" readonly >
+                      <input type="text" name="comment_pe" class="form-control" id="comment_pe" disabled >
                     </div>
                 </div>
               </div>
@@ -480,7 +473,7 @@
                       <label for="confirm_pe">CONFIRMATION REQUIREMENT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="confirm_pe" class="form-control" id="confirm_pe" readonly>
+                      <input type="text" name="confirm_pe" class="form-control" id="confirm_pe" disabled>
                     </div>
                 </div>
               </div>
@@ -551,7 +544,7 @@
                       <label for="comment_mfg">CONCERN ITEM/WORRY POINT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="comment_mfg" class="form-control" id="comment_mfg" readonly>
+                      <input type="text" name="comment_mfg" class="form-control" id="comment_mfg" disabled>
                     </div>
                 </div>
               </div>
@@ -562,7 +555,7 @@
                       <label for="confirm_mfg">CONFIRMATION REQUIREMENT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="confirm_mfg" class="form-control" id="confirm_mfg" readonly>
+                      <input type="text" name="confirm_mfg" class="form-control" id="confirm_mfg" disabled>
                     </div>
                 </div>
               </div>
@@ -634,7 +627,7 @@
                       <label for="comment_pc">CONCERN ITEM/WORRY POINT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="comment_pc" class="form-control" id="comment_pc" readonly>
+                      <input type="text" name="comment_pc" class="form-control" id="comment_pc" disabled>
                     </div>
                 </div>
               </div>
@@ -645,7 +638,7 @@
                       <label for="confirm_pc">CONFIRMATION REQUIREMENT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="confirm_pc" class="form-control" id="confirm_pc" readonly>
+                      <input type="text" name="confirm_pc" class="form-control" id="confirm_pc" disabled>
                     </div>
                 </div>
               </div>
@@ -717,7 +710,7 @@
                       <label for="comment_qa">CONCERN ITEM/WORRY POINT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="comment_qa" class="form-control" id="comment_qa" readonly>
+                      <input type="text" name="comment_qa" class="form-control" id="comment_qa" disabled>
                     </div>
                 </div>
               </div>
@@ -728,7 +721,7 @@
                       <label for="confirm_qa">CONFIRMATION REQUIREMENT</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="confirm_qa" class="form-control" id="confirm_qa" readonly>
+                      <input type="text" name="confirm_qa" class="form-control" id="confirm_qa" disabled>
                     </div>
                 </div>
               </div>
@@ -787,7 +780,7 @@
                   <div class="card-footer">  <!-- footer kepala aplikasi --> 
                     <button type="submit" class="btn btn-primary" id="btnsubmit">Save</button>     <!-- button save--> 
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>    <!-- button close-->        
-                    <button type="button" class="btn btn-warning" id="send_email" onclick="Send_mail()">Send Email</button>    <!-- button close-->        
+                    <button type="button" class="btn btn-warning" id="send_email" onclick="Send_mail()" >Send Email</button>    <!-- button close-->        
                   </div>
                                
               </form>    
@@ -1098,29 +1091,34 @@
                   var nik_ses="<?php echo $this->session->userdata('user_name') ?>";
 
                   if(nik_ses == data.qc_nik){ 
-                    document.getElementById('comment_qc').removeAttribute("readonly");
-                    document.getElementById('confirm_qc').removeAttribute("readonly");
+                    document.getElementById('comment_qc').removeAttribute("disabled");
+                    document.getElementById('confirm_qc').removeAttribute("disabled");
                     document.getElementById('hold_or_go_qc').removeAttribute("disabled");
-                    // document.getElementById('comment_qc').readonly = false;
-                    // document.getElementById('confirm_qc').readonly = false;
-                    // document.getElementById('hold_or_go_qc').disabled = false;
+                    document.getElementById("send_email").style.display = "none";
                   }else if(nik_ses == data.pe_nik){
-                    document.getElementById('comment_pe').removeAttribute("readonly");
-                    document.getElementById('confirm_pe').removeAttribute("readonly");
+                    document.getElementById('comment_pe').removeAttribute("disabled");
+                    document.getElementById('confirm_pe').removeAttribute("disabled");
                     document.getElementById('hold_or_go_pe').removeAttribute("disabled");
+                    document.getElementById("send_email").style.display = "none";
                   }else if(nik_ses == data.mfg_nik){
-                    document.getElementById('comment_mfg').removeAttribute("readonly");
-                    document.getElementById('confirm_mfg').removeAttribute("readonly");
+                    document.getElementById('comment_mfg').removeAttribute("disabled");
+                    document.getElementById('confirm_mfg').removeAttribute("disabled");
                     document.getElementById('hold_or_go_mfg').removeAttribute("disabled");
+                    document.getElementById("send_email").style.display = "none";
                   }else if(nik_ses == data.pc_nik){
-                    document.getElementById('comment_pc').removeAttribute("readonly");
-                    document.getElementById('confirm_pc').removeAttribute("readonly");
+                    document.getElementById('comment_pc').removeAttribute("disabled");
+                    document.getElementById('confirm_pc').removeAttribute("disabled");
                     document.getElementById('hold_or_go_pc').removeAttribute("disabled");
+                    document.getElementById("send_email").style.display = "none";
                   }else if(nik_ses == data.qa_nik){
-                    document.getElementById('comment_qa').removeAttribute("readonly");
-                    document.getElementById('confirm_qa').removeAttribute("readonly");
+                    document.getElementById('comment_qa').removeAttribute("disabled");
+                    document.getElementById('confirm_qa').removeAttribute("disabled");
                     document.getElementById('hold_or_go_qa').removeAttribute("disabled");
+                    document.getElementById("send_email").style.display = "none";
+                  }else if(nik_ses == data.user_nik){
+                    document.getElementById("send_email").style.display = "";
                   }
+                  
                   // console.log(nik_ses == data.pc_nik );
                   // console.log(nik_ses == data.qa_nik );
                   
@@ -1169,7 +1167,7 @@
           // Form data collect name value
           var form_data = $('#quickForm').serializeArray();
           $.each(form_data, function (key, input) {
-            fdata.append(input.name, input.value);
+              fdata.append(input.name, input.value);
           });
           
           // Penanganan jika ada type check Box uncheck
@@ -1211,15 +1209,15 @@
                    $('#quickForm')[0].reset();               
                     tabel.draw();
                    //location add
-                   if(!vurl=="Add"){
-                     $("#modal-default").modal('hide');
-                   }
+                  //  if(!vurl=="Add"){
+                  //    $("#modal-default").modal('hide');
+                  //  }
                    location.reload();
                  
               },
                // function error
               error: function (e) {
-                  // gagal(e);
+                  gagal(e);
                   // location.reload();
 
                   //pesan gagal
@@ -1372,6 +1370,8 @@
             "serverSide": true,//untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+
+            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?>
             dom: "lfBrtip",
             buttons: [
             {
@@ -1403,6 +1403,7 @@
               download: 'open' //download 
             }
           ],
+          <?php } }?>
             "ajax": 
             {
                 "url": "<?= base_url('C_application/view_data_where');?>", // URL file untuk proses select datanya
@@ -1424,7 +1425,12 @@
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
+                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                      <?php } }?>
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
+                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm ml-2"  href="<?php echo base_url('C_application/print_report2_approved?var1=' . "'+ data +' &var2=1&var2=1")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
                         //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
@@ -1613,7 +1619,7 @@
           // Form data collect name value
           var form_data = $('#quickForm').serializeArray();
           $.each(form_data, function (key, input) {
-            fdata.append(input.name, input.value);
+              fdata.append(input.name, input.value);
           });
           
           // Penanganan jika ada type check Box uncheck
@@ -1650,7 +1656,7 @@
                    // Reset Form
                    $('#quickForm')[0].reset();               
                     tabel.draw();
-                   //location add
+                  //  location add
                
                   //  location.reload();
                     // Form data
@@ -1675,14 +1681,12 @@
       
       
                         berhasil(data.status);
-                        // location.reload();
+                        location.reload();
       
                     },
                     error: function (e) {
                       //Pesan Gagal
-                      location.reload();
-                      // berhasil(data.status);
-                        // window.location.reload();
+                      // location.reload();
                         // gagal(e);             
                     }
                   });

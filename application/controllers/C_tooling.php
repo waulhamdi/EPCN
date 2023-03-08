@@ -36,8 +36,14 @@ class C_tooling extends CI_Controller
         $this->load->helper('date');
         $this->load->helper('file');
         $this->load->model('M_tooling');
+        $this->load->model('UserModel');  //untuk load user model hak akses menu  
         // // $this->load->library('encrypt');    
 
+        // Cari hak akses by controller
+        $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_tooling'); 
+        if($Hak_akses->found!='found') {
+          redirect('Auth'); // Kembali ke halaman Auth
+        }
     }
 
     	///@see Index()
@@ -51,10 +57,15 @@ class C_tooling extends CI_Controller
       // $data['t0_to_t1_trial'] = $this->M_tooling->trial(); //untuk select filter Approval
       $data['approval'] = $this->M_tooling->approval(); //untuk select filter Approval
 
-
+      $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+      $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+      $data['menu_name'] =  $menu_name; 
+      $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+      $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+     
 
         $this->load->view('templates/header'); //Tampil header
-        $this->load->view('templates/sidebar'); //Tampil Sidebar
+        $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
         
         // $this->load->view('tooling/V_tooling',$data); // Tampil data
         $this->load->view('tooling/V_tooling', $data); // Tampil data
@@ -100,7 +111,7 @@ class C_tooling extends CI_Controller
             if($this->session->userdata('rolename')=='Administrator Quality'){ //Jika sebagai administrator maka akan tampil semua
                  $where  = array('transaction_date >' => '2020-01-01');
             }else{
-                $where  = array('transaction_date >' => '2020-01-01','nik'=>$nik_session);//administrator menampilkan data dari tanggal berapa ke tanggal berapa
+                $where  = array('transaction_date >' => '2020-01-01');//administrator menampilkan data dari tanggal berapa ke tanggal berapa
             }
            
 
@@ -109,7 +120,7 @@ class C_tooling extends CI_Controller
             if($this->session->userdata('rolename')=='Administrator Quality'){//Jika sebagai administrator maka akan tampil semua
                 $where  = array('transaction_date >' => $_POST['searchByFromdate'], 'transaction_date <' => $_POST['searchByTodate']);//untuk pilihan date
             }else{
-                $where  = array('transaction_date >' => $_POST['searchByFromdate'], 'transaction_date <' => $_POST['searchByTodate'],'nik'=>$nik_session);//untuk pilihan date
+                $where  = array('transaction_date >' => $_POST['searchByFromdate'], 'transaction_date <' => $_POST['searchByTodate']);//untuk pilihan date
             }
            
         

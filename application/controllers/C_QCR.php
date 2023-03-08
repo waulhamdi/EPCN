@@ -33,8 +33,13 @@ class C_QCR extends CI_Controller {
         $this->load->helper('date');//untuk mengoneksi ke tanggal masuk login
         $this->load->helper('file'); //untuk mengoneksi ke data       
         $this->load->model('M_QCR');//untuk mengoneksi ke tanggal masuk model QCR
+        $this->load->model('UserModel');  //untuk load user model hak akses menu    
         // $this->load->library('encrypt');    
-                  
+        // Cari hak akses by controller
+        $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_QCR'); 
+        if($Hak_akses->found!='found') {
+          redirect('Auth'); // Kembali ke halaman Auth
+        }
       }
 
 	    ///@see get index
@@ -44,12 +49,16 @@ class C_QCR extends CI_Controller {
 	{
         $data['Tampil_pcn'] = $this->M_QCR->Tampil_pcn();// Menarik dan menampung ke data tipe_transfer
         $data['user'] =$this->M_QCR->Tampil_user();
-        // var_dump( $data['Tampil_pcn'] );
 
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         // // $data['QCR'] = $this->M_QCR->Tampil_Data();
         $this->load->view('templates/header'); //Tampil header
-        $this->load->view('templates/sidebar'); //Tampil Sidebar
-        // // $this->load->view('QCR/V_QCR',$data); // Tampil data
+        $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
         $this->load->view('QCR/V_QCR',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer
                

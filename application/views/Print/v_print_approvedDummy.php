@@ -233,6 +233,8 @@
                              echo $nik->status;
                          } else if ($tb_application->status == 'Open') {
                              echo 'Waiting Response from Application Response';
+                         } else if ($tb_isir_list->status_isir == 'Open') {
+                            echo $tb_isir_list->status;
                          } else {
                              echo 'Need Approve By    <b>' . $nik->name . '</b> ' . $nik->position_name . ' <b>(' . $nik->position_code . ' of 14)</b>';
                          } ?> 
@@ -243,7 +245,19 @@
                     
                             <?php
                             // var_dump($tb_application);
-                            if ($tb_application->status == 'Closed' || $tb_application->status == 'Closed Response') {
+                            
+                            if ( $tb_isir_list->status_isir == 'Open') {
+                               
+                                    echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
+                                    echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-approve' hidden > Approved</button>"; //button approved
+                                    echo "<button class='mr-1 btn btn-danger float-right' data-toggle='modal' data-target='#modal-reject' hidden >Reject</button> "; //button reject
+                                   
+                            } elseif ($tb_application->status == 'Open') {
+
+                                    echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
+                                    echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-approve' hidden > Approved</button>"; //button approved
+                                    echo "<button class='mr-1 btn btn-danger float-right' data-toggle='modal' data-target='#modal-reject' hidden >Reject</button> "; //button reject
+                            } else {
                                 if (strpos($nik->nik, $this->session->userdata('user_name'))) // function untuk user name untuk print datanya sudah ada di database
                                 {
                                     // redirect('Auth');
@@ -287,7 +301,7 @@
                                             if ($proc != 'not found') {
                                                 echo "<table class='table table-bordered table-hover'>
                                                 <tr>
-                                                    <th>PIC</th>
+                                                    <th>Written</th>
                                                     <td> $proc->name </td>
                                                 </tr>
                                                 <tr>
@@ -308,7 +322,7 @@
                                             if ($proc != 'not found') {
                                                 echo "<table class='table table-bordered table-hover'>
                                                 <tr>
-                                                    <th>PIC</th>
+                                                    <th>Checked</th>
                                                     <td> $proc->name </td>
                                                 </tr>
                                                 <tr>
@@ -320,9 +334,25 @@
                                                     <td> $proc->stat </td>
                                                 </tr>
                                             </table>";
-                                                // echo "<b> PIC : </b> " . $proc->name . "</br>";
-                                                // echo "<b> Date Approve/Reject : </b> " . $proc->date_approve . "</br>";
-                                                // echo "<b> Status : </b> " . $proc->stat . "</br>";
+                                            }
+                                            ;
+                                        } ?>
+                                        <?php foreach ($checked2_proc as $proc) {
+                                            if ($proc != 'not found') {
+                                                echo "<table class='table table-bordered table-hover'>
+                                                <tr>
+                                                    <th>Checked 2</th>
+                                                    <td> $proc->name </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date Approve/Reject</th>
+                                                    <td> $proc->date_approve </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <td> $proc->stat </td>
+                                                </tr>
+                                            </table>";
                                             }
                                             ;
                                         } ?>
@@ -330,7 +360,7 @@
                                             if ($proc != 'not found') {
                                                 echo "<table class='table table-bordered table-hover'>
                                                 <tr>
-                                                    <th>PIC</th>
+                                                    <th>Approved</th>
                                                     <td> $proc->name </td>
                                                 </tr>
                                                 <tr>
@@ -435,28 +465,9 @@
                                                     <td><?= $tb_application->comment_qa; ?></td>
                                                 </tr>
                                             </table>
-                                            <!-- <p><b>QC Inpection : </b><= $tb_application->qc_name; ?></br>
-                                                <b>Hold / Go : </b><= $tb_application->hold_or_go_qc; ?></br>
-                                                <b>Comment : </b><= $tb_application->comment_qc; ?>
-                                            </p>
-                                            <p><b>PE : </b><= $tb_application->pe_name; ?></br>
-                                                <b>Hold / Go : </b><= $tb_application->hold_or_go_pe; ?></br>
-                                                <b>Comment : </b><= $tb_application->comment_qc; ?>
-                                            </p>
-                                            <p><b>MFG : </b><= $tb_application->mfg_name; ?></br>
-                                                <b>Hold / Go : </b><= $tb_application->hold_or_go_mfg; ?></br>
-                                                <b>Comment : </b><= $tb_application->comment_qc; ?>
-                                            </p>
-                                            <p><b>PC : </b><= $tb_application->pc_name; ?></br>
-                                                <b>Hold / Go : </b><= $tb_application->hold_or_go_pc; ?></br>
-                                                <b>Comment : </b><= $tb_application->comment_pc; ?>
-                                            </p>
-                                            <p><b>QA : </b><= $tb_application->qa_name; ?></br>
-                                                <b>Hold / Go : </b><= $tb_application->hold_or_go_qa; ?></br>
-                                                <b>Comment : </b><= $tb_application->comment_qa; ?>
-                                            </p> -->
-                                       
+                                            <br>
                                             <a class="btn btn-primary" href=" http://10.73.142.69/PCN/C_application?Number=<?= $hdrid ?>" target="_blank">Please click to response</a>
+                                            <a class="btn btn-secondary btn-sm mr-2" href=" http://10.73.142.69/PCN/C_application/print_report2_approved?var1=<?= $hdrid ?>&var2=1&var2=1" target="_blank">Open A4 Application Response</a>
                                         </div>
                                     </div>
                                 </div>
@@ -473,7 +484,7 @@
                                                 if ($qa != 'not found') {
                                                     echo "<table class='table table-bordered table-hover'>
                                                 <tr>
-                                                    <th>PIC</th>
+                                                    <th>Written</th>
                                                     <td>$qa->name</td>
                                                 </tr>
                                                 <tr>
@@ -485,17 +496,13 @@
                                                     <td>$qa->stat</td>
                                                 </tr>
                                             </table>";
-                                                    // echo "<b> PIC : </b> " . $qa->name . "</br>";
-                                                    // echo "<b> Date Approve/Reject : </b> " . $qa->date_approve . "</br>";
-                                                    // echo "<b> Status : </b> " . $qa->stat . "</br>";
-                                                }
-                                                ;
+                                                };
                                             } ?>
                                             <?php foreach ($checked_qa as $qa) {
                                                 if ($qa != 'not found') {
                                                     echo "<table class='table table-bordered table-hover'>
                                                 <tr>
-                                                    <th>PIC</th>
+                                                    <th>Checked</th>
                                                     <td>$qa->name</td>
                                                 </tr>
                                                 <tr>
@@ -507,11 +514,7 @@
                                                     <td>$qa->stat</td>
                                                 </tr>
                                             </table>";
-                                                    // echo "<b> PIC : </b> " . $qa->name . "</br>";
-                                                    // echo "<b> Date Approve/Reject : </b> " . $qa->date_approve . "</br>";
-                                                    // echo "<b> Status : </b> " . $qa->stat . "</br>";
-                                                }
-                                                ;
+                                                };
                                             } ?>
                                         </div>
                                     </div>
@@ -528,16 +531,8 @@
                                     </div>
                             <?php } ?>
 
-                            <?php if ($checked_qa[0]->stat == 'unapprove' || $checked_qa[0]->stat == 'Rejected') { ?>
-                                    <div class="timeline-item">
-                                        <div class="timeline-icon"></div>
-                                            <div class="timeline-content">
-                                                <p class="timeline-content-date" id="status5"></p>
-                                                <button class="collapse-toggle bg-light">ISIR</button>
-                                            </div>
-                                    </div>  
-                            <?php } else { ?>
-                                    <div class="timeline-item">
+                            <?php if ($tb_isir_list->status_isir == 'Open' || $tb_isir_list->status_isir == 'Closed') { ?>                                    
+                                <div class="timeline-item">
                                     <div class="timeline-icon"></div>
                                     <div class="timeline-content">
                                     <p class="timeline-content-date" id="status5"></p>
@@ -555,8 +550,6 @@
                                                     <td>$isir->status</td>
                                                 </tr>
                                             </table>";
-                                                // echo "<b> ISIR : </b>" . $isir->no_isir . "</br>";
-                                                // echo "<b> STATUS : </b> " . $isir->status . "</br>";
                                             } else {
                                                 echo "Not Found ISIR";
                                             }
@@ -566,9 +559,18 @@
                                     </div>
                                     </div>
                                 </div>
+
+                            <?php } else { ?>
+                                <div class="timeline-item">
+                                        <div class="timeline-icon"></div>
+                                            <div class="timeline-content">
+                                                <p class="timeline-content-date" id="status5"></p>
+                                                <button class="collapse-toggle bg-light">ISIR</button>
+                                            </div>
+                                    </div>  
                             <?php } ?>
                         
-                            <?php if ($status_isir == 'OK') { ?>
+                            <?php if ($tb_isir_list->status_isir == 'Closed') { ?>
                                         <div class="timeline-item">
                                             <div class="timeline-icon"></div>
                                             <div class="timeline-content">
@@ -588,6 +590,14 @@
                                                     <tr>
                                                         <th> Drawing Attachment </th>
                                                         <td> $tb_qcr->hdrid </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> PIC Proc </th>
+                                                        <td> $tb_qcr->pic_pro </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th> PIC QC </th>
+                                                        <td> $tb_qcr->pic_qc </td>
                                                     </tr>
                                                     <tr>
                                                         <th> QCR Reply </th>
@@ -641,25 +651,20 @@
                                                 <?php foreach ($final_approve_qa as $final_qa):
                                                     if ($final_qa != 'not found') {
                                                         echo "<table class='table table-bordered table-hover'>
-                                                <tr>
-                                                    <th>PIC</th>
-                                                    <td>$final_qa->name</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Date Approve/Reject</th>
-                                                    <td>$final_qa->date_approve</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Status</th>
-                                                    <td>$final_qa->stat</td>
-                                                </tr>
-                                            </table>";
-                                                    }
-                                                    ;
-                                                    // <p><b>PIC : </b><?=  $final_qa->name;  <br>
-                                                    //     <b>Date Approve/Reject : </b><?= $final_qa->date_approve;  <br>
-                                                    //     <b>Status : </b><?= $final_qa->stat; 
-                                                    // </p>
+                                                            <tr>
+                                                                <th>Approved</th>
+                                                                <td>$final_qa->name</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Date Approve/Reject</th>
+                                                                <td>$final_qa->date_approve</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Status</th>
+                                                                <td>$final_qa->stat</td>
+                                                            </tr>
+                                                        </table>";
+                                                    };
                                                 endforeach; ?>
                                             </div>
                                         </div>
@@ -2902,7 +2907,7 @@
             //fdata2.append("body_content",data.status); 
         // Hide modal delete
             // berhasil(data.status);
-            location.reload(); 
+            // location.reload(); 
             // console.log(data);
             // fdata2.append("body_content",data.status); 
 

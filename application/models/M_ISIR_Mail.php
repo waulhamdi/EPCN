@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_Role extends CI_Model {
+class M_ISIR_Mail extends CI_Model {
       
    function get_tables($tables,$cari,$iswhere)
         {
@@ -256,16 +256,20 @@ class M_Role extends CI_Model {
 
    public function Max_data($mdate,$table)
    {
-      $this->db->select_max('role_id');     
-      $this->db->like('role_id', $mdate);
+      $this->db->select_max('hdrid');     
+      $this->db->like('hdrid', $mdate);
       $query = $this->db->get($table);      
       return  $query;
-
    }
-    
+     
    function Input_Data($data,$table){
-      $this->db->insert($table,$data);
-      
+      $this->db->insert($table,$data);      
+   }
+
+   public function insert_batch($table,$data) 
+   {
+    $this->db->insert_batch($table, $data);    
+    return $this->db->affected_rows();
    }
 
    function Update_Data($where,$data,$table){
@@ -278,15 +282,45 @@ class M_Role extends CI_Model {
       $this->db->delete($table);
    }
 
-   function ajax_getbyrole_id($role_id,$table){      
-      return $this->db->get_where($table, array('role_id' => $role_id));
+   function Get_Where($where,$table){      
+    return $this->db->get_where($table, $where);
    }
-   Public Function get_tb_menu()
-   {
-      $Query = $this->db->query("SELECT * FROM a_menu ORDER BY menu_id ASC");
-      return  $Query->result();
-              
+
+   function ajax_getbyhdrid($hdrid,$table){      
+      return $this->db->get_where($table, array('hdrid' => $hdrid));
    }
+
+   function Get_central_user(){     
+
+    $DB2 = $this->load->database('db_central_user', TRUE);   // Database central user   
+    $result = $DB2->get('Tb_user_login')->result();               // Untuk mengeksekusi dan mengambil data hasil query
+    $DB2->Close();
+    return $result;
+
+   }
+
+   function Get_departement(){     
+
+    $DB2 = $this->load->database('db_central_user', TRUE);   // Database central user   
+    $result = $DB2->get('Tb_department')->result();               // Untuk mengeksekusi dan mengambil data hasil query
+    $DB2->Close();
+    return $result;
+
+   }
+
+   public function Tampil_user()
+    {
+        // $this->db->select(*);
+        // $this->db->from('Tb_user_login');
+        // return $this->db->get()->result();
+
+        $DB2 = $this->load->database('db_central_user', TRUE);       
+        $query=$DB2->get('Tb_user_login')->result();
+        $DB2->Close();
+        return  $query;
+
+    }
+
 
   
    

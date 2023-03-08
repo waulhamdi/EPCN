@@ -34,7 +34,14 @@ class C_PCNLIST extends CI_Controller {
         $this->load->helper('file'); //untuk mengoneksi ke data       
         $this->load->model('M_PCNLIST');//untuk mengoneksi ke tanggal masuk model PCN LIST
         $this->load->model('M_PCN');//untuk mengoneksi ke tanggal masuk model PCN
+        $this->load->model('UserModel');  //untuk load user model hak akses menu  
         // $this->load->library('encrypt');    
+
+        // Cari hak akses by controller
+        $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_PCNLIST'); 
+        if($Hak_akses->found!='found') {
+          redirect('Auth'); // Kembali ke halaman Auth
+        }
                   
       }
 
@@ -55,11 +62,17 @@ class C_PCNLIST extends CI_Controller {
          }
  
         // $this->parser->set_partial('modal','folder_lain/modal');
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
 
         // // $data['PCNLIST'] = $this->M_PCNLIST->Tampil_Data();
         $this->load->view('templates/header'); //Tampil header
-		$this->load->view('templates/sidebar'); //Tampil Sidebar
-		// // $this->load->view('PCNLIST/V_PCNLIST',$data); // Tampil data
+        $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
+        // // $this->load->view('PCNLIST/V_PCNLIST',$data); // Tampil data
         $this->load->view('PCNLIST/V_PCNLIST',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer
                
@@ -290,6 +303,8 @@ class C_PCNLIST extends CI_Controller {
         $this->M_PCNLIST->Delete_Data($where0,'tb_approval');//untuk delete table PCN
         $this->M_PCNLIST->Delete_Data($where1,'tb_PCN');//untuk delete table PCN
         $this->M_PCNLIST->Delete_Data($where1,'tb_application');//untuk delete table PCN
+        $this->M_PCN->Delete_Data($where,'tb_isir');//untuk delete table PCN
+        $this->M_PCN->Delete_Data($where,'tb_isir_list');//untuk delete table PCN
         $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));

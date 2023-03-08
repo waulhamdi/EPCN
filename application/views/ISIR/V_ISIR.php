@@ -44,22 +44,16 @@
                         <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
 
                           <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_add=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#"><!--fungsi add data-->
                               <i class="fa fa-plus"></i> Add Data <!--judul add data-->
                               </a>
-
-                            <?php } ?>
-
-                            <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                            <?php } }?>
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
                               <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi add data-->
                                 <i class="fa fa-upload"></i> Import Data <!--judul add data-->
                               </a>
-
-                            <?php } ?>
-
+                            <?php } }?>
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                  <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
                             </a>
@@ -474,13 +468,13 @@
                 </div>
               </div>
 
-              <div class="form-group" hidden>
+              <div class="form-group" >
                 <div class="row">
                     <div class="col-md-4">
                       <label for="qc_email">QC EMAIL</label>
                     </div>
                     <div class="col-md-8">
-                      <input type="text" name="qc_email" class="form-control" id="qc_email" readonly>
+                      <input type="text" name="qc_email" class="form-control" id="qc_email" >
                     </div>
                 </div>
               </div>
@@ -1481,6 +1475,17 @@ error: function (e) {
             format: 'L'           
     });
 
+    //Date range picker
+    $('#timepickerqc_submit_date').datetimepicker({
+            format: 'L',           
+            minDate: new Date(2022,1-1)
+    });
+
+    //Date range picker
+    $('#timepickersubmit_date').datetimepicker({
+            format: 'L',           
+            minDate: new Date(2022,1-1)
+    });
 </script>
 
 <!-- <script type="text/javascript">
@@ -1596,6 +1601,8 @@ error: function (e) {
                 "data": function(data){     
                   data.searchByFromdate = $('#search_fromdate').val(); //value from date
                   data.searchByTodate = $('#search_todate').val(); //value to date
+                  data.Number = "<?= $Number ?>";
+
                 }
 
             },
@@ -1608,7 +1615,12 @@ error: function (e) {
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
+                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                      <?php } }?>
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>  
+                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_PrintA4_isir/print_report2_approved?Number=') . "'+ data +' "  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
                         return mnu;
@@ -1850,6 +1862,8 @@ error: function (e) {
 
 
                       $('#qc_submit_date').val(data.qc_submit_date);
+                      $('#qc_email').val(data.qc_email);
+                      $('#pro_email').val(data.pro_email);
                       $('#status').select2().val(data.status).trigger('change');
                       $('#comment').val(data.comment);
 
@@ -2049,7 +2063,6 @@ error: function (e) {
 
                       }
                   });
-                }
             },
             error: function (e) {
                 //Pesan Gagal

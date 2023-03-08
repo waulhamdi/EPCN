@@ -527,7 +527,32 @@ class M_application extends CI_Model {
         $query = "select name from tb_user_login where user_name='$nik'";
     }
   
+    public function hold_reponse($hdrid){
+        $query="SELECT 
+            CASE 
+                WHEN hold_or_go_qc = 'Hold' THEN qc_inspection_departement 
+                WHEN hold_or_go_pc = 'Hold' THEN pc_departement 
+                WHEN hold_or_go_mfg = 'Hold' THEN mfg_departement 
+                WHEN hold_or_go_pe = 'Hold' THEN pe_departement 
+                WHEN hold_or_go_qa = 'Hold' THEN qa_departement 
+            END AS department_hold
+            FROM tb_application 
+            WHERE 
+            (hold_or_go_qc = 'Hold' 
+            OR hold_or_go_pc = 'Hold' 
+            OR hold_or_go_mfg = 'Hold' 
+            OR hold_or_go_pe = 'Hold' 
+            OR hold_or_go_qa = 'Hold')
+            AND hdrid='$hdrid'";
 
+        $result = $this->db->query($query, array($hdrid))->result_array();
+        $department_holds = array();
+            foreach ($result as $row) {
+                $department_holds[] = $row['department_hold'];
+            }
+            return $department_holds;
+            
+    }
 }
 
 

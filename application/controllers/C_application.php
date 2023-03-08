@@ -36,7 +36,14 @@ class C_application extends CI_Controller {
         $this->load->model('M_superior');//Load model
         $this->load->model('M_PCN');//Load model
         $this->load->model('M_Mail');//Load model
+        $this->load->model('UserModel');  //untuk load user model hak akses menu   
         // $this->load->library('encrypt');    
+
+        // Cari hak akses by controller
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_application'); 
+	    if($Hak_akses->found!='found') {
+		    redirect('Auth'); // Kembali ke halaman Auth
+	    }
                   
       }
       
@@ -56,10 +63,15 @@ class C_application extends CI_Controller {
             $data['Number'] = $_GET['Number'];
         }
 
-
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         // // $data['application'] = $this->M_application->Tampil_Data();
         $this->load->view('templates/header'); //Tampil header
-		$this->load->view('templates/sidebar'); //Tampil Sidebar
+		$this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
 		// // $this->load->view('application/V_application',$data); // Tampil data
         $this->load->view('application/V_application',$data); // Tampil data
         $this->load->view('templates/footer'); // Tampil footer
@@ -249,7 +261,7 @@ class C_application extends CI_Controller {
         $qa=$action_res->hold_or_go_qa;
     
 
-        if ($qa == 'Go' && $pe == 'Go' && $mfg == 'Go' && $pc == 'Go' && $qa == 'Go') {
+        if ($qa == 'Go' && $pe == 'Go' && $mfg == 'Go' && $pc == 'Go' && $qc == 'Go') {
 
             //Update status agar tidak muncul di application response dan lanjut approval
             $where = array('pcn_number' => $pcn_number);//mencari data sudah diupdate        
@@ -265,9 +277,12 @@ class C_application extends CI_Controller {
         }else if($qc == 'Hold' || $pe == 'Hold' || $mfg == 'Hold' || $pc == 'Hold' || $qa == 'Hold') {
             
             // Update status in tb_pcn
+            $result=$this->M_application->hold_reponse($pcn_number);
+            $hold_response = implode(", ", $result);
             $where = array('hdrid' => $pcn_number);//mencari data sudah diupdate        
-            $status = array('stat' =>'Rejected');
-            $this->M_application->Update_Data($where,$status,'tb_pcn'); // Update Data berdasarkan parameter
+            $status = array('stat' =>'Rejected','hold_response'=>$hold_response);
+            $status_merge=array_merge($status,$status);
+            $this->M_application->Update_Data($where,$status_merge,'tb_pcn'); // Update Data berdasarkan parameter
             //Cari email requester
             $requester = $this->M_application->cari_requester($pcn_number);
             $list_res = $this->M_application->cari_responden($pcn_number)->row();
@@ -332,7 +347,7 @@ class C_application extends CI_Controller {
         $list_mem = $this->M_application->cari_member($product)->row();
         $list_name = $this->M_Mail->cari_name($pcn_number)->row();
         //CC MEMBER
-        $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_res->PC_2.$list_res->PC_3.$list_res->QA_1.$list_res->QA_2.$list_res->QA_3;
+        $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_mem->PC_2.$list_mem->PC_3.$list_mem->QA_1.$list_mem->QA_2.$list_mem->QA_3;
         //CC 5 Responden
         $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
         //Name 5 responden

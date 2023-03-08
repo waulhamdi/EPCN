@@ -474,102 +474,102 @@ class M_PCNLIST extends CI_Model {
       
    }
 
-   function Input_Data_proc($supplier,$no_dokumen){
-    $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
+//    function Input_Data_proc($supplier,$no_dokumen){
+//     $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
+//     $hsl=$query->result();
+//     $current_date = mdate('%Y-%m-%d', time());
 
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorprocurement;
-            $nama=$value->name_superiorprocurement;
-            $kode=$value->kode_section_superiorprocurement;
-            $section=$value->name_section_superiorprocurement;
-            $email=$value->email_superiorprocurement;
-            $position=$value->position;
-            if ($position=='written') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '1', 'Procurement-Check 1', null, null,'unapprove')");
-            }elseif ($position=='checked') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '2', 'Procurement-Check 2', null, null,'unapprove')");
-            }else {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '3', 'Procurement-Check 3', null, null,'unapprove')");
-            }
-}
-}
-    function Input_Data_qa($product,$no_dokumen){
-    $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
+//     foreach ($hsl as $value) {
+//             $nik=$value->nik_superiorprocurement;
+//             $nama=$value->name_superiorprocurement;
+//             $kode=$value->kode_section_superiorprocurement;
+//             $section=$value->name_section_superiorprocurement;
+//             $email=$value->email_superiorprocurement;
+//             $position=$value->position;
+//             if ($position=='written') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '1', 'Procurement-Check 1', null, null,'unapprove')");
+//             }elseif ($position=='checked') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '2', 'Procurement-Check 2', null, null,'unapprove')");
+//             }else {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '3', 'Procurement-Check 3', null, null,'unapprove')");
+//             }
+// }
+// }
+//     function Input_Data_qa($product,$no_dokumen){
+//     $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
+//     $hsl=$query->result();
+//     $current_date = mdate('%Y-%m-%d', time());
 
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorqa;
-            $nama=$value->name_superiorqa;
-            $kode=$value->kode_section_superiorqa;
-            $section=$value->name_section_superiorqa;
-            $email=$value->email_superiorqa;
-            $position=$value->position;
-            if ($position=='written') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '4', 'QA-Check 1', null, null,'unapprove')");
-            }elseif ($position=='checked') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '5', 'QA-Check 2', null, null,'unapprove')");
-            }else {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '6', 'QA-Check 3', null, null,'unapprove')");
-            }
-}
-}
-    function Input_Data_finalproc($supplier,$no_dokumen){
-    $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
+//     foreach ($hsl as $value) {
+//             $nik=$value->nik_superiorqa;
+//             $nama=$value->name_superiorqa;
+//             $kode=$value->kode_section_superiorqa;
+//             $section=$value->name_section_superiorqa;
+//             $email=$value->email_superiorqa;
+//             $position=$value->position;
+//             if ($position=='written') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '4', 'QA-Check 1', null, null,'unapprove')");
+//             }elseif ($position=='checked') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '5', 'QA-Check 2', null, null,'unapprove')");
+//             }else {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '6', 'QA-Check 3', null, null,'unapprove')");
+//             }
+// }
+// }
+//     function Input_Data_finalproc($supplier,$no_dokumen){
+//     $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
+//     $hsl=$query->result();
+//     $current_date = mdate('%Y-%m-%d', time());
 
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorprocurement;
-            $nama=$value->name_superiorprocurement;
-            $kode=$value->kode_section_superiorprocurement;
-            $section=$value->name_section_superiorprocurement;
-            $email=$value->email_superiorprocurement;
-            $position=$value->position;
-            if ($position=='written') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '7', 'Procurement-Final 1', null, null,'unapprove')");
-            }elseif ($position=='checked') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '8', 'Procurement-Final 2', null, null,'unapprove')");
-            }else {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '9', 'Procurement-Final 3', null, null,'unapprove')");
-            }
-}
-}
-    function Input_Data_finalqa($product,$no_dokumen){
-    $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
+//     foreach ($hsl as $value) {
+//             $nik=$value->nik_superiorprocurement;
+//             $nama=$value->name_superiorprocurement;
+//             $kode=$value->kode_section_superiorprocurement;
+//             $section=$value->name_section_superiorprocurement;
+//             $email=$value->email_superiorprocurement;
+//             $position=$value->position;
+//             if ($position=='written') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '7', 'Procurement-Final 1', null, null,'unapprove')");
+//             }elseif ($position=='checked') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '8', 'Procurement-Final 2', null, null,'unapprove')");
+//             }else {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '9', 'Procurement-Final 3', null, null,'unapprove')");
+//             }
+// }
+// }
+//     function Input_Data_finalqa($product,$no_dokumen){
+//     $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
+//     $hsl=$query->result();
+//     $current_date = mdate('%Y-%m-%d', time());
 
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorqa;
-            $nama=$value->name_superiorqa;
-            $kode=$value->kode_section_superiorqa;
-            $section=$value->name_section_superiorqa;
-            $email=$value->email_superiorqa;
-            $position=$value->position;
-            if ($position=='written') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '10', 'QA-Final 1', null, null,'unapprove')");
-            }elseif ($position=='checked') {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '11', 'QA-Final 2', null, null,'unapprove')");
-            }else {
-                $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '12', 'QA-Final 3', null, null,'unapprove')");
-            }
-}
-}
+//     foreach ($hsl as $value) {
+//             $nik=$value->nik_superiorqa;
+//             $nama=$value->name_superiorqa;
+//             $kode=$value->kode_section_superiorqa;
+//             $section=$value->name_section_superiorqa;
+//             $email=$value->email_superiorqa;
+//             $position=$value->position;
+//             if ($position=='written') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '10', 'QA-Final 1', null, null,'unapprove')");
+//             }elseif ($position=='checked') {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '11', 'QA-Final 2', null, null,'unapprove')");
+//             }else {
+//                 $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+//                 values ('$current_date','$no_dokumen', '$nik','$nama','$kode','$section', '$email', '12', 'QA-Final 3', null, null,'unapprove')");
+//             }
+// }
+// }
    
 }
 

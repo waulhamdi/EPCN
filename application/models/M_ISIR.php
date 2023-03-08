@@ -1114,14 +1114,14 @@ class M_ISIR extends CI_Model {
     /// @attention Untuk membuat hdrid di ajax_add
     public function Tampil_user()
     {
-        // $this->db->select(*);
-        // $this->db->from('Tb_user_login');
-        // return $this->db->get()->result();
+        $this->db->select('*');
+        $this->db->from('Tb_user_login');
+        return $this->db->get()->result();
  
-        $DB2 = $this->load->database('db_central_user', TRUE);       
-        $query=$DB2->get('Tb_user_login')->result();
-        $DB2->Close();
-        return  $query;
+        // $DB2 = $this->load->database('db_central_user', TRUE);       
+        // $query=$DB2->get('Tb_user_login')->result();
+        // $DB2->Close();
+        // return  $query;
  
     }
 

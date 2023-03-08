@@ -50,7 +50,7 @@ class C_Mail extends CI_Controller {
     //         run trigger after update  tb_mail_trigger => exec storage procedure send_mail
     
     /// @see ajax_mail_approve()
-    /// @note Fungsi untuk mengirim email ke approver selanjutnya  ketika di approve 
+    /// @note Fungsi untuk mengirim email ke approver selanjutnya  ketika di approve/Update data register 
     /// @attention
     public function ajax_mail_approve()
 	{
@@ -64,71 +64,76 @@ class C_Mail extends CI_Controller {
         
         date_default_timezone_set('Asia/Jakarta');
         $currentDate=mdate('%Y-%m-%d',time());
-        $update_stat=$this->M_Mail->Update_stat($hdrid,$currentDate);
-
+        
         //Update date_change untuk reminder approval
         $condition = array('hdrid' => $hdrid);        
         $data = array('status_transaction_date_change' =>$currentDate );
         $status_email = $this->M_Mail->Update_Data($condition, $data, 'tb_pcn');
- 
+        
         $next_app = $this->M_Mail->cari_tb_approver($hdrid);
+        $data_pcn = $this->M_Mail->Get_Where($condition,'tb_pcn');
+        
         if ($next_app->name!='All') {
             $next_app2 = $this->M_Mail->cari_tb_approver2($hdrid,$next_app->position_code);
         }
         // $all_app = $this->M_Mail->cari_all_approver($hdrid,$next_app->position_code);
-     
-
+        
+        
         // Send email notifikasi approve ke next approver
         if ($next_app->name=='All') {
-
-          // Send email notifikasi rejected ke user(Procurement requester pcn) Not Active
-          $requester = $this->M_Mail->cari_requester($nikreq);
-          $status_transaction = "PCN Complete" ;
-          $post_data =array('status_transaction' => 'PCN Complete','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'PCN Complete','body_content'=>$status_transaction,'comment'=>'','cc_email'=>'');
-          $post_datamerge=array_merge($post_data,$post_data);   
-          $where = array('trxid' => 0);        
-          $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
-
-        }else {
-
-            // Selain poscode 4 send email karena position 4 akan aktif setelah application response selesai
-         if ($next_app->position_name =='Written QA') {
-                                                                                                                                
-            // Send email ke responden application response
-                $list_res = $this->M_Mail->cari_responden($hdrid)->row();
-                $list_name = $this->M_Mail->cari_name($hdrid)->row();
-                $list_mem = $this->M_application->cari_member($product)->row();
-                //CC Member
-                $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_res->PC_2.$list_res->PC_3.$list_res->QA_1.$list_res->QA_2.$list_res->QA_3;
-                //CC 5 Divisi
-                $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
-                //Name 5 responden
-                $name = $list_name->qc_name.','.$list_name->pe_name.','.$list_name->mfg_name.','.$list_name->pc_name.','.$list_name->qa_name;
-               
-                $post_data =array('status_transaction' => 'Need Your Response','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>'','name'=>$name,'department_code'=>'','department_name'=>'','office_email'=>$list_res->creator,'position_code'=>'','position_name'=>'','subject_email'=>'Need Your Response to Application Response','body_content'=>'','comment'=>'','cc_email'=>$cc_email.';'.$cc_member);
-                $post_datamerge=array_merge($post_data,$post_data);   
-                $where = array('trxid' => 0);        
-                $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
-
-            }else if ($next_app->position_name =='Written Proc Final') {
             
-                // Should be insert data t1-t10 isir and send email to procurement,qa
-                $requester = $this->M_Mail->cari_requester($nikreq);
-                $list_res = $this->M_Mail->insert_isir($hdrid,$requester->nik_superiorprocurement);
-                $post_data =array('status_transaction' => 'ISIR Ready To Attach','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'ISIR Neeed Attach','body_content'=>'ISIR Neeed Attach','comment'=>'','cc_email'=>'');
-                $post_datamerge=array_merge($post_data,$post_data);   
-                $where = array('trxid' => 0);        
-                $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
-
-            }else {
-
-                foreach ($next_app2 as $value) {
-                    $post_data =array('status_transaction' => 'Need Approve','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$value->nik,'name'=>$value->name,'department_code'=>$value->department_code,'department_name'=>$value->department_name,'office_email'=>$value->office_email,'position_code'=>$value->position_code,'position_name'=>$value->position_name,'subject_email'=>'Need Approve','body_content'=>'Please click link below and approve','comment'=>'','cc_email'=>'');
+            // Send email notifikasi rejected ke user(Procurement requester pcn) Not Active
+            $requester = $this->M_Mail->cari_requester($data_pcn->nik);
+            $status_transaction = "PCN Complete" ;
+            $post_data =array('status_transaction' => 'PCN Complete','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'PCN Complete','body_content'=>$status_transaction,'comment'=>'','cc_email'=>'');
+            $post_datamerge=array_merge($post_data,$post_data);   
+            $where = array('trxid' => 0);        
+            $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+            
+        }else {
+            
+            // Selain poscode 4 send email karena position 4 akan aktif setelah application response selesai
+            if ($next_app->position_name =='Written QA') {
+                
+                    $update_stat=$this->M_Mail->Update_stat($hdrid,$currentDate);
+                    // Send email ke responden application response
+                    $list_res = $this->M_Mail->cari_responden($hdrid)->row();
+                    $list_name = $this->M_Mail->cari_name($hdrid)->row();
+                    $list_mem = $this->M_application->cari_member($product)->row();
+                    //CC Member
+                    $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_mem->PC_2.$list_mem->PC_3.$list_mem->QA_1.$list_mem->QA_2.$list_mem->QA_3;
+                    //CC 5 Divisi
+                    $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
+                    //Name 5 responden
+                    $name = $list_name->qc_name.','.$list_name->pe_name.','.$list_name->mfg_name.','.$list_name->pc_name.','.$list_name->qa_name;
+                
+                    $post_data =array('status_transaction' => 'Need Your Response','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>'','name'=>$name,'department_code'=>'','department_name'=>'','office_email'=>$list_res->creator,'position_code'=>'','position_name'=>'','subject_email'=>'Need Your Response to Application Response','body_content'=>'','comment'=>'','cc_email'=>$cc_email.';'.$cc_member);
                     $post_datamerge=array_merge($post_data,$post_data);   
                     $where = array('trxid' => 0);        
                     $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
-                };
-            }
+
+                } else if ($next_app->position_name =='Written Proc Final') {
+                
+                    // Should be insert data t1-t10 isir and send email to procurement,qa
+                    $requester = $this->M_Mail->cari_requester($data_pcn->nik);
+                    $isir = $this->M_Mail->cari_isir($hdrid);
+                    if ($isir->isir == 'not found') {
+                        $list_res = $this->M_Mail->insert_isir($hdrid,$requester->nik_superiorprocurement);
+                    }
+                    $post_data =array('status_transaction' => 'ISIR Ready To Attach','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$requester->nik_superiorprocurement	,'name'=>$requester->name_superiorprocurement,'department_code'=>$requester->kode_section_superiorprocurement,'department_name'=>$requester->name_section_superiorprocurement,'office_email'=>$requester->email_superiorprocurement,'position_code'=>'','position_name'=>'','subject_email'=>'ISIR Neeed Attach','body_content'=>'','comment'=>'','cc_email'=>'');
+                    $post_datamerge=array_merge($post_data,$post_data);   
+                    $where = array('trxid' => 0);        
+                    $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+
+                } else {
+
+                    foreach ($next_app2 as $value) {
+                        $post_data =array('status_transaction' => 'Need Approve','hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$value->nik,'name'=>$value->name,'department_code'=>$value->department_code,'department_name'=>$value->department_name,'office_email'=>$value->office_email,'position_code'=>$value->position_code,'position_name'=>$value->position_name,'subject_email'=>'Need Approve','body_content'=>'Please click link below and approve','comment'=>'','cc_email'=>'');
+                        $post_datamerge=array_merge($post_data,$post_data);   
+                        $where = array('trxid' => 0);        
+                        $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+                    };
+                }
         }
    
         // $this->M_approver->Update_Data_Approve();
@@ -206,23 +211,81 @@ class C_Mail extends CI_Controller {
 
 
     /// @see ajax_mail_isir()
-    /// @note Send email berdasarkan sender procurement/qc 
-    /// @attention
+    /// @note Send email berdasarkan nik 
+    /// @attention apabila procurement send email to pic qc,cc_to / apabila qc send email to procurement,5 responden,5 divisi member
     public function ajax_mail_isir()
 	{
         $hdrid = $this->input->post('hdrid');
         $no_isir = $this->input->post('no_isir');
         $sender = $this->input->post('sender');
+        $currentDate = mdate('%Y-%m-%d',time()); 
         
         $where = array('hdrid' =>$hdrid , 'no_isir'=>$no_isir);
         $data_isir = $this->M_Mail->Get_where($where,'tb_isir');
+        // Tambah kondisi kalau status accepted kirim ke reply
+        
+       
+        if ($sender == $data_isir->pic_pro) {
 
-        var_dump($data_isir);
-        // if () {
+            $whereto1 = array('user_name' =>$data_isir->cc_to1);
+            $whereto2 = array('user_name' =>$data_isir->cc_to2);
+            
+            $status_transaction = "ISIR QC Measurement" ;
+            $stat = array('stat' =>$status_transaction);
+            $where2 = array('hdrid' =>$hdrid);
+            $this->M_Mail->Update_Data($where2,$stat , 'tb_pcn');
 
-        // } else {
+            $cc_to1 = $this->M_Mail->Get_where1($whereto1,'tb_user_login');
+            $cc_to2 = $this->M_Mail->Get_where1($whereto2,'tb_user_login');
+            $cc_mail= $cc_to1->office_email.';'.$cc_to2->office_email;
+            // var_dump($cc_mail);
+            // Email ready tinggal tampilan
 
-        // }
+            // $post_data =array('status_transaction' => $status_transaction,'hdrid'=>$hdrid,'transaction_date'=>$currentDate,'nik'=>$data_isir->pic_pro,'name'=>$data_isir->pro_name,'department_code'=>'','department_name'=>'','office_email'=>$data_isir->qc_email,'position_code'=>'','position_name'=>'','subject_email'=>$status_transaction,'body_content'=>"Remark : $data_isir->remark",'comment'=>'','cc_email'=>$cc_mail);
+            // $post_datamerge=array_merge($post_data,$post_data);   
+            // $where = array('trxid' => 0);        
+            // $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+
+        } else {
+            // To procurement(User creator)
+            // CC list excel+5 divisi response + 5 divisi member
+            // List CC 
+            $qc_reply = $this->M_Mail->get_mail()->row();
+            $list_res = $this->M_Mail->cari_name($hdrid)->row();
+            $list_mem = $this->M_Mail->cari_member($list_res->product_name)->row();
+
+            //CC MEMBER
+            $cc_member = $list_mem->PE_1.$list_mem->PE_2.$list_mem->PE_3.$list_mem->QC_1.$list_mem->QC_2.$list_mem->QC_3.$list_mem->MFG_1.$list_mem->MFG_2.$list_mem->MFG_3.$list_mem->PC_1.$list_mem->PC_2.$list_mem->PC_3.$list_mem->QA_1.$list_mem->QA_2.$list_mem->QA_3;
+            //CC 5 Responden
+            $cc_email = $list_res->qc_inspection_departement.';'.$list_res->pe_departement.';'.$list_res->mfg_departement.';'.$list_res->pc_departement.';'.$list_res->qa_departement;
+
+            $cc_mail = $qc_reply->mail.';'.$cc_email.';'.$cc_member;
+
+            // var_dump($cc_email);
+            
+            $status= $data_isir->status;
+            $status_transaction = "QC Result $no_isir $status" ;
+            $stat = array('stat' =>$status_transaction);
+            $where2 = array('hdrid' =>$hdrid);
+            $this->M_Mail->Update_Data($where2, $stat, 'tb_pcn');
+
+            $post_data =array('status_transaction' => $status_transaction,'hdrid'=>$hdrid,'transaction_date'=>$currentDate,'nik'=>$data_isir->pic_pro,'name'=>$data_isir->pro_name,'department_code'=>'','department_name'=>'','office_email'=>$data_isir->pro_email,'position_code'=>'','position_name'=>'','subject_email'=>$status_transaction,'body_content'=>"Remark : $data_isir->remark",'comment'=>'','cc_email'=>$cc_mail);
+            $post_datamerge=array_merge($post_data,$post_data);   
+            $where = array('trxid' => 0);        
+            $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+
+            // Send email Written QA so qa will make QCR
+            if ($data_isir->status !='Unaccepted') {
+                $written_qa = array('position_name' =>'Written QA','problem_id' =>$hdrid,'stat' =>'Approved');
+                $next_app = $this->M_Mail->Get_result($written_qa,'tb_approval');
+                foreach ($next_app as $value) {
+                    $post_data = array('status_transaction' =>$status_transaction,'hdrid'=>$hdrid,'transaction_date'=> mdate('%Y-%m-%d %H:%i:%s',time()),'nik'=>$value->nik,'name'=>$value->name,'department_code'=>$value->department_code,'department_name'=>$value->department_name,'office_email'=>$value->office_email,'position_code'=>$value->position_code,'position_name'=>$value->position_name,'subject_email'=>"ISIR $status_transaction",'body_content'=>"ISIR Remark : $data_isir->remark",'comment'=>'','cc_email'=>'');
+                    $post_datamerge=array_merge($post_data,$post_data);   
+                    $where = array('trxid' => 0);        
+                    $status_email = $this->M_Mail->Update_Data($where, $post_datamerge, 'tb_mail_trigger');
+                }
+            }
+        }
         
        
         // $this->M_approver->Update_Data_Approve();

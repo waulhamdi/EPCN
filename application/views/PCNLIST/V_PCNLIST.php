@@ -52,21 +52,15 @@
 
                                 <!-- <php } ?> -->
 
-                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality'||$this->session->userdata('rolename')=='User Procurement') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                                <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
                                   <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
                                     <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
                                   </a>
-
-                                <?php } ?>
-
-                                <?php if ($this->session->userdata('DepartmentAdd')||$this->session->userdata('rolename')=='Administrator Quality') { ?><!--untuk membuat rule hanya user bisa add data-->
-
+                                <?php } }?>
                                   <!-- <a data-toggle="modal" data-target="#modal-import"  href="#"> fungsi add data -->
                                     <!-- <i class="fa fa-upload"></i> Import Datajudul add data -->
                                   <!-- </a> -->
 
-                                <?php } ?>
 
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                      <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
@@ -2711,8 +2705,12 @@
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
                         mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; 
+                      <?php } }?>
+                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
                         mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +'")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>';
                         // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
                         //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';

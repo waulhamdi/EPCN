@@ -35,6 +35,7 @@ class C_Dashboard_new extends CI_Controller {
         $this->load->helper('file');        
         $this->load->model('M_Dashboard_new');
 		$this->load->model('M_PCN');
+        $this->load->model('UserModel');  //untuk load user model hak akses menu   
 		// $this->load->model('M_PCNLIST');
         // $this->load->library('encrypt');    
                   
@@ -187,9 +188,15 @@ class C_Dashboard_new extends CI_Controller {
 			// $data['tooling'] = $this->M_PCN->get_tooling();
 			// $data['attachment'] = $this->M_PCN->get_attachment();
 			// var_dump($data['pcn_list_unapproved'][0]->hdrid);
+			$menu_code = $this->input->get('var');  // Decrypt menu ID   untuk dekrip menu   
+			$menu_name = $this->input->get('var2');  // Decrypt menu ID   untuk dekrip menu name  
+			$data['menu_name'] =  $menu_name; 
+			$menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));  //Menu akses untuk munculkan menu   
+			$data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code); //button akses(Add,Adit,View,Delete,Import,Export)
+		   
 
 			$this->load->view('templates/header'); //Tampil header
-			$this->load->view('templates/sidebar'); //Tampil Sidebar
+			$this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
 			$this->load->view('V_dashboard_new',$data); // Tampil data
 			$this->load->view('templates/footer'); // Tampil footer
 

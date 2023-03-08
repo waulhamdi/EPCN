@@ -279,7 +279,7 @@
                                                         <?php echo $isir->submit_date; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $isir->pic_pro; ?>
+                                                        <?php echo $isir->pro_name; ?>
                                                     </td>
                                                     <td>
                                                         <?php if (!$isir->isir == '') {
@@ -303,7 +303,7 @@
                                                         <?php echo $isir->qc_result; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $isir->pic_qc; ?>
+                                                        <?php echo $isir->qc_name; ?>
                                                     </td>
                                                     <td>
                                                         <?php echo $isir->status; ?>

@@ -36,8 +36,14 @@ class C_ISIR extends CI_Controller
         $this->load->helper('date');
         $this->load->helper('file');
         $this->load->model('M_ISIR');
-        // // $this->load->library('encrypt');    
+        $this->load->model('UserModel');  //untuk load user model hak akses menu  
+        // // $this->load->library('encrypt');  
 
+        // Cari hak akses by controller
+	    $Hak_akses = $this->UserModel->get_controller_access($this->session->userdata('role_id'),'C_ISIR'); 
+	    if($Hak_akses->found!='found') {
+		    redirect('Auth'); // Kembali ke halaman Auth
+	    }
     }
 
     	///@see Index()
@@ -58,9 +64,14 @@ class C_ISIR extends CI_Controller
             $data['Number'] = $_GET['Number'];
         }
         
+        $menu_code = $this->input->get('var');                  // Decrypt menu ID   untuk dekrip menu   
+        $menu_name = $this->input->get('var2');                 // Decrypt menu ID   untuk dekrip menu name  
+        $data['menu_name'] =  $menu_name; 
+        $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
+        $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
+       
         $this->load->view('templates/header'); //Tampil header
-        $this->load->view('templates/sidebar'); //Tampil Sidebar
-        
+        $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar        
         // $this->load->view('ISIR/V_ISIR',$data); // Tampil data
         $this->load->view('ISIR/V_ISIR', $data); // Tampil data
         $this->load->view('templates/footer'); //Tampil footer
@@ -109,6 +120,10 @@ class C_ISIR extends CI_Controller
         } else {
                 $where  = array('transaction_date >' => $_POST['searchByFromdate'], 'transaction_date <' => $_POST['searchByTodate']);//untuk pilihan date
         };
+
+        if ($_POST['Number'] !='') { // due_date -2 filter
+            $where = array('hdrid'=> $_POST['Number']);
+        }
 
         // jika memakai IS NULL pada where sql
         $isWhere = null;
@@ -231,11 +246,11 @@ class C_ISIR extends CI_Controller
         {
           $this->upload_file_attach('millsheet',$hdrid,'tb_isir');
         }
- if(!empty($_FILES['attach_soc']['name']))
+        if(!empty($_FILES['attach_soc']['name']))
         {
           $this->upload_file_attach('attach_soc',$hdrid,'tb_isir');
         }
- if(!empty($_FILES['dimension_result']['name']))
+        if(!empty($_FILES['dimension_result']['name']))
         {
           $this->upload_file_attach('dimension_result',$hdrid,'tb_isir');
         }
@@ -292,6 +307,19 @@ class C_ISIR extends CI_Controller
             }
 
         // *********************  Merge data All post *********************
+        if ($status == 'Unaccepted') {
+            $kode = 'T';//fungsi kode increnete
+            $str = intval(substr($no_isir, strlen($kode), 2)) + 1;
+            $str = str_pad($str, 2, "0", STR_PAD_LEFT);
+            $no_cil = $kode . $str;
+            $where = array('hdrid' => $hdrid);// Buat kondisi where untuk dikirim ke model   
+            $data = array('status' => "$no_isir Unaccepted On Progress $no_cil",'remark'=>$remark);
+            $this->M_ISIR->Update_Data($where,$data,'tb_isir_list');// Buat kondisi where untuk dikirim ke model
+        } else if ($status='Accepted' || $status='Deviation Item(Temp.Dev)' || $status='Die Deviation(Permanent Dev)') {
+            $where = array('hdrid' => $hdrid);// Buat kondisi where untuk dikirim ke model   
+            $data = array('status_isir' =>'Closed','status' => "$no_isir $status ISIR Complete",'remark'=>$remark);
+            $this->M_ISIR->Update_Data($where,$data,'tb_isir_list');// Buat kondisi where untuk dikirim ke model
+        }
         // ,'isir' => '','isir_imp' => '','qc_result' => ''
         // $post_data = array('remark' => $remark,'status' => $status);
         $post_datamerge=array_merge($post_data,$post_data);//menggabungkan semua data
