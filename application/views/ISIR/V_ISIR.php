@@ -11,7 +11,7 @@
       <div class="col-sm-6"><!--untuk ukuran panjang container-->
         <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
           <li class="breadcrumb-item"><a href="C_dashboard_new">Dashboard PCN</a></li><!-- judul dashboard-->
-          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</li><!-- untuk container dashboard-->
+          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</a></li><!-- untuk container dashboard-->
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -358,7 +358,7 @@
             <div class="modal-dialog modal-lg">
               <div class="modal-content bg-white">
                 <div class="modal-header">
-                  <h4 class="modal-title">Edit Data ISIR</h4>
+                  <h4 class="modal-title" id="exampleModalLabelISIR">Edit Data ISIR</h4>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -468,7 +468,7 @@
                 </div>
               </div>
 
-              <div class="form-group" >
+              <div class="form-group" hidden>
                 <div class="row">
                     <div class="col-md-4">
                       <label for="qc_email">QC EMAIL</label>
@@ -533,7 +533,7 @@
                   </div>
                   
                
-
+                <div id="improvement">
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-1">
@@ -546,6 +546,24 @@
                         <div class="custom-file">
                           <input type="file" class="custom-file-input" id="isir_imp" multiple="" name="isir_imp">
                           <label class="custom-file-label" for="isir_imp" id="isir_imp_label">Choose file</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <a class="btn btn-success" id="deviasi_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="deviasi">DEVIASI</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="custom-file">
+                          <input type="file" class="custom-file-input" id="deviasi" multiple="" name="deviasi">
+                          <label class="custom-file-label" for="deviasi" id="deviasi_label">Choose file</label>
                         </div>
                       </div>
                     </div>
@@ -587,20 +605,19 @@
                   <div class="form-group">
                     <div class="row">
                       <div class="col-md-1">
-                        <a class="btn btn-success" id="deviasi_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
+                        <a class="btn btn-success" id="deviasi_result_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
                       </div>
                       <div class="col-md-3">
-                        <label for="deviasi">DEVIASI</label>
+                        <label for="deviasi_result">DEVIASI RESULT</label>
                       </div>
                       <div class="col-md-8">
                         <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="deviasi" multiple="" name="deviasi">
-                          <label class="custom-file-label" for="deviasi" id="deviasi_label">Choose file</label>
+                          <input type="file" class="custom-file-input" id="deviasi_result" multiple="" name="deviasi_result">
+                          <label class="custom-file-label" for="deviasi_result" id="deviasi_result_label">Choose file</label>
                         </div>
                       </div>
                     </div>
                   </div>
-
 
                   <div class="form-group">
                     <div class="row">
@@ -646,14 +663,31 @@
                         </div>
                     </div>
                   </div> 
+                
+                
 
                 
    
                 </form>
+                <div class="form-group" id="confirm_isir">
+                    <div class="row">
+                        <div class="col-md-4">
+                          <label for="">Confirmation</label>
+                        </div>
+                        <div class="col-md-8">
+                        <button class='btn btn-info ' id="received" data-toggle='modal' data-target='#modal-confirm-received' > Received </button>
+                        <button class='btn btn-warning ' id="send_back" data-toggle='modal' data-target='#modal-confirm-back' > Send Back </button>
+                        </div>
+                    </div>
+                  </div> 
+                  <!-- <div>
+                    <button class='btn btn-info ' data-toggle='modal' data-target='#modal-confirm-received' > Received </button>
+                    <button class='btn btn-danger ' data-toggle='modal' data-target='#modal-confirm-back' > Send Back </button>
+                  </div> -->
                 </div>
                 <div class="modal-footer justify-content-between">             
                   <form action="#" method="post">
-                    <button type="button" id="insert_cicilan" onclick="Update_isir()" class="btn btn-primary">Update</button>    
+                    <button type="button" id="insert_isir" onclick="Update_isir()" class="btn btn-primary">Update</button>    
                   </form>     
                   <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>       
                 </div>
@@ -664,6 +698,84 @@
             <!-- /.modal-dialog -->
           </div>
           <!-- /.modal isir-->
+
+           <!-- Start modal-back -->
+           <div class="modal fade" id="modal-confirm-back"> <!--untuk modal confirm approve-->
+              <div class="modal-dialog"><!--untuk modal dialog-->
+                  <div class="modal-content bg-danger"><!--untuk bg-success-->
+
+                  <div class="modal-header"><!--untuk modal header-->
+                      <h4 class="modal-title">Send Back To PIC Procurement</h4><!--title modal-->
+                      <button type="button" class="close" data-dismiss="modal"  aria-label="Close"><!--fungsi button-->
+                      <span aria-hidden="true">&times;</span><!--spam dengan lambang waktu-->
+                      </button>
+                  </div>
+
+                  <div class="modal-body"><!--modal body-->
+                      <div class="form-group"><!--form group-->
+                      <div class="row"><!--row-->
+                          <div class="col-md-3">
+                          <label for="reason">REASON</label><!--judul label-->
+                          </div>
+                          <div class="col-md-9">
+                          <textarea rows="2" type="text" name="reason" class="form-control" id="reason"></textarea><!--text area untuk reason-->
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="modal-footer justify-content-between"><!--untuk modal footer-->
+
+                      <button type="button" id="delete" onclick="Send_Back()" class="btn btn-outline-light"><b>Send Back</b></button>
+                      <button type="button" class="btn btn-outline-light" data-dismiss="modal"><b>Cancel</b></button><!--button cancel-->
+
+                  </div>
+
+                  </div>
+                  <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+          </div>
+          <!-- END modal-back -->
+
+          <!-- Start modal-received -->
+          <div class="modal fade" id="modal-confirm-received"> <!--untuk modal confirm approve-->
+              <div class="modal-dialog"><!--untuk modal dialog-->
+                  <div class="modal-content bg-info"><!--untuk bg-success-->
+
+                  <div class="modal-header"><!--untuk modal header-->
+                      <h4 class="modal-title">Confirmation Received</h4><!--title modal-->
+                      <button type="button" class="close" data-dismiss="modal"  aria-label="Close"><!--fungsi button-->
+                      <span aria-hidden="true">&times;</span><!--spam dengan lambang waktu-->
+                      </button>
+                  </div>
+
+                  <div class="modal-body"><!--modal body-->
+                      <div class="form-group"><!--form group-->
+                      <div class="row"><!--row-->
+                          <div class="col-md-3">
+                          <label for="comment_rec">COMMENT</label><!--judul label-->
+                          </div>
+                          <div class="col-md-9">
+                          <textarea rows="2" type="text" name="comment_rec" class="form-control" id="comment_rec"></textarea><!--text area untuk reason-->
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+
+                  <div class="modal-footer justify-content-between"><!--untuk modal footer-->
+
+                      <button type="button" id="delete" onclick="Confirm_rec()" class="btn btn-outline-light"><b>Confirm</b></button>
+                      <button type="button" class="btn btn-outline-light" data-dismiss="modal"><b>Cancel</b></button><!--button cancel-->
+
+                  </div>
+
+                  </div>
+                  <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+          </div>
+          <!-- END modal-received -->
 
       
 
@@ -1053,13 +1165,15 @@ minlength: 3
               document.getElementById("btnsubmit").style.visibility = "hidden";   //fungsi hidden tombol submit
               // document.getElementById("btnsend").style.visibility = "hidden";   //fungsi hidden tombol save dan send
               document.getElementById("btnsend2").style.visibility = "hidden";  //fungsi hidden tombol send
-              $('#exampleModalLabel').text('View Data'); //name view              
+              $('#exampleModalLabel').text('View Data'); //name view  
+              document.getElementById("btn_add_row").style.display = "none";  //fungsi hidden tombol send
             }else{
               $('#exampleModalLabel').text('Edit Data'); //name view 
               $('#btnsubmit').text('Update'); //name Update  
               document.getElementById("btnsend2").style.visibility = "hidden"; //fungsi hidden tombol send
               document.getElementById("btnsubmit").style.visibility = "visible";  //fungsi visible tombol submit
-              
+              document.getElementById("btn_add_row").style.display = "";  //fungsi hidden tombol send
+        
             }
           
           }
@@ -1440,6 +1554,10 @@ error: function (e) {
     view_modal_isir($(this).attr("data-id"),'Edit');
     })
 
+    $(document).on("click", ".konfirmasiViewIsir", function() {     
+    view_modal_isir($(this).attr("data-id"),'ViewIsir');
+    })
+
     //  HDRID selected KonfirmasiReturn
     $(document).on("click", ".konfirmasiHapusisir", function() {
     let str = $(this).attr("data-id");
@@ -1537,10 +1655,18 @@ error: function (e) {
                         // return meta.row + meta.settings._iDisplayStart + 1;
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
+                            // Tombol View
+                            mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiViewIsir mr-2"  data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-isir"> <i class="fa fa-eye"></i></div>';
+                            
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
                             // Tombol Edit
-                            mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEditIsir" data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-isir"> <i class="fa fa-edit"></i></div>';
-                              //Tombol Delete
-                            mnu=mnu+'<div class="btn btn-danger btn-sm konfirmasiHapusisir" data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-delete-isir" > <i class="fa fa-trash"></i></div>';
+                              mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEditIsir mr-2"  data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-isir"> <i class="fa fa-edit"></i></div>';
+                            <?php } } ?>
+                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
+                            //Tombol Delete
+                              mnu=mnu+'<div class="btn btn-danger btn-sm konfirmasiHapusisir mr-2"  data-id="'+ row.hdrid +"#"+ row.no_isir +'" data-toggle="modal" data-target="#modal-delete-isir" > <i class="fa fa-trash"></i></div>';
+                            <?php } } ?>
+
                         return mnu;
                     }  
                 },
@@ -1565,6 +1691,7 @@ error: function (e) {
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
             dom: "lfBrtip",
             buttons: [
+              <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?>
             {
               extend: 'copyHtml5',//extend html
               className: 'btn btn-secondary',//button
@@ -1592,7 +1719,7 @@ error: function (e) {
               orientation : 'landscape', //type landscape
               pageSize : 'A4', //ukuran kertas
               download: 'open' //download 
-            }
+            }<?php } }?>
           ],
             "ajax":
             {
@@ -1619,7 +1746,7 @@ error: function (e) {
                         mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                       <?php } }?>
                       <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>  
-                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
                       <?php } }?>
                         mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_PrintA4_isir/print_report2_approved?Number=') . "'+ data +' "  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
@@ -1859,6 +1986,14 @@ error: function (e) {
                       }else{
                         a.removeAttribute("href");
                       };
+                      document.getElementById('deviasi_result_label').innerHTML=data.deviasi_result;
+                      var a = document.getElementById('deviasi_result_view');
+                      if(!data.deviasi_result==''){
+                        a.href = "<?php echo base_url('assets/upload/isir/') ?>" + data.deviasi_result;
+                      }else{
+                        a.removeAttribute("href");
+                      };
+
 
 
                       $('#qc_submit_date').val(data.qc_submit_date);
@@ -1867,7 +2002,46 @@ error: function (e) {
                       $('#status').select2().val(data.status).trigger('change');
                       $('#comment').val(data.comment);
 
-                    
+                      // Rule Access User
+                      let nik="<?php echo $this->session->userdata('user_name') ?>";
+
+                      if (nik == data.pic_pro ) {
+                          document.getElementById('comment').readOnly = true; 
+                          document.getElementById('status').disabled = true; 
+                          document.getElementById('qc_submit_date').disabled = true; 
+                          document.getElementById('deviasi_result').disabled = true; 
+                          document.getElementById('qc_result').disabled = true; 
+                          document.getElementById('received').disabled = true; 
+                          document.getElementById('send_back').disabled = true; 
+                          document.getElementById('insert_isir').disabled = false; 
+
+                      } else if(nik == data.pic_qc || nik == data.cc_to1 || nik == data.cc_to2 ){
+                          document.getElementById('remark').readOnly = true; 
+                          document.getElementById('pic_pro').disabled = true; 
+                          document.getElementById('pic_qc').disabled = true; 
+                          document.getElementById('cc_to1').disabled = true; 
+                          document.getElementById('cc_to2').disabled = true; 
+                          document.getElementById('isir').disabled = true; 
+                          document.getElementById('submit_date').disabled = true; 
+                          document.getElementById('isir_imp').disabled = true; 
+                          document.getElementById('deviasi').disabled = true; 
+                          document.getElementById('insert_isir').disabled = false; 
+
+                      } else {
+
+                          document.getElementById('received').disabled = true; 
+                          document.getElementById('send_back').disabled = true; 
+                          document.getElementById('insert_isir').disabled = true; 
+
+                      }
+                      // Hide detail improve kalau ISIR T01
+                      if (no_isir == 'T01') {
+                        document.getElementById("improvement").style.display = "none";
+                      }else{
+                        document.getElementById("improvement").style.display = "";
+                      }
+                      
+                      
                       // ---------------------------------- / Data val Macro  Batas sini ------------------------------
               
                                                               
@@ -1881,24 +2055,26 @@ error: function (e) {
 
 
       // fungsi untuk disable dan enable button  
-      if(status=="View"){
-        $('#exampleModalLabel').text('View Data'); //name view 
-        $('#btnsubmit').text('Tes'); //name Update               
-        document.getElementById("btnsubmit").style.visibility = "hidden"; 
-
+      if(status=="ViewIsir"){
+        $('#exampleModalLabelISIR').text('View Data ISIR'); //name view 
+        // $('#btnsubmit').text('Tes'); //name Update               
+        document.getElementById("confirm_isir").style.display = "none"; 
+        document.getElementById("insert_isir").style.display = "none"; 
+        
     
 
 
-    }else{
+      }else{
 
         // $('#exampleModalLabel').text('Edit Data'); //name view 
         // $('#btnsubmit').text('Update'); //name Update  
         document.getElementById("btnsubmit").style.visibility="visible"; 
-  
-       
-      
+        document.getElementById("confirm_isir").style.display = ""; 
+        document.getElementById("insert_isir").style.display = ""; 
 
-    
+      
+  
+      
     }
 
       }
@@ -2071,6 +2247,103 @@ error: function (e) {
         });
 
         }
+
+        /// @see  Confirm_rec()
+        /// @note send email received to creator
+        /// @attention Mengirim data ke controller
+        function Confirm_rec(){
+
+      
+
+        // Form data
+        var fdata = new FormData();
+
+        // Delete by Hdrid
+
+        fdata.append('hdrid', $('#hdrid').val());//reason
+        fdata.append('page', "ISIR");//reason
+        fdata.append('no_isir', $('#no_isir').val());//reason
+        fdata.append('reason', $('#comment_rec').val());//reason
+        fdata.append('sender', "<?php echo $this->session->nama; ?>");//update position code
+
+        // Url Post delete
+        vurl = "<?php echo base_url('C_Mail/ajax_received')?>";
+
+        // Post data
+        $.ajax({
+            url: vurl,
+            method: "post",
+            processData: false,
+            contentType: false,
+            data: fdata,
+            success: function (data) {
+
+                // Hide modal delete
+                $('#modal-confirm-received').modal('hide');
+                // Delete rows datatables
+                // $('#detailIsir').DataTable().row("#"+$('#iddeleteisir').text()).remove().draw();
+                // Pesan berhasil
+                berhasil(data.status);   
+
+            },
+            error: function (e) {
+                //Pesan Gagal
+                gagal(e);             
+            }
+        });
+
+        }
+
+        /// @see  Send_Back()
+        /// @note Send email rejected to creator
+        /// @attention Mengirim data ke controller 
+        function Send_Back(){
+
+        // Validasi reason harus diisi
+        // if ($('#reason').val() == '') {
+        //   gagal('Reason wajib diisi...');
+        //   return false;
+        // }
+
+        // Form data
+        var fdata = new FormData();
+
+        // Delete by Hdrid
+
+        fdata.append('hdrid', $('#hdrid').val());//reason
+        fdata.append('page', "ISIR");//reason
+        fdata.append('no_isir', $('#no_isir').val());//reason
+        fdata.append('reason', $('#reason').val());//reason
+        fdata.append('sender', "<?php echo $this->session->nama; ?>");//update position code
+
+        // Url Post delete
+        vurl = "<?php echo base_url('C_Mail/ajax_back')?>";
+
+        // Post data
+        $.ajax({
+            url: vurl,
+            method: "post",
+            processData: false,
+            contentType: false,
+            data: fdata,
+            success: function (data) {
+
+                // Hide modal delete
+                $('#modal-confirm-back').modal('hide');
+                // Delete rows datatables
+                // $('#detailIsir').DataTable().row("#"+$('#iddeleteisir').text()).remove().draw();
+                // Pesan berhasil
+                berhasil(data.status);   
+
+            },
+            error: function (e) {
+                //Pesan Gagal
+                gagal(e);             
+            }
+        });
+
+        }
+
 
   </script>
 

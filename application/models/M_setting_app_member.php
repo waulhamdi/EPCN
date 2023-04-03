@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_ISIR_Mail extends CI_Model {
+class M_setting_app_member extends CI_Model {
       
    function get_tables($tables,$cari,$iswhere)
         {
@@ -308,17 +308,88 @@ class M_ISIR_Mail extends CI_Model {
 
    }
 
+   public function Send_mail($hdrid)
+   {
+    
+    // cari approver yang belum approve dan order by level
+    $query =$this->db->query("
+         SELECT  hdrid
+         ,level_approve
+         ,nik_approver
+         ,nik_approver_encode
+         ,name_approver
+         ,email_approver
+         ,date_approve
+         ,description
+     FROM sys_set_app_approver
+     where hdrid='WTR2010009' and level_approve=(select min(level_approve) from sys_set_app_approver where hdrid='WTR2010009' and date_approve is null)");
+
+      // jika ketemu
+   if ($query->num_rows()>0) {
+      $query=$query->rows();
+
+      // Update progress waiting approve
+       $where = array('hdrid' => $query->hdrid); 
+       $data = array('progress_approver' =>'Waiting approved '.$query->name_approver);       
+       $this->db->where($where);
+       $this->db->update('sys_set_app_approver',$data);
+
+      // Kirim email request to approve
+      $this->db->query("CALL sp_send_mail @hdrid='$query->hdrid',@nik='$query->nik_approver',@name='$query->name_approver',@email='widodo.a5v@ap.denso.com',@EmailSubject='Waiting Approver Wire transfer No ',@Email_body_content='You need approver'");
+    
+    }else{
+
+     // Update progress finish approve
+     $where = array('hdrid' => $query->hdrid); 
+     $data = array('progress_approver' =>'Finish Approved'); 
+     $this->db->where($where);
+     $this->db->update('sys_set_app_approver',$data);
+    
+     // Kirim email notifikasi finish aprove
+     $this->db->query("exec sp_send_mail @hdrid='123',@nik='DM1902060',@name='Widodo',@email='widodo.a5v@ap.denso.com',@EmailSubject='Finish Approver Wire transfer No ',@Email_body_content='You need approver'");
+   
+    }
+    
+   }
+
+   public function Send_mail_reject($hdrid)
+   {
+    
+      // Cari data wire
+      $query =$this->db->query("select hdrid,nik,name_requester,isnull(reject_by,'')reject_by,isnull(reason_reject,'')reason_reject from tb_wiretransfer where hdrid='$hdrid' ");
+      $query=$query->row();
+
+      // Cari email
+      $query2 =$this->db->query("select top 1 email from tb_userwire where nik='$query->nik' ");
+      if ($query2->num_rows()>0) {
+          $query2=$query2->row();
+         //  Kirim email
+          $result =$this->db->query("exec sp_send_mail @hdrid='$query->hdrid',@nik='$query->nik',@name='$query->name_requester',@email='widodo.a5v@ap.denso.com',@EmailSubject='Rejected Wire transfer No ',@Email_body_content='Rejected by <b> $query->reject_by </b>',@comment='With reason = <b> $query->reason_reject </b>'")->result_array();
+      }
+      
+   }
+
+
    public function Tampil_user()
     {
-        $this->db->select('*');
-        $this->db->from('Tb_user_login');
-        return $this->db->get()->result();
+        // $this->db->select('*');
+        // $this->db->from('Tb_user_login');
+        // return $this->db->get()->result();
 
-        // $DB2 = $this->load->database('db_central_user', TRUE);       
-        // $query=$DB2->get('Tb_user_login')->result();
-        // $DB2->Close();
-        // return  $query;
+        $DB2 = $this->load->database('db_central_user', TRUE);       
+        $query=$DB2->get('Tb_user_login')->result();
+        $DB2->Close();
+        return  $query;
 
+    }
+
+    /// @see Tampil_product()
+    /// @note Menampilkan data product
+    /// @attention Select semua data field dari table
+    public function Tampil_product()
+    {
+        $this->db->distinct();
+        return $this->db->get('tb_superiorqa')->result(); // Produces: SELECT DISTINCT * FROM table
     }
 
 

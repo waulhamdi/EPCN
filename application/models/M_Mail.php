@@ -35,7 +35,13 @@ class M_Mail extends CI_Model {
     {
         $this->db->limit(1);
         $query=$this->db->get_where($table, $where);
-        return $query->row();
+
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        }else{
+            $query = (object) array('office_email'=>'');
+            return $query;
+        }
     }
     
     ///@see input Update_stat()
@@ -181,7 +187,7 @@ class M_Mail extends CI_Model {
     {   
 
         $add=1;
-        for ($x = 0; $x <= 8; $x+=1) {
+        // for ($x = 0; $x <= 1; $x+=1) {
 
             $query = $this->db->query("
             INSERT INTO tb_isir
@@ -213,8 +219,8 @@ class M_Mail extends CI_Model {
                     ,'DM1901762'
                 )
             ");
-            $add++;
-            }
+            // $add++;
+            // }
 
         $query2 = $this->db->query("
             INSERT INTO tb_isir_list
@@ -229,7 +235,7 @@ class M_Mail extends CI_Model {
                 (
                     '$hdrid'
                     ,getdate()
-                    ,'On Progress T01'
+                    ,'On Progress ISIR T01'
                     ,'$nik'
                     ,'Open'
                 )

@@ -11,7 +11,7 @@
       <div class="col-sm-6"><!--untuk ukuran panjang container-->
         <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
           <li class="breadcrumb-item"><a href="C_dashboard_new">Dashboard PCN</a></li><!-- judul dashboard-->
-          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</li><!-- untuk container dashboard-->
+          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</a></li><!-- untuk container dashboard-->
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -45,19 +45,23 @@
                         <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
 
                           <h4 class="card-title"><!--untuk judul bagian kepala aplikasi-->
-                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_add=='on') { ?>
-                              <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#" ><!--fungsi add data-->
-                              <i class="fa fa-plus"></i> Add Data <!--judul add data-->
-                              </a>
+                            <?php if (!empty($hak_akses)) {
+                              if ($hak_akses->allow_add == 'on') { ?>
+                                                                          <a data-toggle="modal" data-target="#modal-default"  Onclick="view_modal('1','Add')" href="#" ><!--fungsi add data-->
+                                                                          <i class="fa fa-plus"></i> Add Data <!--judul add data-->
+                                                                          </a>
 
-                            <?php } }?>
+                                                  <?php }
+                            } ?>
 
-                            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
-                              <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
-                                <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
-                              </a>
+                            <?php if (!empty($hak_akses)) {
+                              if ($hak_akses->allow_import == 'on') { ?>
+                                                                          <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
+                                                                            <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
+                                                                          </a>
 
-                            <?php } }?>
+                                                  <?php }
+                            } ?>
 
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapsefilter"> <!--fungsi custom filler yang digunakan mencari tanggal input-->
                                  <i class="fa fa-binoculars"></i> Custom Filter <!--judul custom filler-->
@@ -141,6 +145,7 @@
               <th>BEFORE CAPACITY</th>
               <th>AFTER CAPACITY</th>
               <th>PART NUMBER</th>
+              <th>CAVITY</th>
               <th>PART NAME</th>
               <th>PRODUCT NAME</th>
               <th>COMMODITY</th>
@@ -240,9 +245,9 @@
                                 <select class="form-control select2" id="supplier_name" name="supplier_name" onchange="handleSelectChange_supplier(event)" style="width: 100%;">
                                   <option value='' selected="selected">-Select-</option>
                                   <?php
-                                    foreach ($supplier as $value) {
-                                      echo "<option value='$value->supplier'>$value->supplier</option>";
-                                      }
+                                  foreach ($supplier as $value) {
+                                    echo "<option value='$value->supplier'>$value->supplier</option>";
+                                  }
                                   ?>
                                 </select>
                                 </div>
@@ -289,9 +294,9 @@
                                   <select class="form-control select2" id="any_cost_impact" name="any_cost_impact" onchange="handleSelectChange_any_cost_impact(event)" style="width: 100%;">
                                     <option value='' selected="selected">-Select-</option>
                                     <?php
-                                      foreach ($any_cost_impact as $value) {
-                                        echo "<option value='$value'>$value</option>";
-                                      }
+                                    foreach ($any_cost_impact as $value) {
+                                      echo "<option value='$value'>$value</option>";
+                                    }
                                     ?>
                                   </select>
                                 </div>
@@ -325,9 +330,9 @@
                                   <select class="form-control select2" id="affect_to_capacity" name="affect_to_capacity" onchange="handleSelectChange_affect_to_capacity(event)" style="width: 100%;">
                                     <option value='' selected="selected">-Select-</option>
                                     <?php
-                                      foreach ($any_cost_impact as $value) {
-                                        echo "<option value='$value'>$value</option>";
-                                      }
+                                    foreach ($any_cost_impact as $value) {
+                                      echo "<option value='$value'>$value</option>";
+                                    }
                                     ?>
                                   </select>
                                 </div>
@@ -389,7 +394,24 @@
                                   <label for="part_number">PART NUMBER</label>
                                 </div>
                                 <div class="col-md-8">
-                                  <input type="text" name="part_number" class="form-control" id="part_number" >
+                                <select class="form-control select2" id="part_number" name="part_number" onchange="handleSelectChange_part_number(event)" style="width: 100%;">
+                                  <option value='' selected="selected">-Select-</option>
+                                  <?php
+                                  foreach ($part_number as $value) {
+                                    echo "<option value='$value->part_number'>$value->part_number</option>";
+                                  }
+                                  ?>
+                                </select>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                  <!-- <label for="cavity">CAVITY</label> -->
+                                </div>
+                                <div class="col-md-4">
+                                  <input type="text" name="cavity" class="form-control" id="cavity" placeholder="Number Of Cavities">
                                 </div>
                             </div>
                           </div>
@@ -399,7 +421,14 @@
                                   <label for="part_name">PART NAME</label>
                                 </div>
                                 <div class="col-md-8">
-                                  <input type="text" name="part_name" class="form-control" id="part_name" >
+                                  <select class="form-control select2" id="part_name" name="part_name" onchange="handleSelectChange_part_name(event)" style="width: 100%;">
+                                    <option value='' selected="selected">-Select-</option>
+                                    <?php
+                                    foreach ($part_name as $value) {
+                                      echo "<option value='$value->part_name'>$value->part_name</option>";
+                                    }
+                                    ?>
+                                  </select>
                                 </div>
                             </div>
                           </div>
@@ -412,9 +441,9 @@
                                 <select class="form-control select2" id="product_name" name="product_name" onchange="handleSelectChange_product(event)" style="width: 100%;">
                                   <option value='' selected="selected">-Select-</option>
                                   <?php
-                                    foreach ($product as $value) {
-                                      echo "<option value='$value->product'>$value->product</option>";
-                                      }
+                                  foreach ($product as $value) {
+                                    echo "<option value='$value->product'>$value->product</option>";
+                                  }
                                   ?>
                                 </select>
                                 </div>
@@ -707,6 +736,12 @@
                                     REGULATION<img src="<?php echo base_url() ?>assets/dist/img/regulation.jpg" style="opacity: .8;width:75px">
                                 </label>
                             </div>
+                             <div class="icheck-primary d-inline">
+                                <input type="radio" id="criteria_critical_item6" value="NONE" name="criteria_critical_item" >
+                                <label for="criteria_critical_item6">
+                                    NONE
+                                </label>
+                            </div>
                             
                           </div>
                             
@@ -937,7 +972,7 @@
                           <div class="form-group">
                             <div class="row">
                                 <div class="col-md-4">
-                                  <label>TIMING DENSO APPROVAL:<br><p style=''>(Min. 6 Months after documents completed if AINE inform to customer)</p></label>
+                                  <label>TIMING DENSO APPROVAL:<br><p style=''>(Min. 6 Months after documents completed if DMIA inform to customer)</p></label>
                                 </div>
                                 <div class="col-md-4">
                                   <div class="input-group date" data-date-format="YYYY-MM-DD"  id="timepickertiming_denso_approval" data-target-input="nearest">
@@ -1171,7 +1206,7 @@
                         <label for="attach_doc1">Detail Of Process Change (6M+EAS) <font color='red'>*</font></label>
                       </div>
                       <div class="col-md-1" id='delete_attach1'>
-                        <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                        <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
                       </div>
                       <div class="col-md-1">
                         <a class="btn btn-success" id="attach_doc1_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1191,7 +1226,7 @@
                 <label for="attach_doc2">Supplier Inspection Standard </label>
               </div>
               <div class="col-md-1" id='delete_attach2'>
-                <a class="btn btn-danger"  data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger"  data-id="attachment" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1211,7 +1246,7 @@
                 <label for="attach_doc3">Control Plan/QCPC </label>
               </div>
               <div class="col-md-1" id='delete_attach3'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc3_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1232,7 +1267,7 @@
                 <label for="attach_doc4">FMEA </label>
               </div>
               <div class="col-md-1" id='delete_attach4'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach4" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach4" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc4_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1253,7 +1288,7 @@
                 <label for="attach_doc5">QA Network </label>
               </div>
               <div class="col-md-1" id='delete_attach5'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach5" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach5" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc5_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1274,7 +1309,7 @@
                 <label for="attach_doc6">Initial Proces Capability Study (Cp,Cpk) </label>
               </div>
               <div class="col-md-1" id='delete_attach6'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach6" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach6" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc6_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1295,7 +1330,7 @@
                 <label for="attach_doc7">Material Performance Test Results/MiilSheet <font color='red'>*</font></label>
               </div>
               <div class="col-md-1" id='delete_attach7'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach7" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach7" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc7_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1315,7 +1350,7 @@
                 <label for="attach_doc8">Procces Flow Diagram </label>
               </div>
               <div class="col-md-1" id='delete_attach8'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach8" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach8" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc8_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1335,7 +1370,7 @@
                 <label for="attach_doc9">Dimensional Results (Layout Inspection,n=1) </label>
               </div>
               <div class="col-md-1" id='delete_attach9'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach9" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach9" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc9_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1354,7 +1389,7 @@
                 <label for="attach_doc10">Part Submission Warrant (PSW) </label>
               </div>
               <div class="col-md-1" id='delete_attach10'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach10" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach10" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc10_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1373,7 +1408,7 @@
                 <label for="attach_doc11">ISIR + Baloon Drawing (n=3/cavity) </label>
               </div>
               <div class="col-md-1" id='delete_attach11'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach11" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach11" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc11_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1392,7 +1427,7 @@
                 <label for="attach_doc12">Record Of SOC Compliance With Customer Specific Requiretments </label>
               </div>
               <div class="col-md-1" id='delete_attach12'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach12" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach12" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc12_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1411,7 +1446,7 @@
                 <label for="attach_doc13"> Proof Of SOC Compliance(10 substance)  </label>
               </div>
               <div class="col-md-1" id='delete_attach13'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach13" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach13" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc13_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1430,7 +1465,7 @@
                 <label for="attach_doc14">IMDS <font color='red'>*</font></label>
               </div>
               <div class="col-md-1" id='delete_attach14'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach14" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach14" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc14_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1449,7 +1484,7 @@
                 <label for="attach_doc15">Packaging Specification </label>
               </div>
               <div class="col-md-1" id='delete_attach15'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach15" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach15" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc15_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1468,7 +1503,7 @@
                 <label for="attach_doc16">QC PLAN </label>
               </div>
               <div class="col-md-1" id='delete_attach16'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach16" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach16" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc16_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1487,7 +1522,7 @@
                 <label for="attach_doc17">Lot Control System </label>
               </div>
               <div class="col-md-1" id='delete_attach17'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach17" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach17" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc17_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1506,7 +1541,7 @@
                 <label for="attach_doc18">Supply Chain </label>
               </div>
               <div class="col-md-1" id='delete_attach18'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach18" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach18" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc18_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1525,7 +1560,7 @@
                 <label for="attach_doc19">Sample Part (After ISIR Ok) </label>
               </div>
               <div class="col-md-1" id='delete_attach19'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach19" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach19" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc19_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1544,7 +1579,7 @@
                 <label for="attach_doc20">Company Profile <font color='red'>*</font></label>
               </div>
               <div class="col-md-1" id='delete_attach20'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach20" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach20" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc20_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1563,7 +1598,7 @@
               <label for="attach_doc21">Production Layout Factory </label>
             </div>
             <div class="col-md-1" id='delete_attach21'>
-              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach21" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach21" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
             </div>
             <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc21_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1582,7 +1617,7 @@
               <label for="attach_doc22">Capactiy Review </label>
             </div>
             <div class="col-md-1" id='delete_attach22'>
-              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach22" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach22" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
             </div>
             <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc22_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1601,7 +1636,7 @@
               <label for="attach_doc23">Quality System Certification </label>
             </div>
             <div class="col-md-1" id='delete_attach23'>
-              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+              <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach23" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
             </div>
             <div class="col-md-1">
               <a class="btn btn-success" id="attach_doc23_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1621,7 +1656,7 @@
                 <label for="attach_doc24">Audit Report by DIAT(Spesial Process) </label>
               </div>
               <div class="col-md-1" id='delete_attach24'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach24" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach24" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc24_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1641,7 +1676,7 @@
                 <label for="attach_doc25">Audit Report by Denso OGC (IF Necesary) </label>
               </div>
               <div class="col-md-1" id='delete_attach25'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach25" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach25" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc25_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1661,7 +1696,7 @@
                 <label for="attach_doc26">Kakotora With Prevention </label>
               </div>
               <div class="col-md-1" id='delete_attach26'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach26" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach26" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc26_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1681,7 +1716,7 @@
                 <label for="attach_doc_27">SUPPLIER AUDIT RESULT <br> (For New Supplier Raw material/ Subcont)</label>
               </div>
               <div class="col-md-1" id='delete_attach27'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach27" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach27" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc_27_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1700,7 +1735,7 @@
                 <label for="attach_doc28">DATA LIFE TIME SHOOT TOOLING <font color='red'>*</font></label>
               </div>
               <div class="col-md-1" id='delete_attach28'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach28" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach28" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc28_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1719,7 +1754,7 @@
                 <label for="attach_doc29">PARAMETER SETTTING COMPARE OPTIONAL)</label>
               </div>
               <div class="col-md-1" id='delete_attach29'>
-                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach29" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach29" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
               </div>
               <div class="col-md-1">
                 <a class="btn btn-success" id="attach_doc29_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -1732,10 +1767,20 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
+
+      <div class="form-group">
+        <div class="row">
+            <div class="col-md-4" >
+              <label for="remark">REMARK</label>
+            </div>
+            <div class="col-md-8">
+              <input type="text" name="remark" class="form-control" id="remark" >
+            </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <div class="row">
             <div class="col-md-4" >
@@ -1911,7 +1956,7 @@
     $('#quickForm').validate({
       rules: {
 
-			// 	// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
+      // 	// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
       // email: {
       // required: true,
       // },
@@ -2044,7 +2089,7 @@
       },
       messages: {
     
-				// ---------------------------------- Rule input Macro Batas sini 2---------------------------------
+        // ---------------------------------- Rule input Macro Batas sini 2---------------------------------
         email: {
         required: "Please Input email",
         minlength: 3
@@ -2288,7 +2333,7 @@
 
             // Ajax isi data
               $.ajax({
-              url: "<?php echo base_url('C_PCN/ajax_getbyhdrid')?>",
+              url: "<?php echo base_url('C_PCN/ajax_getbyhdrid') ?>",
               method: "get",
               dataType : "JSON",              
               data: {hdrid:hdrid1},
@@ -2309,6 +2354,7 @@
                   $('#before_capacity').val(data.before_capacity);
                   $('#after_capacity').val(data.after_capacity);
                   $('#part_number').val(data.part_number);
+                  $('#cavity').val(data.cavity);
                   $('#part_name').val(data.part_name);
                   $('#product_name').select2().val(data.product_name).trigger('change');
                   $('#commodity').val(data.commodity);
@@ -2318,6 +2364,7 @@
                   $('#current_process').val(data.current_process);
                   $('#proposed_process').val(data.proposed_process);
                   $('#characteristics_affected').val(data.characteristics_affected);
+                  $('#remark').val(data.remark);
 
                   if(data.criteria_critical_item=='SAFETY'){
                       document.getElementById('criteria_critical_item').checked=true;
@@ -2329,12 +2376,15 @@
                     document.getElementById('criteria_critical_item4').checked=true;
                   }else if(data.criteria_critical_item=='REGULATION'){
                     document.getElementById('criteria_critical_item5').checked=true;
+                  }else if(data.criteria_critical_item=='NONE'){
+                    document.getElementById('criteria_critical_item6').checked=true;
                   }else {
                         document.getElementById('criteria_critical_item').checked=false;
                         document.getElementById('criteria_critical_item2').checked=false;
                         document.getElementById('criteria_critical_item3').checked=false;
                         document.getElementById('criteria_critical_item4').checked=false;
                         document.getElementById('criteria_critical_item5').checked=false;
+                        document.getElementById('criteria_critical_item6').checked=false;
                   };
 
                   if(data.object_type=='NEW SUPPLIER(never been in denso)'){  //1.1
@@ -4159,9 +4209,9 @@
           // Simpan or Update data          
           var vurl; 
           if($trigger == 'Add') {            
-            vurl = "<?php echo base_url('C_PCN/ajax_add')?>";//link simpan data
+            vurl = "<?php echo base_url('C_PCN/ajax_add') ?>";//link simpan data
           } else {           
-            vurl = "<?php echo base_url('C_PCN/ajax_update')?>";//link update data
+            vurl = "<?php echo base_url('C_PCN/ajax_update') ?>";//link update data
           }
         
           //untuk aja data sudah bisa dipost
@@ -4191,7 +4241,7 @@
                   fdata3.append('hdrid', data.hdrid);
 
                   $.ajax({
-                  url: "<?php echo base_url('C_Mail/ajax_mail_approve')?>",
+                  url: "<?php echo base_url('C_Mail/ajax_mail_approve') ?>",
                   method: "post",
                   processData: false,
                   contentType: false,
@@ -4231,7 +4281,7 @@
                    fdata3.append('hdrid', $('#hdrid').val());
  
                    $.ajax({
-                   url: "<?php echo base_url('C_Mail/ajax_mail_approve')?>",
+                   url: "<?php echo base_url('C_Mail/ajax_mail_approve') ?>",
                    method: "post",
                    processData: false,
                    contentType: false,
@@ -4275,7 +4325,7 @@ $('#quickForm input[type="checkbox"]:not(:checked)').each(function(i, e) {
 
 // Simpan or Update data          
 var vurl;  //url
-vurl = "<?php echo base_url('C_Email/ajax_send_mail_v1')?>"; //link send email
+vurl = "<?php echo base_url('C_Email/ajax_send_mail_v1') ?>"; //link send email
 
 $.ajax({ //ajax pada send email
     url: vurl, //url
@@ -4334,7 +4384,7 @@ fdata.append(e.getAttribute("name"), file_data);
 
 // Simpan or Update data           
 var vurl; 
-vurl = "<?php echo base_url('C_PCN/ajax_sendDraft')?>";//link senddraft
+vurl = "<?php echo base_url('C_PCN/ajax_sendDraft') ?>";//link senddraft
 
 $.ajax({ //ajax pada send draft
     url: vurl, //url
@@ -4356,7 +4406,7 @@ success: function (data) {
         fdata2.append('position_code', "2");//status group position_code
 
       var vurl2; 
-      vurl2 = "<?php echo base_url('C_Email/ajax_send_mail_v2')?>";//link send mail v2
+      vurl2 = "<?php echo base_url('C_Email/ajax_send_mail_v2') ?>";//link send mail v2
 
       $.ajax({
           url: vurl2,
@@ -4458,7 +4508,7 @@ function sendDraft2() { //variable untuk sendraft2
 
         // Kirim email
         var vurl2; 
-        vurl2 = "<?php echo base_url('C_Email/ajax_send_mail_v2')?>";//link send mail v2
+        vurl2 = "<?php echo base_url('C_Email/ajax_send_mail_v2') ?>";//link send mail v2
           $.ajax({
           url: vurl2, //url
           method: "post",//jenis method pst
@@ -4494,7 +4544,6 @@ function sendDraft2() { //variable untuk sendraft2
 
 ///@see get delete data
 ///@note fungsi digunakan untuk delete data
-///@attention 
 function Delete_data(){
 
 // Form data
@@ -4503,7 +4552,7 @@ var fdata = new FormData();
 // Delete by Hdrid
 fdata.append('hdrid',$('#iddelete').text());
 // Url Post delete
-vurl = "<?php echo base_url('C_PCN/ajax_delete')?>";//link untuk delete
+vurl = "<?php echo base_url('C_PCN/ajax_delete') ?>";//link untuk delete
 
 // Post data
 $.ajax({//ajax delete
@@ -4535,7 +4584,7 @@ error: function (e) {
 // function Send_mail(){
 
 //   // Url Post delete
-//   vurl = "<?php echo base_url('C_Email/Send_mail')?>";//link untuk send mail
+//   vurl = "<?php echo base_url('C_Email/Send_mail') ?>";//link untuk send mail
 //   // Form data
 //   var fdata = new FormData();
 //   fdata.append('hdrid','Hdrid123');
@@ -4625,61 +4674,67 @@ error: function (e) {
     $(document).ready(function() {
 
         tabel = $('#example1').DataTable({//table
-            "processing": true,//processing true jika data masuk table
-            scrollY : '600px',
-            scrollX : '200px',
+            scrollY : '450px',
+            scrollX : true,
             scrollCollapse: true,
             paging: true,
+            fixedColumns: {
+                left: 2
+            },
+            "processing": true,//processing true jika data masuk table
             // "responsive":true,//respon jika data masuk akan muncul pop up data
             
             "serverSide": true, //untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
 
-            <?php if(!empty($hak_akses)){ if ($hak_akses->allow_export=='on') { ?>
-            dom: "lfBrtip",
-            buttons: [
-            {
-              extend: 'copyHtml5',//extend html
-              className: 'btn btn-secondary',//button
-              text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',//untuk copy cliboard
-            },
-            {
-              extend: 'csvHtml5',//extend html
-              className: 'btn btn-info',//button
-              text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',//untuk export data ke csv
-            },
-            {
-              extend: 'excelHtml5',//extend html
-              className: 'btn btn-success',//button
-              text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',//untuk export data ke excel
-              customize: function ( xlsx ){//type data excel
-                var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                // jQuery selector to add a border
-                $( 'row c', sheet ).attr( 's', '25' );
-              }
-            },
-            {
-              extend : 'pdfHtml5',   //extend html             
-              className: 'btn btn-danger',  //button
-              text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF', //untuk export data ke pdf
-              orientation : 'landscape', //type landscape
-              pageSize : 'A4', //ukuran kertas
-              download: 'open' //download 
-            }
-          ],
-            "ajax":
-            {
-                "url": "<?= base_url('C_PCN/view_data_where');?>", // URL file untuk proses select datanya
-                "type": "POST", //post select datanya
-                "data": function(data){     
-                  data.searchByFromdate = $('#search_fromdate').val(); //value from date
-                  data.searchByTodate = $('#search_todate').val(); //value to date
+            <?php if (!empty($hak_akses)) {
+              if ($hak_akses->allow_export == 'on') { ?>
+                                                        dom: "lfBrtip",
+                                                        buttons: [
+                                                        {
+                                                          extend: 'copyHtml5',//extend html
+                                                          className: 'btn btn-secondary',//button
+                                                          text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',//untuk copy cliboard
+                                                        },
+                                                        {
+                                                          extend: 'csvHtml5',//extend html
+                                                          className: 'btn btn-info',//button
+                                                          text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',//untuk export data ke csv
+                                                        },
+                                                        {
+                                                          extend: 'excelHtml5',//extend html
+                                                          className: 'btn btn-success',//button
+                                                          text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',//untuk export data ke excel
+                                                          customize: function ( xlsx ){//type data excel
+                                                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                                                            // jQuery selector to add a border
+                                                            $( 'row c', sheet ).attr( 's', '25' );
+                                                          }
+                                                        },
+                                                        {
+                                                          extend : 'pdfHtml5',   //extend html             
+                                                          className: 'btn btn-danger',  //button
+                                                          text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF', //untuk export data ke pdf
+                                                          orientation : 'landscape', //type landscape
+                                                          pageSize : 'A4', //ukuran kertas
+                                                          download: 'open' //download 
+                                                        }
+                                                      ],
+                                                        "ajax":
+                                                        {
+                                                            "url": "<?= base_url('C_PCN/view_data_where'); ?>", // URL file untuk proses select datanya
+                                                            "type": "POST", //post select datanya
+                                                            "data": function(data){     
+                                                              data.searchByFromdate = $('#search_fromdate').val(); //value from date
+                                                              data.searchByTodate = $('#search_todate').val(); //value to date
+                                                              data.Number = "<?= $Number ?>";
 
-                }
+                                                            }
 
-            },
-            <?php } }?>
+                                                        },
+                                  <?php }
+            } ?>
             "deferRender": true,
             "aLengthMenu": [[5, 10,100,1000,10000,100000,1000000,1000000000],[ 5, 10, 100,1000,10000,100000,1000000,"All"]], // Combobox Limit
             "columns": [
@@ -4689,13 +4744,17 @@ error: function (e) {
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                      <?php } }?>
-                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
-                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                      <?php } }?>
-                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +' &var2=1&var2=1")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
+                      <?php if (!empty($hak_akses)) {
+                        if ($hak_akses->allow_edit == 'on') { ?>
+                                                                    mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                                            <?php }
+                      } ?>
+                      <?php if (!empty($hak_akses)) {
+                        if ($hak_akses->allow_delete == 'on') { ?>
+                                                                    mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                                            <?php }
+                      } ?>
+                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +' &var2=1&var2=1") ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>'
                         
                         return mnu;
 
@@ -4717,6 +4776,7 @@ error: function (e) {
                 {"data":"before_capacity"},
                 {"data":"after_capacity"},
                 {"data":"part_number"},
+                {"data":"cavity"},
                 {"data":"part_name"},
                 {"data":"product_name"},
                 {"data":"object_type"},
@@ -4808,6 +4868,9 @@ error: function (e) {
     var data = $('#supplier_name').select2('data')[0].text;
   }
   function handleSelectChange_product(event) {
+    var data = $('#product_name').select2('data')[0].text;
+  }
+  function handleSelectChange_part_number(event) {
     var data = $('#product_name').select2('data')[0].text;
   }
 
@@ -5096,68 +5159,126 @@ if (data=='-Select-'){
   };
   function delete_attachment(value){
     // Url Post delete
-    vurl = "<?php echo base_url('C_PCN/ajax_delete_attachment')?>";
+    vurl = "<?php echo base_url('C_PCN/ajax_delete_attachment') ?>";
     // Form data
     var fdata = new FormData();
     fdata.append('hdrid', $('#hdrid').val());
     if (value=='attach1') {
       fdata.append('attachment', 1 );
+      $("#attach_doc1").val('');
+      $("#attach_doc1_label").empty('Choose file');
     } else if (value=='attach2'){
       fdata.append('attachment', 2 );
+      $("#attach_doc2").val('');
+      $("#attach_doc2_label").empty('Choose file');
     }else if (value=='attach3'){
       fdata.append('attachment', 3 );
+      $("#attach_doc3").val('');
+      $("#attach_doc3_label").empty('Choose file');
     }else if (value=='attach4'){
       fdata.append('attachment', 4 );
+      $("#attach_doc4").val('');
+      $("#attach_doc4_label").empty('Choose file');
     }else if (value=='attach5'){
       fdata.append('attachment', 5 );
+      $("#attach_doc5").val('');
+      $("#attach_doc5_label").empty('Choose file');
     }else if (value=='attach6'){
-    fdata.append('attachment', 6);
+      fdata.append('attachment', 6);
+      $("#attach_doc6").val('');
+      $("#attach_doc6_label").empty('Choose file');
     }else if (value=='attach7'){
-    fdata.append('attachment', 7);
+      fdata.append('attachment', 7);
+      $("#attach_doc7").val('');
+      $("#attach_doc7_label").empty('Choose file');
     }else if (value=='attach8'){
-    fdata.append('attachment', 8);
+      fdata.append('attachment', 8);
+      $("#attach_doc8").val('');
+      $("#attach_doc8_label").empty('Choose file');
     }else if (value=='attach9'){
-    fdata.append('attachment', 9);
+      fdata.append('attachment', 9);
+      $("#attach_doc9").val('');
+      $("#attach_doc9_label").empty('Choose file');
     }else if (value=='attach10'){
-    fdata.append('attachment', 10);
+      fdata.append('attachment', 10);
+      $("#attach_doc10").val('');
+      $("#attach_doc10_label").empty('Choose file');
     }else if (value=='attach11'){
-    fdata.append('attachment', 11);
+      fdata.append('attachment', 11);
+      $("#attach_doc11").val('');
+      $("#attach_doc11_label").empty('Choose file');
     }else if (value=='attach12'){
-    fdata.append('attachment', 12);
+      fdata.append('attachment', 12);
+      $("#attach_doc12").val('');
+      $("#attach_doc12_label").empty('Choose file');
     }else if (value=='attach13'){
-    fdata.append('attachment', 13);
+      fdata.append('attachment', 13);
+      $("#attach_doc13").val('');
+      $("#attach_doc13_label").empty('Choose file');
     }else if (value=='attach14'){
-    fdata.append('attachment', 14);
+      fdata.append('attachment', 14);
+      $("#attach_doc14").val('');
+      $("#attach_doc14_label").empty('Choose file');
     }else if (value=='attach15'){
-    fdata.append('attachment', 15);
+      fdata.append('attachment', 15);
+      $("#attach_doc15").val('');
+      $("#attach_doc15_label").empty('Choose file');
     }else if (value=='attach16'){
-    fdata.append('attachment', 16);
+      fdata.append('attachment', 16);
+      $("#attach_doc16").val('');
+      $("#attach_doc16_label").empty('Choose file');
     }else if (value=='attach17'){
-    fdata.append('attachment', 17);
+      fdata.append('attachment', 17);
+      $("#attach_doc17").val('');
+      $("#attach_doc17_label").empty('Choose file');
     }else if (value=='attach18'){
-    fdata.append('attachment', 18);
+      fdata.append('attachment', 18);
+      $("#attach_doc18").val('');
+      $("#attach_doc18_label").empty('Choose file');
     }else if (value=='attach19'){
-    fdata.append('attachment', 19);
+      fdata.append('attachment', 19);
+      $("#attach_doc19").val('');
+      $("#attach_doc19_label").empty('Choose file');
     }else if (value=='attach20'){
-    fdata.append('attachment', 20);
+      fdata.append('attachment', 20);
+      $("#attach_doc20").val('');
+      $("#attach_doc20_label").empty('Choose file');
     }else if (value=='attach21'){
-    fdata.append('attachment', 21);
+      fdata.append('attachment', 21);
+      $("#attach_doc21").val('');
+      $("#attach_doc21_label").empty('Choose file');
     }else if (value=='attach22'){
-    fdata.append('attachment', 22);
+      fdata.append('attachment', 22);
+      $("#attach_doc22").val('');
+      $("#attach_doc22_label").empty('Choose file');
     }else if (value=='attach23'){
-    fdata.append('attachment', 23);
+      fdata.append('attachment', 23);
+      $("#attach_doc23").val('');
+      $("#attach_doc23_label").empty('Choose file');
     }else if (value=='attach24'){
-    fdata.append('attachment', 24);
+      fdata.append('attachment', 24);
+      $("#attach_doc24").val('');
+      $("#attach_doc24_label").empty('Choose file');
     }else if (value=='attach25'){
-    fdata.append('attachment', 25);
+      fdata.append('attachment', 25);
+      $("#attach_doc25").val('');
+      $("#attach_doc25_label").empty('Choose file');
     }else if (value=='attach26'){
-    fdata.append('attachment', 26);
+      fdata.append('attachment', 26);
+      $("#attach_doc26").val('');
+      $("#attach_doc26_label").empty('Choose file');
     }else if (value=='attach27'){
-    fdata.append('attachment', 27);
+      fdata.append('attachment', 27);
+      $("#attach_doc27").val('');
+      $("#attach_doc27_label").empty('Choose file');
     }else if (value=='attach28'){
-    fdata.append('attachment', 28);
+      fdata.append('attachment', 28);
+      $("#attach_doc28").val('');
+      $("#attach_doc28_label").empty('Choose file');
     }else if (value=='attach29'){
-    fdata.append('attachment', 29);
+      fdata.append('attachment', 29);
+      $("#attach_doc29").val('');
+      $("#attach_doc29_label").empty('Choose file');
     }
       // Post data
         //untuk aja data sudah bisa dipost
@@ -5169,8 +5290,8 @@ if (data=='-Select-'){
             data: fdata,
             success: function (data) {
               // Hide modal delete
-              berhasil(data.status);
-              $('#modal-default').modal('hide').draw();
+              // berhasil(data.status);
+              // $('#modal-default').modal('hide').draw();
       },
       error: function (e) {
           //Pesan Gagal

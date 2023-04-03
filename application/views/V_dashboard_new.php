@@ -36,7 +36,7 @@
               <div class="icon"> <!--kepala pembuatan gambar ikon pda field-->
               <i class="ion ion-clipboard mr-1"></i><!--bagian ikon yang di guanakan dan yang akan di tampilkan-->
               </div>
-              <a href="C_PCN" class="small-box-footer">PCN REGISTER<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
+              <a href="C_PCN?var=1.1&var2=PCN%20Register" class="small-box-footer">PCN REGISTER<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
             </div>
           </div>
           <!-- ./col -->
@@ -51,7 +51,7 @@
               <div class="icon"><!--kepala pembuatan gambar ikon pda field-->
               <i class="ion ion-clipboard mr-1"></i><!--bagan pembuatan ikonnya-->
               </div>
-              <a href="C_PCNLIST" class="small-box-footer">PCN LIST<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
+              <a href="C_PCNLIST?var=1.4&var2=PCN%20List" class="small-box-footer">PCN LIST<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
             </div>
           </div>
                         
@@ -66,7 +66,7 @@
                           <div class="icon"><!--kepala pembuatan gambar ikon pda field-->
                           <i class="ion ion-clipboard mr-1"></i><!--bagan pembuatan ikonnya-->
                           </div>
-                          <a href=" C_application" class="small-box-footer">Application Response<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
+                          <a href=" C_application?var=1.2&var2=Application%20Response" class="small-box-footer">Application Response<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
                         </div>
                       </div>
 
@@ -154,479 +154,712 @@
                                   <a href="C_finalapproval" class="small-box-footer">Final Approval<i class="fas fa-arrow-circle-right"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
                                 </div>
                               </div>
-
-
-                                 
-
                       <!-- ./col -->
-                      </div>
+                  </div>
                       <!-- /.row -->
-                      <!-- Main row -->
-                
-                      <!-- This script got from www.devanswer.com -->
-                      <!-- <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
-                      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-                      <button id="toggleButton">Toggle</button>
-                      <ul class="timeline" id="timeline">
-                      <li class="li complete">
-                      <div class="timestamp">
-                      <span class="author">User</span>
-                      <span class="date">11/15/2019<span>
-                      </div>
-                      <div class="status">
-                      <h4>Creation</h4>
-                      </div>
-                      </li>
-                      <li class="li complete">
-                      <div class="timestamp">
-                      <span class="author">Junior Admin</span>
-                      <span class="date">11/16/2019<span>
-                      </div>
-                      <div class="status">
-                      <h4>Reviewing</h4>
-                      </div>
-                      </li>
-                      <li class="li complete">
-                      <div class="timestamp">
-                      <span class="author">Junior Admin</span>
-                      <span class="date">11/17/2014<span>
-                      </div>
-                      <div class="status">
-                      <h4>First Approval</h4>
-                      </div>
-                      </li>
-                      <li class="li">
-                      <div class="timestamp">
-                      <span class="author">Senior Admin</span>
-                      <span class="date">11/18/2014<span>
-                      </div>
-                      <div class="status">
-                      <h4>Final Approval</h4>
-                      </div>
-                      </li>
-                      </ul>
-                      <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-                      <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><div id="bcl"><a style="font-size:8pt;text-decoration:none;" href="http://www.devanswer.com">Developers Answer</a></div> -->
-                                              
-
-                    <!-- <section class="col-lg-12 connectedSortable"> penghubung -->
-                        <!-- Map card -->
-                        <!-- <div class="card bg-gradient-white">
-                        <div class="card-header border-0">
-                          <h3 class="card-title"><i class="fas fa-chart-pie"></i> All list PCN</h3> -->
-                          <!-- card tools -->
-                          <!-- <div class="card-tools">untuk jenis bagian tools aplikasi -->
-                            <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse">penambahan button,warna dan collaps -->
-                              <!-- <i class="fas fa-minus"></i>untuk mensilent bagian bawah dan tengah field -->
-                            <!-- </button>
-                          </div>
-                        </div> -->
-
-                        <!-- <div class="card-body"> -->
-                          <!-- BAR CHART -->
-                          <!-- <div class="card card-white"> <--untuk jenis bagian warna kepala aplikasi-->
-                            <!-- <div class="card-header">untuk jenis bagian kepala aplikasi -->
-                              <!-- <h3 class="card-title"> All List PCN</h3>untuk jenis bagian kepala judul aplikasi --> 
-                              
-                              <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-                              <div style="height:50vh;padding:5px;">
-                                <canvas id="myChart9"></canvas>
-                              </div>
-                              <script>
-                                <-- var xValues = <--?= $product_name ?>;
-                                var total = <--?= $product_total ?>;
-                                var approved = <--?= $product_approved ?>;
-                                var process = <--?= $product_process ?>;
-                                var unapproved = <--?= $product_unapproved ?>; -->
-                                <!-- // var data = [total[0],approved[0],process[0],unapproved[0]];
-                                // var labels = [total[0],approved[0],process[0],unapproved[0]];
-                                // console.log(process);
-                                var barColors = ["blue","pink","red","orange","brown","Green","Yellow","Cyan","black","purple","red","blue","pink","cyan","white","green","red","brown","pink","blue","red","yellow","cyan","brown","purple","red","orange","blue","purple","pink","red","cyan"];
-
-                                new Chart("myChart9", {
-                                  type: "pie",
-                                  data: {
-                                    datasets: [{
-                                        data: total,
-                                        backgroundColor: barColors,
-                                    }],
-
-                                    // These labels appear in the legend and in the tooltips when hovering different arcs
-                                    labels:xValues
-                                  },
-                                  options: {
-                                    maintainAspectRatio: false,
-                                    legend: {display: true},
-                                    title: {
-                                      display: true
-                                    },
-                                  }
-                                });
-                              </script>
-                            </div> -->
-                          <!-- </div><-- /.card card-white -->
-                          <!--div><-- /.card card-white -->
-                        <!-- </div>/.card-body -->
-                      <!-- </section>  -->
-
-          <section class="col-lg-12 connectedSortable"> <!--penghubung-->
-              <!-- Map card -->
-            <div class="card bg-gradient-white">
-              <div class="card-header border-0">
-                <h3 class="card-title"><i class="fas fa-chart-pie"></i> Chart PCN list By Product Name</h3>
-                <!-- card tools -->
-                <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
-                  <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse"><!--penambahan button,warna dan collaps-->
-                    <i class="fas fa-minus"></i><!--untuk mensilent bagian bawah dan tengah field-->
-                  </button>
-                </div>
-              </div>
-
-              <div class="card-body">
-                <!-- BAR CHART -->
-                <div class="card card-white"><!--untuk jenis bagian warna kepala aplikasi-->
-                  <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
-                    <h3 class="card-title">PCN By Product Name</h3><!--untuk jenis bagian kepala judul aplikasi-->
-                    
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-                    <div style="height:50vh;padding:5px;">
-                      <canvas id="myChart0"></canvas>
-                    </div>
-                    <script>
-                      var xValues = <?= $product_name ?>;
-                      var total = <?= $product_total ?>;
-                      var approved = <?= $product_approved ?>;
-                      var process = <?= $product_process ?>;
-                      var unapproved = <?= $product_unapproved ?>;
-                      var rejected = <?= $product_rejected ?>;
-                      // var barColors = ["red", "green","blue","orange","brown","dark"];
-
-                      new Chart("myChart0", {
-                        type: "bar",
-                        data: {
-                          labels: xValues,
-                          datasets: [{
-                            label :"Total",
-                            backgroundColor: "grey",
-                            data: total 
-                          },
-                          {
-                            label:"Not Approved",
-                            backgroundColor: "blue",
-                            data: unapproved
-                          },
-                          {
-                            label :"On Process",
-                            backgroundColor: "orange",
-                            data: process 
-                          },
-                          {
-                            label :"Approve",
-                            backgroundColor: "green",
-                            data: approved 
-                          },
-                          {
-                            label :"Rejected",
-                            backgroundColor: "red",
-                            data: rejected 
-                          }]
-                        },
-                        options: {
-                          maintainAspectRatio: false,
-                          legend: {display: true},
-                          title: {
-                            display: true
-                          },
-                          scales: { 
-                            yAxes: [{
-                              ticks: {
-                                min: 0
-                              }
-                            }]
-                          }
-                        }
-                      });
-                    </script>
-                  </div>
-                  <div class ="row">
-                  <div class="col-lg-3 col-6"><!--ukuran field nya-->
-                        <!-- small box -->
-                                <div class="small-box bg-yellow"><!--pembuatan dalam field-->
-                                  <div class="inner"><!--untuk kepala inner aplikasi-->
-                                    <h3></h3>
-
-                                    <p>PCN Status Not Yet Temporary</p><!--judul-->
-                                  </div>
-                                  <div class="icon"><!--kepala pembuatan gambar ikon pda field-->
-                                  <i class="ion ion-clipboard mr-1"></i><!--bagan pembuatan ikonnya-->
-                                  </div>
-          
-                                  <a href="" class="small-box-footer" data-target="#modal-status" data-toggle="modal" >PCN Status<i class="fas fa-arrow-circle-up"></i></a><!--untuk menampilkan judul form dan bentuk dari field nya-->
-                                
-                                </div>
-                              </div>
-
-                              <div class="col-lg-3 col-6"><!--ukuran field nya-->
-                        <!-- small box -->
-                                <div class="small-box bg-yellow"><!--pembuatan dalam field-->
-                                  <div class="inner"><!--untuk kepala inner aplikasi-->
-                                    <h3></h3>
-
-                                <p>Status PCN Plan Approval</p><!--judul-->
-                                  </div>
-                                  <div class="icon"><!--kepala pembuatan gambar ikon pda field-->
-                                <i class="ion ion-clipboard mr-1"></i><!--bagan pembuatan ikonnya-->
-                                  </div>
-                                
-                                  <a href="" class="small-box-footer" data-target="#modal-status" data-toggle="modal" >Status Plan Approval<i class="fas fa-arrow-circle-up"></i></a>
-                                
-                                  <!--untuk menampilkan judul form dan bentuk dari field nya-->
-                                </div>
-                              </div>
-                            </div>
-                <!-------------------- Modal Attachment -------------------->
-            <!--  modal-status --> 
-            <div class="modal fade" id="modal-status" tabindex="-1" role="dialog" aria-labelledby="modalattachmentlabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document" >
-                    <div class="modal-content">            
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="modalstatuslabel">Status PCN</h5>
-                            <button type="button" class="close" data-dismiss="modal-status" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <!-- form -->
-                    <form role="form" id="quickForm">
-                           <div class="card-body">
-                              <hr style="border:0.5px solid white;">
-                                            
-                                    
-                    </form>    
-                    <!-- /form  -->
-
-                    </div> 
-                    <!-- Close modal-content -->  
-                </div>
-                <!-- Close modal-dialog -->  
-            </div>
-            <!-- modal-status -->
-
-
-                </div><!-- /.card card-white -->
-                </div><!-- /.card card-white -->
-              </div><!-- /.card-body -->
-            </section>
-
-          <section class="col-lg-12 connectedSortable"> <!--penghubung-->
-
-              <!-- Map card -->
-            <div class="card bg-gradient-white">
-              <div class="card-header border-0">
-              <h3 class="card-title"><i class="fas fa-chart-pie"></i> Chart PCN list By Supplier</h3>
-                <!-- card tools -->
-                <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
-                  <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse"><!--penambahan button,warna dan collaps-->
-                    <i class="fas fa-minus"></i><!--untuk mensilent bagian bawah dan tengah field-->
-                </div>
-              </div>
-
-              <div class="card-body"> <!--membuat badan awalan sebelum di desain-->
-                <!-- BAR CHART -->
-                <div class="card card-white"><!--untuk jenis bagian warna kepala aplikasi-->
-                  <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
-                    <h3 class="card-title">PCN By Suplier</h3><!--untuk jenis bagian kepala judul aplikasi-->
-      
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-                    <div style="height:50vh;padding:5px;">
-                      <canvas id="myChart6"></canvas>
-                    </div>
-
-                    <script>
-                      console.log()
-                      var xValues = <?= $supplier_name ?>;
-                      var total = <?= $supplier_total ?>;
-                      var approved = <?= $supplier_approved ?>;
-                      var process = <?= $supplier_process ?>;
-                      var unapproved = <?= $supplier_unapproved ?>;
-                      var rejected = <?= $supplier_rejected ?>;
-                      // var barColors = ["red", "green","blue","orange","brown","dark"];
-
-                      new Chart("myChart6", {
-                        type: "bar",
-                        data: {
-                          labels: xValues,
-                          datasets: [{
-                            label :"Total",
-                            backgroundColor: "grey",
-                            data: total 
-                          },
-                          {
-                            label:"Not Approved",
-                            backgroundColor: "blue",
-                            data: unapproved
-                          },
-                          {
-                            label :"On Process",
-                            backgroundColor: "orange",
-                            data: process 
-                          },
-                          {
-                            label :"Approve",
-                            backgroundColor: "green",
-                            data: approved 
-                          },
-                          {
-                            label :"Rejected",
-                            backgroundColor: "red",
-                            data: rejected 
-                          }]
-                        },
-                        options: {
-                          maintainAspectRatio: false,
-                          legend: {display: true},
-                          title: {
-                            display: true
-                          },
-                          scales: { 
-                            yAxes: [{
-                              ticks: {
-                                min: 0
-                              }
-                            }]
-                          }
-                        }
-                      });
-                    </script>
-                  </div>
-                </div><!-- /.card card-white -->
-              </div><!-- /.card-body -->
-            </div>
-                    </section>
-
-            <!-- <div class="card-body">
-              <table id="tablesummary" class="table table-bordered display nowrap table-striped">
-                <thead>
-                  <tr>
-                    <th>TOTAL PCN</th>
-                    <th>NOT YET TEMPORARY</th>
-                    <th>PLAN APPROVAL</th>
-                  </tr>
-                </thead> 
-            </table> 
-          </div>   -->
-          
-          <section class="col-lg-12 connectedSortable"><!--untuk ukuran panjang container-->
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card"><!--untuk class bagian kepala aplikasi--> 
+        <section class="col-lg-12 connectedSortable"><!--untuk ukuran panjang container-->
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="card"><!--untuk class bagian kepala aplikasi--> 
               <div class="card-header">  <!--untuk jenis bagian kepala aplikasi-->
-                <h3 class="card-title">  <!--untuk jenis bagian judul aplikasi-->
-                <i class="fas fa-th mr-2"></i><!--menambahkan ikon pada field-->
-                  PCN Need your approval
-                </h3>
-                <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
-                <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse"><!--penambahan button,warna dan collaps-->
-                  <i class="fas fa-minus"></i><!--untuk mensilent bagian bawah dan tengah field-->
-                </div>
+                  <h3 class="card-title">  <!--untuk jenis bagian judul aplikasi-->
+                      <i class="fas fa-th mr-2"></i><!--menambahkan ikon pada field-->
+                          <b>New Entry PCN</b>
+                  </h3>
+                  <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
+                      <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse">penambahan button,warna dan collaps -->
+                      <!-- <i class="fas fa-minus"></i>untuk mensilent bagian bawah dan tengah field -->
+                  </div>
               </div><!-- /.card-header -->
               
               <!-- </div>-->
-
-          
-                      <div id="accordion"> <!--untuk menampilkan dan menyembunyikan element HTML-->
-                          <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
-                          <div class="card card-primary" > <!--untuk primary kepala aplikasi-->
-                            <div id="collapseOne" class="panel-collapse collapse in"> <!--untuk menampilkan dan menyembunyikan suatu menu--> 
-                              <div class="card-body">  <!--untuk body pada kepala aplikasi-->
-
-                                  <!-- Date -->
-                                  <div class="form-group">             <!--untuk fungsi form-->                    
-
-                                    <label>Date From:</label>  <!--judul date form-->
-                                     
-                                      <div class="input-group date" data-date-format="YYYY-MM-DD"  id="startdate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
-                                          <input type="text" id="search_fromdate" class="form-control datetimepicker-input" data-target="#startdate"/> <!--untuk menentukan mulai tanggal berapa -->
-                                          <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker"> <!--untuk menginput tanggal mulai-->
-                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div>  <!--fungsi tanggal-->
-                                          </div>
-                                      </div>
-
-                                  </div>
-
-                                  <!-- Date To-->
-                                  <div class="form-group">
-                                    <label>Date To:</label>
-                                      <div class="input-group date" data-date-format="YYYY-MM-DD" id="enddate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
-                                          <input type="text" id="search_todate" class="form-control datetimepicker-input" data-target="#enddate"/><!--untuk menentukan sampai tanggal berapa -->
-                                          <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker"> <!--untuk sampai tanggal mulai-->
-                                              <div class="input-group-text"><i class="fa fa-calendar"></i></div> <!--fungsi tanggal-->
-                                          </div>
+              <div id="accordion"> <!--untuk menampilkan dan menyembunyikan element HTML-->
+                  <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
+                  <div class="card card-primary" > <!--untuk primary kepala aplikasi-->
+                      <div id="collapseOne" class="panel-collapse collapse in"> <!--untuk menampilkan dan menyembunyikan suatu menu--> 
+                          <div class="card-body">  <!--untuk body pada kepala aplikasi-->
+                              <!-- Date -->
+                              <div class="form-group">   <!--untuk fungsi form-->    
+                                  <label>Date From:</label>  <!--judul date form-->
+                                  <div class="input-group date" data-date-format="YYYY-MM-DD"  id="startdate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
+                                      <input type="text" id="search_fromdate" class="form-control datetimepicker-input" data-target="#startdate"/> <!--untuk menentukan mulai tanggal berapa -->
+                                      <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker"> <!--untuk menginput tanggal mulai-->
+                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div>  <!--fungsi tanggal-->
                                       </div>
                                   </div>
-
-                                  <button type="button" id="search" class="btn btn-block btn-success" data-toggle="collapse" data-target="#collapseOne">Search</button> <!--fungsi tombol search tanggal dicari-->
-                               
                               </div>
-                            </div>
+
+                              <!-- Date To-->
+                              <div class="form-group">
+                                  <label>Date To:</label>
+                                  <div class="input-group date" data-date-format="YYYY-MM-DD" id="enddate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
+                                      <input type="text" id="search_todate" class="form-control datetimepicker-input" data-target="#enddate"/><!--untuk menentukan sampai tanggal berapa -->
+                                      <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker"> <!--untuk sampai tanggal mulai-->
+                                          <div class="input-group-text"><i class="fa fa-calendar"></i></div> <!--fungsi tanggal-->
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <button type="button" id="search" class="btn btn-block btn-success" data-toggle="collapse" data-target="#collapseOne">Search</button> <!--fungsi tombol search tanggal dicari-->
+                  
                           </div>
-                        </div>  
-                        <div class="card-body">  <!-- .card-body -->
-                          <table id="example2" class="table table-bordered display nowrap table-striped"> <!--jenis table-->
-                            <thead>
-                              <tr>
-                              <!-- Th Macro Batas Sini -->
-                              <th>ACTION</th>
-                              <!-- <th>TRANSACTION ID</th> -->
-                              <th>NO DOKUMEN</th>
-                              <th>STATUS</th>
-                              <th>CATEGORY</th>
-                              <th>SUPPLIER NAME</th>
-                              <th>PRODUCT NAME</th>
-                              <th>PART NAME</th>
-                              <!-- <th>AE</th> -->
-                              <th>PART NO</th>
-                              <th>DESCRIPTION</th>
-                              <th>PROSES PERUBAHAN (LAMA/BEFORE)</th>
-                              <th>PROSES PERUBAHAN (BARU/AFTER)</th>
-                              <th>CURRENT FLOW PIC</th>
-                              <th>PIC PROC</th>
-                              <th>CHECKED PROC</th>
-                              <th>APPROVED PROC</th>
-                              <th>COMMODITY</th>
-                              <th>PIC QA</th>
-                              <th>CHECKED QA</th>
-                              <th>APPROVED QA</th>
-                              <th>REGISTERED</th>
-                              <th>MASSPRO SCHEDULE</th>
-              
-                              <!-- /Th Macro Batas Sini -->
-                                    
-                              </tr>
-                            </thead>
-                                <!-- <tbody></tbody> -->
-                          </table>      
-                        </div> <!-- /.card-body -->
                       </div>
-                    </div>
-                    <!-- /.card -->
                   </div>
-                  <!-- /.col -->
+              </div>  
+
+              <div class="card-body">  <!-- .card-body -->
+                  <table id="example2" class="table table-bordered display nowrap table-striped"> <!--jenis table-->
+                      <thead>
+                      <tr>
+                      <!-- Th Macro Batas Sini -->
+                      <th>ACTION</th>
+                      <th>TRANSACTION DATE</th>
+                      <th>NO DOKUMEN</th>
+                      <th>STATUS</th>
+                      <th>CATEGORY</th>
+                      <th>SUPPLIER NAME</th>
+                      <th>PRODUCT NAME</th>
+                      <th>PART NAME</th>
+                      <!-- <th>AE</th> -->
+                      <th>PART NO</th>
+                      <th>DESCRIPTION</th>
+                      <th>PROSES PERUBAHAN (LAMA/BEFORE)</th>
+                      <th>PROSES PERUBAHAN (BARU/AFTER)</th>
+                      <th>CURRENT FLOW PIC</th>
+                      <th>PIC PROC</th>
+                      <th>CHECKED PROC</th>
+                      <th>APPROVED PROC</th>
+                      <th>COMMODITY</th>
+                      <th>PIC QA</th>
+                      <th>CHECKED QA</th>
+                      <th>APPROVED QA</th>
+                      <th>REGISTERED</th>
+                      <th>MASSPRO SCHEDULE</th>
+                      <th>ATTACHMENT</th>
+                      <th>OTHER ATTACHMENT</th>
+                      <th>OTHER ATTACHMENT</th>
+                      <th>OTHER ATTACHMENT</th>
+                      <th>ISIR</th>
+                      <th>QCR</th>
+                      <!-- <th>Detail Of Process Change (6M+EAS)</th> -->
+                      <!-- /Th Macro Batas Sini -->
+                    </tr>
+                      </thead>
+                  </table>      
+              </div> <!-- /.card-body -->
+          </div> <!-- /.card -->
+        </section> <!-- /.section -->
+
+        <!-- select to grafik -->
+        <div class="row">
+          <div class="col-md-9"></div>
+          <div class="col-md-3">
+              <b><p> Filter CATEGORY </p></b>
+                <select class="form-control select2" id='select_grafik' onchange="handleSelectChange_grafik(event)">
+                  <option value='' selected><font size="10"><p> -Select Category-</p></font></option>
+                  <?php
+                  foreach ($category as $value) {
+                    echo "<option value='$value'>$value</option>";
+                  }
+                  ?>
+                  <!-- <option value='supplier_name' selected><font size="10"><p> Select By Supplier Name </p></font></option> -->
+                  <!-- <option value='product_name' selected><font size="10"><p> Select By Product Name</p></font></option> -->
+                </select>
+          </div>                  
+        </div> <br>
+        <div class="row">
+          <div class="col-md-9"></div>
+          <div class="col-md-3">
+              <b><p> Grafik PERIOD (YEAR)</p> </b>
+                    <select class="form-control select2" id='select_grafik2' onchange="handleSelectChange_year(event)">
+                      <option value='' selected>Select Year</option>
+                      <?php
+                      foreach ($years as $year) {
+                        echo "<option value='-" . substr($year['year_date'], -2) . "'>" . $year['year_date'] . "</option>";
+                      }
+                      ?>
+                    </select>
+
+            </div> 
+          </div><br>
+        <!-- /select to grafik -->
+
+        <!-- javascript handleselect -->
+        <script type="text/javascript">
+          $('.select2').select2();
+                           
+            function handleSelectChange_grafik(event){
+              // console.log($('#select_grafik').val());
+              // if ($('#select_grafik').val()=='product_name'){
+              //   $('#myChart2').show();
+              //   $('#myChart3').hide();
+              // } else if ($('#select_grafik').val()=='supplier_name'){
+              //   $('#myChart2').hide();
+              //   $('#myChart3').show();
+              // } else {
+              //   $('#myChart2').show();
+              //   $('#myChart3').hide();
+              // }
+              selectfilter();
+            }
+            function handleSelectChange_year(event){
+              selectfilter();
+            }
+
+            function selectfilter(){
+
+              var byCategory = new RegExp($('#select_grafik').val());
+              var byYear = new RegExp($('#select_grafik2').val());
+
+              // if(byYear ==""&&byCategory ==""){clearFilter2()}else{
+
+              // Ajax filter data GRAFIK
+                $.ajax({
+                    url: "<?php echo base_url('C_Dashboard_new/area_filter') ?>",
+                    method: "get",
+                    dataType : "JSON",              
+                    data: {"byYear":byYear,"byCategory":byCategory},
+                    success: function (data) {
+                        
+                      
+                      //--------------------------- grafik bar select filter ---------------------------------------------------------------------
+
+                        // get data dari controller
+
+                        
+
+                          var xValues = data.Name;
+                          var Total_Open = data.Total_Open;
+                          console.log(Total_Open);
+                          var Total_Close = data.Total_Close;
+
+                          // Destroy old graph
+                          if (chart) {
+                              chart.destroy();
+                          }
+
+                          chart =new Chart("myChart2", {
+                              type: "bar",
+                              data: {
+                                  labels: xValues,
+                                  datasets: [{
+                                      label: "Open",
+                                      backgroundColor: '#4FC3F7',
+                                      data: Total_Open,
+                                      stack: 2,
+                                  }, 
+                                {
+                                      label: "Close",
+                                      type: "bar",
+                                      backgroundColor: "#43A047",
+                                      data: Total_Close,
+                                      stack: 2
+                                }
+                              ],
+                              },
+                              options: {
+                                  maintainAspectRatio: false,
+                                  legend: {display: true}, 
+                                  title: { display: true},
+                                  fontStyle: 'bold',
+                                  scales: {
+                                    // setting X label
+                                      xAxes: [{
+                                          /* For changing color of x-axis coordinates */
+                                          ticks: {
+                                            fontSize: 9,
+                                            fontStyle: "bold",
+                                            fontColor: '#000000'
+                                          },
+                                          position: "bottom",
+                                          stacked: true,
+                                          display: true
+                                        }],
+                                    // setting Y label
+                                      yAxes: [{
+                                                stacked: true,
+                                                type: 'linear',
+                                                id: "stacked_testY",
+                                                display: true,
+                                                position: "left",
+                                                scaleLabel: {
+                                                display: true,
+                                                labelString: 'PCN Qty'
+                                              },
+                                          ticks: {
+                                              beginAtZero: true,
+                                              stepSize: 5,
+                                          },
+                                          
+                                      }]
+                                  },
+                              }
+                              });
+
+                              if (xValues==0) {
+                                swal("Data Not Found!");
+                              }
+                            
+                      //---------------------------- grafik bar select filter  --------------------------------------------------------------------
+                              
+                        },
+                    error: function (e) {
+                            // alert(e);
+
+                          
+                        }
+                  });
+              // }
+            }
+        </script>
+        <!-- /javascript handleselect -->
+
+        <!--  grafik close and open batas sini -->
+          <section class="col-lg-12 connectedSortable">
+            <div class="card bg-gradient-white">
+                <div class="card-header border-0">
+                    <h3 class="card-title"><i class="fas fa-chart-pie"></i> Chart PCN list By Close and Open PCN</h3>
+                    <div class="card-tools">
+                        <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i> -->
+                        </button>
+                    </div>
                 </div>
-                <!-- /.row -->
-                <!-- END ACCORDION & CAROUSEL-->                                      
-              </div> 
-              
-            </section>
-            </div><!-- /.card-body -->
+
+                <div class="card-body">
+                    <div class="card card-white">
+                        <div class="card-header">
+                            <h3 class="card-title">Close and Open PCN</h3>
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+                            <div style="height:50vh;padding:5px;">
+                                <canvas id="myChart2"></canvas>
+                                <!-- <canvas id="myChart3"></canvas> -->
+                            </div>
+
+                            <script>
+                              // var xValues = <= $years ?>;
+
+                              // var BySelect = document.getElementById("select_grafik");                              
+
+                              // data by product_name
+                              var xValues = <?= $product_name ?>;
+                              var approved = <?= $product_approved ?>;
+                              var Open_PCN = <?= $open_pcn ?>;
+                              
+                              // data by supplier_name
+                              var xValues_S = <?= $supplier_name ?>;
+                              var approved_S = <?= $supplier_approved ?>;
+                              var Open_PCN_S = <?= $open_pcn_by_supplier ?>;
+
+                                // by product
+                                chart =new Chart("myChart2", {
+                                  type: "bar",
+                                  data: {
+                                      labels: xValues,
+                                      datasets: [{
+                                          label: "Open",
+                                          backgroundColor: '#4FC3F7',
+                                          data: Open_PCN,
+                                          stack: 1,
+                                      }, 
+                                      {
+                                            label: "Close",
+                                            type: "bar",
+                                            backgroundColor: "#43A047",
+                                            data: approved,
+                                            stack: 1
+                                      }
+                                  ],
+                                  },
+                                  options: {
+                                      maintainAspectRatio: false,
+                                      legend: {display: true}, 
+                                      title: { display: true},
+                                      fontStyle: 'bold',
+                                      scales: {
+                                        // setting X label
+                                          xAxes: [{
+                                              /* For changing color of x-axis coordinates */
+                                              ticks: {
+                                                fontSize: 9,
+                                                fontStyle: "bold",
+                                                fontColor: '#000000'
+                                              },
+                                              position: "bottom",
+                                              stacked: true,
+                                              display: true
+                                            }],
+                                        // setting Y label
+                                          yAxes: [{
+                                                    stacked: true,
+                                                    type: 'linear',
+                                                    id: "stacked_testY",
+                                                    display: true,
+                                                    position: "left",
+                                                    scaleLabel: {
+                                                    display: true,
+                                                    labelString: 'PCN Qty'
+                                                  },
+                                              ticks: {
+                                                  beginAtZero: true,
+                                                  stepSize: 5,
+                                              },
+                                              
+                                          }]
+                                      },
+                                  }
+                                });
+                                
+                                // by supplier
+                                // chart =new Chart("myChart3", {
+                                //   type: "bar",
+                                //   data: {
+                                //       labels: xValues_S,
+                                //       datasets: [{
+                                //           label: "Open",
+                                //           backgroundColor: '#4FC3F7',
+                                //           data: Open_PCN_S,
+                                //           stack: 1,
+                                //       }, 
+                                //       {
+                                //             label: "Close",
+                                //             type: "bar",
+                                //             backgroundColor: "#43A047",
+                                //             data: approved_S,
+                                //             stack: 1
+                                //       }
+                                //   ],
+                                //   },
+                                //   options: {
+                                //       maintainAspectRatio: false,
+                                //       legend: {display: true}, 
+                                //       title: { display: true},
+                                //       fontStyle: 'bold',
+                                //       scales: {
+                                //         // setting X label
+                                //           xAxes: [{
+                                //               /* For changing color of x-axis coordinates */
+                                //               ticks: {
+                                //                 fontSize: 9,
+                                //                 fontStyle: "bold",
+                                //                 fontColor: '#000000'
+                                //               },
+                                //               position: "bottom",
+                                //               stacked: true,
+                                //               display: true
+                                //             }],
+                                //         // setting Y label
+                                //           yAxes: [{
+                                //                     stacked: true,
+                                //                     type: 'linear',
+                                //                     id: "stacked_testY",
+                                //                     display: true,
+                                //                     position: "left",
+                                //                     scaleLabel: {
+                                //                     display: true,
+                                //                     labelString: 'PCN Qty'
+                                //                   },
+                                //               ticks: {
+                                //                   beginAtZero: true,
+                                //                   stepSize: 5,
+                                //               },
+                                              
+                                //           }]
+                                //       },
+                                //   }
+                                // });
+                              
+                            </script>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </section>
+        <!--  /grafik close and open batas sini -->
+
+        <section class="col-lg-12 connectedSortable" hidden > <!--Section-->
+          <!-- Map card -->
+          <div class="card bg-gradient-white">
+              <div class="card-header border-0">
+                  <h3 class="card-title"><i class="fas fa-chart-pie"></i> Chart PCN list By Product Name</h3>
+                  <!-- card tools -->
+                  <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
+                      <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse">penambahan button,warna dan collaps -->
+                          <!-- <i class="fas fa-minus"></i>untuk mensilent bagian bawah dan tengah field -->
+                      </button>
+                  </div>
+              </div>
+
+              <div class="card-body">
+                  <!-- BAR CHART -->
+                  <div class="card card-white"><!--untuk jenis bagian warna kepala aplikasi-->
+                      <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
+                          <h3 class="card-title">PCN By Product Name</h3><!--untuk jenis bagian kepala judul aplikasi-->
+                          <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+                          <div style="height:50vh;padding:5px;">
+                              <canvas id="myChart0"></canvas>
+                          </div>
+
+                          <script>
+                              var xValues = <?= $product_name ?>;
+                              var total = <?= $product_total ?>;
+                              var approved = <?= $product_approved ?>;
+                              var process = <?= $product_process ?>;
+                              var unapproved = <?= $product_unapproved ?>;
+                              var rejected = <?= $product_rejected ?>;
+                              var plan = <?= $plan_approval ?>;
+                              var ny_temporary = <?= $ny_temporary ?>;
+                              // var barColors = ["red", "green","blue","orange","brown","dark"];
+
+                              new Chart("myChart0", {
+                              type: "bar",
+                              data: {
+                                  labels: xValues,
+                                  datasets: [{
+                                  label :"Total",
+                                  backgroundColor: "grey",
+                                  data: total 
+                                  },
+                                  {
+                                  label:"Not Approved",
+                                  backgroundColor: "blue",
+                                  data: unapproved
+                                  },
+                                  {
+                                  label :"On Process",
+                                  backgroundColor: "orange",
+                                  data: process 
+                                  },
+                                  {
+                                  label :"Approve",
+                                  backgroundColor: "green",
+                                  data: approved 
+                                  },
+                                  {
+                                  label :"Rejected",
+                                  backgroundColor: "red",
+                                  data: rejected 
+                                  },
+                                  {
+                                  label :"Plan Approval",
+                                  backgroundColor: "magenta",
+                                  data: plan 
+                                  },
+                                  {
+                                  label :"Not Yet Temporary",
+                                  backgroundColor: "yellow",
+                                  data: ny_temporary 
+                                  }]
+                              },
+                              options: {
+                                  maintainAspectRatio: false,
+                                  legend: {display: true},
+                                  title: {
+                                  display: true
+                                  },
+                                  scales: { 
+                                  yAxes: [{
+                                      ticks: {
+                                      min: 0
+                                      }
+                                  }]
+                                  }
+                              }
+                              });
+                          </script>
+                      </div>
+                  </div> 
+                  <!-- Close modal-content -->  
+              </div>
+              <!-- Close modal-dialog -->  
+          </div>
+      </section>
+
+        <section class="col-lg-12 connectedSortable" style="margin-top: -15px;"> <!--penghubung-->
+        <!-- Map card -->
+            <div class="card bg-gradient-white">
+                <div class="card-header border-0">
+                    <h3 class="card-title"><i class="fas fa-chart-pie"></i> Chart PCN list By Supplier</h3>
+                    <!-- card tools -->
+                    <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
+                        <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse"><!--penambahan button,warna dan collaps-->
+                        <!-- <i class="fas fa-minus"></i>untuk mensilent bagian bawah dan tengah field -->
+                    </div>
+                </div>
+
+                <div class="card-body"> <!--membuat badan awalan sebelum di desain-->
+                <!-- BAR CHART -->
+                    <div class="card card-white"><!--untuk jenis bagian warna kepala aplikasi-->
+                        <div class="card-header"><!--untuk jenis bagian kepala aplikasi-->
+                            <h3 class="card-title">PCN By Supplier</h3><!--untuk jenis bagian kepala judul aplikasi-->
+
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+                            <div style="height:50vh;padding:5px;">
+                                <canvas id="myChart6"></canvas>
+                            </div>
+
+                            <script>
+                                var xValues = <?= $supplier_name ?>;
+                                var total = <?= $supplier_total ?>;
+                                var approved = <?= $supplier_approved ?>;
+                                var process = <?= $supplier_process ?>;
+                                var unapproved = <?= $supplier_unapproved ?>;
+                                var rejected = <?= $supplier_rejected ?>;
+                                var plan = <?= $plan_approval ?>;
+                                var ny_temporary = <?= $ny_temporary ?>;
+                                // var barColors = ["red", "green","blue","orange","brown","dark"];
+
+                                new Chart("myChart6", {
+                                type: "bar",
+                                data: {
+                                    labels: xValues,
+                                    datasets: [{
+                                    label :"Total",
+                                    backgroundColor: "grey",
+                                    data: total 
+                                    },
+                                    {
+                                    label:"Not Approved",
+                                    backgroundColor: "blue",
+                                    data: unapproved
+                                    },
+                                    {
+                                    label :"On Process",
+                                    backgroundColor: "orange",
+                                    data: process 
+                                    },
+                                    {
+                                    label :"Approve",
+                                    backgroundColor: "green",
+                                    data: approved 
+                                    },
+                                    {
+                                    label :"Rejected",
+                                    backgroundColor: "red",
+                                    data: rejected 
+                                    },
+                                    {
+                                    label :"Plan Approval",
+                                    backgroundColor: "magenta",
+                                    data: plan 
+                                    },
+                                    {
+                                    label :"Not Yet Temporary",
+                                    backgroundColor: "yellow",
+                                    data: ny_temporary 
+                                    }]
+                                },
+                                options: {
+                                    maintainAspectRatio: false,
+                                    legend: {display: true},
+                                    title: {
+                                    display: true
+                                    },
+                                    scales: { 
+                                    yAxes: [{
+                                        ticks: {
+                                        min: 0
+                                        }
+                                    }]
+                                    }
+                                }
+                                });
+                            </script>
+                        </div>
+                    </div><!-- /.card card-white -->
+                </div><!-- /.card-body -->
             </div>
-            <!-- /.card -->
-          
-              <!-- modal-Add / Update -->
-          
-          
-              <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--fungsi DETAIL-->
+        </section>
+
+        <section class="col-lg-12 connectedSortable"><!--untuk ukuran panjang container-->
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card"><!--untuk class bagian kepala aplikasi--> 
+                <div class="card-header">  <!--untuk jenis bagian kepala aplikasi-->
+                    <h3 class="card-title">  <!--untuk jenis bagian judul aplikasi-->
+                    <i class="fas fa-th mr-2"></i><!--menambahkan ikon pada field-->
+                    </h3>
+
+                    <div class="card-tools"><!--untuk jenis bagian tools aplikasi-->
+                    <!-- <button type="button" class="btn bg-dark btn-sm" data-card-widget="collapse">penambahan button,warna dan collaps -->
+                        <!-- <i class="fas fa-minus"></i>untuk mensilent bagian bawah dan tengah field -->
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                
+                <div id="accordion"> <!--untuk menampilkan dan menyembunyikan element HTML-->
+                    <!-- we are adding the .class so bootstrap.js collapse plugin detects it -->
+                    <div class="card card-primary" > <!--untuk primary kepala aplikasi-->
+                        <div id="collapseOne" class="panel-collapse collapse in"> <!--untuk menampilkan dan menyembunyikan suatu menu--> 
+                            <div class="card-body">  <!--untuk body pada kepala aplikasi-->
+                                <!-- Date -->
+                                <div class="form-group"><!--untuk fungsi form-->
+                                    <label>Date From:</label>  <!--judul date form-->
+                                    <div class="input-group date" data-date-format="YYYY-MM-DD"  id="startdate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
+                                        <input type="text" id="search_fromdate" class="form-control datetimepicker-input" data-target="#startdate"/> <!--untuk menentukan mulai tanggal berapa -->
+                                        <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker"> <!--untuk menginput tanggal mulai-->
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>  <!--fungsi tanggal-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Date To-->
+                                <div class="form-group">
+                                    <label>Date To:</label>
+                                    <div class="input-group date" data-date-format="YYYY-MM-DD" id="enddate" data-target-input="nearest"> <!--untuk menentukan tanggal pada aplikasi-->
+                                        <input type="text" id="search_todate" class="form-control datetimepicker-input" data-target="#enddate"/><!--untuk menentukan sampai tanggal berapa -->
+                                        <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker"> <!--untuk sampai tanggal mulai-->
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div> <!--fungsi tanggal-->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" id="search" class="btn btn-block btn-success" data-toggle="collapse" data-target="#collapseOne">Search</button> <!--fungsi tombol search tanggal dicari-->
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="card-body">  <!-- .card-body -->
+                  <div class="container">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Pic Buyer</th>
+                          <th>Open</th>
+                          <th>Not Yet Plan Approval</th>
+                          <th>Hold</th>
+                          <th>Plan Approval</th>
+                          <th>Late</th>
+                          <th>Priority</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php if (!empty($name)): ?>
+                        <?php foreach ($name as $key => $value): ?>
+                          <tr>
+                            <td><?php echo $key + 1 ?></td>
+                            <td><?php echo $value ?></td>
+                            <td><?php echo $total ?></td>
+                            <td><?php echo $ny_temporary_stat ?></td>
+                            <td><?php echo $decision ?></td>
+                            <td><?php echo $plan_approval_stat ?></td>
+                            <td><?php echo $late ?></td>
+                            <td><?php echo $priority ?></td>
+                          </tr>
+                        <?php endforeach; ?>
+                      <?php endif; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+        </section><!-- /.section -->          
+
+        <!-- modal-Add / Update -->
+        <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--fungsi DETAIL-->
           <div class="modal-dialog modal-lg" role="document" > <!--untuk tampilan DETAIL aplikasi-->
                   <div class="modal-content">            <!--content DETAIL-->
                     <div class="modal-header">  <!--untuk header DETAIL-->
@@ -1305,7 +1538,7 @@
             function view_modal(hdrid, type){
               console.log(type);
               $.ajax({
-                url: "<?php echo base_url('C_Dashboard_new/ajaxGet_pcn')?>",
+                url: "<?php echo base_url('C_Dashboard_new/ajaxGet_pcn') ?>",
                 type: "get",
                 dataType: "JSON",
                 data: {hdrid:hdrid},
@@ -1425,7 +1658,7 @@
                 $('#toolingSection').empty();
               }else{
                 $.ajax({
-                  url: "<?php echo base_url('C_Dashboard_new/ajaxGet_tooling')?>",
+                  url: "<?php echo base_url('C_Dashboard_new/ajaxGet_tooling') ?>",
                   type: "get",
                   dataType: "JSON",
                   data: {hdrid:hdrid},
@@ -1556,7 +1789,7 @@
             ///@note fungsi untuk mencari Attachment list pcn
             ///@attention jika Attachment yang ditarik tidak sesuai maka tidak akan muncul
               $.ajax({
-                url: "<?php echo base_url('C_Dashboard_new/ajaxGet_attachment')?>",
+                url: "<?php echo base_url('C_Dashboard_new/ajaxGet_attachment') ?>",
                 type: "get",
                 dataType: "JSON",
                 data: {hdrid:hdrid},
@@ -1590,7 +1823,7 @@
 
                 console.log(isi);
                 $.ajax({
-                  url: "<?php echo base_url('C_Dashboard_new/ajaxGet_pcn_list')?>",
+                  url: "<?php echo base_url('C_Dashboard_new/ajaxGet_pcn_list') ?>",
                   type: "get",
                   dataType: "JSON",
                   data: {no_dokumen:no_dokumen},
@@ -1629,6 +1862,153 @@
         tabel = $('#example2').DataTable({ //table
             "processing": true, //processing true jika data masuk table
             // "responsive":true, //respon jika data masuk akan muncul pop up data
+            scrollY : '600px',
+            scrollX : '200px',
+            scrollCollapse: true,
+            "bInfo": false, //Dont display info e.g. "Showing 1 to 4 of 4 entries"
+            "paging": true, 
+            "lengthChange": true,
+            "iDisplayLength":10,
+            "pageLength": 10,
+            // "bPaginate": false,
+            "serverSide": true,//untuk data masuk server 
+            "ordering": true, // Set true agar bisa di sorting
+            "order": [[ 0, 'desc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
+            // dom: "lfBrtip",
+            "dom": "lfrti",
+            buttons: [
+            {
+              extend: 'copyHtml5', //extend html
+              className: 'btn btn-secondary', //button
+              text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',//untuk copy cliboard
+            },
+            {
+              extend: 'csvHtml5',//extend html
+              className: 'btn btn-info',//button
+              text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',//untuk export data ke csv
+            },
+            {
+              extend: 'excelHtml5',//extend html
+              className: 'btn btn-success',//button
+              text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',//untuk export data ke excel
+              customize: function ( xlsx ){ //type data excel
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                // jQuery selector to add a border
+                $( 'row c', sheet ).attr( 's', '25' );
+              }
+            },
+            {
+              extend : 'pdfHtml5',   //extend html           
+              className: 'btn btn-danger', //button
+              text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF', //untuk export data ke pdf
+              orientation : 'landscape', //type landscape
+              pageSize : 'A4', //ukuran kertas
+              download: 'open' //download 
+            }
+          ],
+            "ajax": 
+            {
+                "url": "<?= base_url('C_Dashboard_new/view_data_where'); ?>", // URL file untuk proses select datanya
+                "type": "POST", //post select datanya
+                "data": function(data){     
+                  data.searchByFromdate = $('#search_fromdate').val(); //value from date
+                  data.searchByTodate = $('#search_todate').val(); //value to date
+                  // data.Number = "<= $Number ?>";
+                }
+
+            },
+            "deferRender": true,
+            "aLengthMenu": [[10],[ 10]], // Combobox Limit
+            "columns": [
+               {"data": 'no_dokumen',"sortable": false, //1
+                    render: function (data, type, row, meta) {
+                        // return meta.row + meta.settings._iDisplayStart + 1;
+                        // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                        mnu='';
+                      //   mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
+                      // <php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
+                      //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; 
+                      // <php } }?>
+                      // <php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
+                      //   mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                      // <php } }?>
+                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +'") ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>';
+                        // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
+                        //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
+                        // <php } if ($this->session->userdata('WT202105008Delete')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
+                        //   mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> ';
+                        // <php } ?>
+                        
+                        return mnu;
+
+                    }  
+                },
+                
+                // ---------------------------------- Datatables Macro Batas sini ---------------------------------
+                {"data":"transaction_date"},
+                {"data":"no_dokumen"},
+                {"data":"status"},
+                {"data":"category"},
+                {"data":"supplier_name"},
+                {"data":"product_name"},
+                {"data":"part_name"},
+                // {"data":"ae"},
+                {"data":"part_no"},
+                {"data":"description"},
+                {"data":"proses_perubahan_lama"},
+                {"data":"proses_perubahan_baru"},
+                {"data":"current_flow_pic"},
+                {"data":"pic_proc"},
+                {"data":"checked_proc"},
+                {"data":"approved_proc"},
+                {"data":"commodity"},
+                {"data":"qa_pic"},
+                {"data":"checked_qa"},
+                {"data":"approved_qa"},
+                {"data":"registered"},
+                {"data":"masspro_schedule"},
+                {"data":"attachment"},
+                {"data":"attachment1"},
+                {"data":"attachment2"},
+                {"data":"attachment3"},
+                {"data":"isir"},
+                {"data":"qcr"},
+                // ---------------------------------- / Datatables Macro Batas sini --------------------------------
+            ],
+        });
+
+        // Search button
+        $('#search').click(function(){
+
+          
+            if($('#search_fromdate').val() != '' && $('#search_todate').val() !='')
+            {
+                tabel.draw();
+            }
+            else
+            {
+              gagal("Both Date is Required");
+            }
+
+        });
+
+
+    });
+    
+</script>
+<!-- tutup handle data table-->
+
+<script type="text/javascript">
+
+   //variable table
+    var tabel = null;
+    $(document).ready(function() {
+
+        tabel = $('#summary').DataTable({ //table
+            "processing": true, //processing true jika data masuk table
+            // "responsive":true, //respon jika data masuk akan muncul pop up data
             "scrollX": true,
             // "scrollY": true,
             "serverSide": true,//untuk data masuk server 
@@ -1665,67 +2045,20 @@
               download: 'open' //download 
             }
           ],
-            "ajax": 
-            {
-                "url": "<?= base_url('C_Dashboard_new/view_data_where');?>", // URL file untuk proses select datanya
-                "type": "POST", //post select datanya
-                "data": function(data){     
-                  data.searchByFromdate = $('#search_fromdate').val(); //value from date
-                  data.searchByTodate = $('#search_todate').val(); //value to date
-                }
-
-            },
-            "deferRender": true,
-            "aLengthMenu": [[10, 5, 100,1000,10000,100000,1000000,1000000000],[ 10, 5,  100,1000,10000,100000,1000000,"All"]], // Combobox Limit
+            
+            "deferRender": true
+            
+            "ajax": "<?php echo base_url('C_PCN/get_pcn_data'); ?>",
             "columns": [
-               {"data": 'no_dokumen',"sortable": false, //1
-                "object_type": 'category',"sortable": false, //2
-                    render: function (data, object_type, type, row, meta) {
-                        // return meta.row + meta.settings._iDisplayStart + 1;
-                        // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        mnu='';
-                        mnu=mnu+'<a class="btn btn-success btn-sm konfirmasiView  mr-2" data-toggle="modal" data-target="#modal-default" Onclick="view_modal("'+ data +'", "Renewal Dies")"> <i class="fa fa-eye"></i></a>';
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +'")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>';
-                        // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
-                        //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        // <php } if ($this->session->userdata('WT202105008Delete')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
-                        //   mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> ';
-                        // <php } ?>
-                        
-                        return mnu;
-
-                    }  
-                },
-                
-                // ---------------------------------- Datatables Macro Batas sini ---------------------------------
-                {"data":"no_dokumen"},
-                {"data":"status"},
-                {"data":"category"},
-                {"data":"supplier_name"},
-                {"data":"product_name"},
-                {"data":"part_name"},
-                // {"data":"ae"},
-                {"data":"part_no"},
-                {"data":"description"},
-                {"data":"proses_perubahan_lama"},
-                {"data":"proses_perubahan_baru"},
-                {"data":"current_flow_pic"},
-                {"data":"pic_proc"},
-                {"data":"checked_proc"},
-                {"data":"approved_proc"},
-                {"data":"commodity"},
-                {"data":"qa_pic"},
-                {"data":"checked_qa"},
-                {"data":"approved_qa"},
-                {"data":"registered"},
-                {"data":"masspro_schedule"},
-
-                
-                // ---------------------------------- / Datatables Macro Batas sini --------------------------------
-            ],
+              { "data": "action" },
+              { "data": "pic_buyer" },
+              { "data": "open" },
+              { "data": "not_yet_temporary" },
+              { "data": "hold" },
+              { "data": "temporary" },
+              { "data": "late" },
+              { "data": "priority" }
+            ]
         });
 
         // Search button
@@ -1747,7 +2080,6 @@
     });
     
 </script>
-<!-- tutup handle data table-->
 
 <script type="text/javascript">
   ///@see get view modal
@@ -1774,13 +2106,13 @@ if (status=="Add"){
 
             // Ajax isi data
             $.ajax({
-              url: "<?php echo base_url('C_PCNLIST/ajax_getbyno_dokumen')?>",
+              url: "<?php echo base_url('C_PCNLIST/ajax_getbyno_dokumen') ?>",
               method: "get",
               dataType : "JSON",              
               data: {no_dokumen:no_dokumen1},
               success: function (data) {
 
-   		            // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
+                   // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
                   $('#no_dokumen').val(data.no_dokumen);
                   $('#status').val(data.status);
                   $('#category').val(data.category);
@@ -1836,118 +2168,6 @@ function toggleComplete() {
 toggleButton.onclick = toggleComplete;
 </script>
 
-<!-- <style>
-  
-
-  .timeline {
-  list-style-type: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.li {
-  transition: all 200ms ease-in;
-}
-
-.timestamp {
-  margin-bottom: 20px;
-  padding: 0px 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-weight: 100;
-}
-
-.status {
-  padding: 0px 40px;
-  display: flex;
-  justify-content: center;
-  border-top: 2px solid #D6DCE0;
-  position: relative;
-  transition: all 200ms ease-in;
-}
-.status h4 {
-  font-weight: 600;
-}
-.status:before {
-  content: "";
-  width: 25px;
-  height: 25px;
-  background-color: white;
-  border-radius: 25px;
-  border: 1px solid #ddd;
-  position: absolute;
-  top: -15px;
-  left: 42%;
-  transition: all 200ms ease-in;
-}
-
-.li.complete .status {
-  border-top: 2px solid #66DC71;
-}
-.li.complete .status:before {
-  background-color: #66DC71;
-  border: none;
-  transition: all 200ms ease-in;
-}
-.li.complete .status h4 {
-  color: #66DC71;
-}
-
-@media (min-device-width: 320px) and (max-device-width: 700px) {
-  .timeline {
-    list-style-type: none;
-    display: block;
-  }
-
-  .li {
-    transition: all 200ms ease-in;
-    display: flex;
-    width: inherit;
-  }
-
-  .timestamp {
-    width: 100px;
-  }
-
-  .status:before {
-    left: -8%;
-    top: 30%;
-    transition: all 200ms ease-in;
-  }
-}
-html, body {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  font-family: "Titillium Web", sans serif;
-  color: #758D96;
-}
-
-button {
-  position: absolute;
-  width: 100px;
-  min-width: 100px;
-  padding: 20px;
-  margin: 20px;
-  font-family: "Titillium Web", sans serif;
-  border: none;
-  color: white;
-  font-size: 16px;
-  text-align: center;
-}
-
-#toggleButton {
-  margin: auto;
-  align-content: center;
-  background-color: #75C7F6;
-  cursor: pointer;
-}
-  
-</style> -->
-
 <div class="container">
                    
                    
@@ -1959,12 +2179,9 @@ button {
               </div>
             </div>
             <!-- /.card -->
-          </section>
-          </section>
           </div>
           <!-- /.row (main row) -->
         </div><!-- /.container-fluid -->
-      </section>
       <!-- /.content -->
     </div>
   <!-- /.content-wrapper -->

@@ -1,161 +1,163 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_PCN extends CI_Model {
-    
-    
-     ///@see get_tables()
-     ///@note fungsi data web bisa masuk ke database
-     ///@attention jika data web masuk ke web tapi tidak masuk ke database itu salah di databasenya
-   function get_tables($tables,$cari,$iswhere)
-        {
-            // Ambil data yang di ketik user pada textbox pencarian
-            $search = htmlspecialchars($_POST['search']['value']);
-            // Ambil data limit per page
-            $limit = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['length']}");
-            // Ambil data start
-            $start =preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}"); 
-            
-            $query = $tables;
-            
-            //parameter jika data sudah diinput maka akan masuk
-            if(!empty($iswhere)){
-                $sql = $this->db->query("SELECT * FROM ".$query." WHERE ".$iswhere);
-            }else{
-                $sql = $this->db->query("SELECT * FROM ".$query);
-            }
-
-            //parameter untuk sql count
-            $sql_count = $sql->num_rows();
+class M_PCN extends CI_Model
+{
 
 
-            //parameter search
-            $cari = implode(" LIKE '%".$search."%' OR ", $cari)." LIKE '%".$search."%'";
-            
-            // Untuk mengambil nama field yg menjadi acuan untuk sorting
-            $order_field = $_POST['order'][0]['column']; 
-
-            // Untuk menentukan order by "ASC" atau "DESC"
-            $order_ascdesc = $_POST['order'][0]['dir']; 
-            $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;
-
-
-            //parameter jika data dicari maka data ditampilkan akan muncul
-            if(!empty($iswhere)){
-                $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE $iswhere AND (".$cari.")".$order." LIMIT ".$limit." OFFSET ".$start);
-            }else{
-                $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE (".$cari.")".$order." LIMIT ".$limit." OFFSET ".$start);
-            }
-
-
-            //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
-            if(isset($search))
-            {
-                if(!empty($iswhere)){
-                    $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE $iswhere (".$cari.")");
-                }else{
-                    $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE (".$cari.")");
-                }
-                $sql_filter_count = $sql_cari->num_rows();
-            }else{
-
-                //untuk menampilkan data sudah filter
-                if(!empty($iswhere)){
-                    $sql_filter = $this->db->query("SELECT * FROM ".$query."WHERE ".$iswhere);
-                }else{
-                    $sql_filter = $this->db->query("SELECT * FROM ".$query);
-                }
-                $sql_filter_count = $sql_filter->num_rows();
-            }
-            $data = $sql_data->result_array(); 
-
-            $callback = array(    
-                'draw' => $_POST['draw'], // Ini dari datatablenya    
-                'recordsTotal' => $sql_count,    
-                'recordsFiltered'=>$sql_filter_count,    
-                'data'=>$data
-            );
-            return json_encode($callback); // Convert array $callback ke json
-        }
-
-
-    ///@see get_tables_where()
-    ///@note fungsi digunakan mencari data di database
-    ///@attentionjika data web masuk ke web tapi tidak masuk ke database itu salah di databasenya
-     function get_tables_where($tables,$cari,$where,$iswhere)
-     {
+    ///@see get_tables()
+    ///@note fungsi data web bisa masuk ke database
+    ///@attention jika data web masuk ke web tapi tidak masuk ke database itu salah di databasenya
+    function get_tables($tables, $cari, $iswhere)
+    {
         // Ambil data yang di ketik user pada textbox pencarian
         $search = htmlspecialchars($_POST['search']['value']);
         // Ambil data limit per page
         $limit = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['length']}");
         // Ambil data start
-        $start =preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}"); 
+        $start = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}");
+
+        $query = $tables;
+
+        //parameter jika data sudah diinput maka akan masuk
+        if (!empty($iswhere)) {
+            $sql = $this->db->query("SELECT * FROM " . $query . " WHERE " . $iswhere);
+        } else {
+            $sql = $this->db->query("SELECT * FROM " . $query);
+        }
+
+        //parameter untuk sql count
+        $sql_count = $sql->num_rows();
+
+
+        //parameter search
+        $cari = implode(" LIKE '%" . $search . "%' OR ", $cari) . " LIKE '%" . $search . "%'";
+
+        // Untuk mengambil nama field yg menjadi acuan untuk sorting
+        $order_field = $_POST['order'][0]['column'];
+
+        // Untuk menentukan order by "ASC" atau "DESC"
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        $order = " ORDER BY " . $_POST['columns'][$order_field]['data'] . " " . $order_ascdesc;
+
+
+        //parameter jika data dicari maka data ditampilkan akan muncul
+        if (!empty($iswhere)) {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere AND (" . $cari . ")" . $order . " LIMIT " . $limit . " OFFSET " . $start);
+        } else {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE (" . $cari . ")" . $order . " LIMIT " . $limit . " OFFSET " . $start);
+        }
+
+
+        //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
+        if (isset($search)) {
+            if (!empty($iswhere)) {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere (" . $cari . ")");
+            } else {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE (" . $cari . ")");
+            }
+            $sql_filter_count = $sql_cari->num_rows();
+        } else {
+
+            //untuk menampilkan data sudah filter
+            if (!empty($iswhere)) {
+                $sql_filter = $this->db->query("SELECT * FROM " . $query . "WHERE " . $iswhere);
+            } else {
+                $sql_filter = $this->db->query("SELECT * FROM " . $query);
+            }
+            $sql_filter_count = $sql_filter->num_rows();
+        }
+        $data = $sql_data->result_array();
+
+        $callback = array(
+            'draw' => $_POST['draw'],
+            // Ini dari datatablenya    
+            'recordsTotal' => $sql_count,
+            'recordsFiltered' => $sql_filter_count,
+            'data' => $data
+        );
+        return json_encode($callback); // Convert array $callback ke json
+    }
+
+
+    ///@see get_tables_where()
+    ///@note fungsi digunakan mencari data di database
+    ///@attentionjika data web masuk ke web tapi tidak masuk ke database itu salah di databasenya
+    function get_tables_where($tables, $cari, $where, $iswhere)
+    {
+        // Ambil data yang di ketik user pada textbox pencarian
+        $search = htmlspecialchars($_POST['search']['value']);
+        // Ambil data limit per page
+        $limit = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['length']}");
+        // Ambil data start
+        $start = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}");
 
         $setWhere = array();
-        foreach ($where as $key => $value)
-        {
-              $setWhere[] = $key."='".$value."'"; //untuk setting code auto increnete
+        foreach ($where as $key => $value) {
+            $setWhere[] = $key . "='" . $value . "'"; //untuk setting code auto increnete
         }
 
         $fwhere = implode(' AND ', $setWhere);
 
-        if(!empty($iswhere)){
-              $sql = $this->db->query("SELECT * FROM ".$tables." WHERE $iswhere AND ".$fwhere); //untuk setting code auto increnete
-        }else{
-              $sql = $this->db->query("SELECT * FROM ".$tables." WHERE ".$fwhere);
+        if (!empty($iswhere)) {
+            $sql = $this->db->query("SELECT * FROM " . $tables . " WHERE $iswhere AND " . $fwhere); //untuk setting code auto increnete
+        } else {
+            $sql = $this->db->query("SELECT * FROM " . $tables . " WHERE " . $fwhere);
         }
         $sql_count = $sql->num_rows();
 
         $query = $tables;
-        $cari = implode(" LIKE '%".$search."%' OR ", $cari)." LIKE '%".$search."%'";
-        
+        $cari = implode(" LIKE '%" . $search . "%' OR ", $cari) . " LIKE '%" . $search . "%'";
+
         // Untuk mengambil nama field yg menjadi acuan untuk sorting
-        $order_field = $_POST['order'][0]['column']; 
+        $order_field = $_POST['order'][0]['column'];
 
         // Untuk menentukan order by "ASC" atau "DESC"
-        $order_ascdesc = $_POST['order'][0]['dir']; 
-        $order = " ORDER BY ".$_POST['columns'][$order_field]['data']." ".$order_ascdesc;
+        $order_ascdesc = $_POST['order'][0]['dir'];
+        $order = " ORDER BY " . $_POST['columns'][$order_field]['data'] . " " . $order_ascdesc;
 
 
         //parameter jika data dicari maka data ditampilkan akan muncul
-        if(!empty($iswhere)){
-              $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE $iswhere AND ".$fwhere." AND (".$cari.")".$order." OFFSET ".$start." ROWS FETCH NEXT ". $limit . " ROWS only ");
-        }else{
-              $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE ".$fwhere." AND (".$cari.")".$order." OFFSET ".$start." ROWS FETCH NEXT ". $limit . " ROWS only ");
+        if (!empty($iswhere)) {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")" . $order . " OFFSET " . $start . " ROWS FETCH NEXT " . $limit . " ROWS only ");
+        } else {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE " . $fwhere . " AND (" . $cari . ")" . $order . " OFFSET " . $start . " ROWS FETCH NEXT " . $limit . " ROWS only ");
         }
 
 
         //parameter jika data cari data ditampilkan
-        if(isset($search))
-        {
-              if(!empty($iswhere)){
-                 $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE $iswhere AND ".$fwhere." AND (".$cari.")");
-              }else{
-                 $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE ".$fwhere." AND (".$cari.")");
-              }
-              $sql_filter_count = $sql_cari->num_rows();
-        }else{
+        if (isset($search)) {
+            if (!empty($iswhere)) {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")");
+            } else {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE " . $fwhere . " AND (" . $cari . ")");
+            }
+            $sql_filter_count = $sql_cari->num_rows();
+        } else {
 
-           //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
-              if(!empty($iswhere)){
-                 $sql_filter = $this->db->query("SELECT * FROM ".$tables." WHERE $iswhere AND ".$fwhere);
-              }else{
-                 $sql_filter = $this->db->query("SELECT * FROM ".$tables." WHERE ".$fwhere);
-              }
-              $sql_filter_count = $sql_filter->num_rows();
+            //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
+            if (!empty($iswhere)) {
+                $sql_filter = $this->db->query("SELECT * FROM " . $tables . " WHERE $iswhere AND " . $fwhere);
+            } else {
+                $sql_filter = $this->db->query("SELECT * FROM " . $tables . " WHERE " . $fwhere);
+            }
+            $sql_filter_count = $sql_filter->num_rows();
         }
 
         //untuk menampilkan data sudah filter
         $data = $sql_data->result_array();
-        
-        $callback = array(    
-              'draw' => $_POST['draw'], // Ini dari datatablenya    
-              'recordsTotal' => $sql_count,   //ini record database
-              'recordsFiltered'=>$sql_filter_count,  //ini filter count  
-              'data'=>$data
+
+        $callback = array(
+            'draw' => $_POST['draw'],
+            // Ini dari datatablenya    
+            'recordsTotal' => $sql_count,
+            //ini record database
+            'recordsFiltered' => $sql_filter_count,
+            //ini filter count  
+            'data' => $data
         );
         return json_encode($callback); // Convert array $callback ke json
-     }
+    }
 
     ///@see get_tables_query()
     ///@note fungsi digunakan query database
@@ -200,9 +202,9 @@ class M_PCN extends CI_Model {
 
             if (isset($search)) {
                 if (!empty($iswhere)) {
-                    $sql_cari =  $this->db->query($query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")");
+                    $sql_cari = $this->db->query($query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")");
                 } else {
-                    $sql_cari =  $this->db->query($query . " WHERE " . $fwhere . " AND (" . $cari . ")");
+                    $sql_cari = $this->db->query($query . " WHERE " . $fwhere . " AND (" . $cari . ")");
                 }
                 $sql_filter_count = $sql_cari->num_rows();
             } else {
@@ -241,9 +243,9 @@ class M_PCN extends CI_Model {
 
             if (isset($search)) {
                 if (!empty($iswhere)) {
-                    $sql_cari =  $this->db->query($query . " WHERE $iswhere AND (" . $cari . ")");
+                    $sql_cari = $this->db->query($query . " WHERE $iswhere AND (" . $cari . ")");
                 } else {
-                    $sql_cari =  $this->db->query($query . " WHERE (" . $cari . ")");
+                    $sql_cari = $this->db->query($query . " WHERE (" . $cari . ")");
                 }
                 $sql_filter_count = $sql_cari->num_rows();
             } else {
@@ -258,7 +260,8 @@ class M_PCN extends CI_Model {
         }
 
         $callback = array(
-            'draw' => $_POST['draw'], // Ini dari datatablenya    
+            'draw' => $_POST['draw'],
+            // Ini dari datatablenya    
             'recordsTotal' => $sql_count,
             'recordsFiltered' => $sql_filter_count,
             'data' => $data
@@ -266,14 +269,14 @@ class M_PCN extends CI_Model {
         return json_encode($callback); // Convert array $callback ke json
     }
     ///@see Max_data()
-     ///@note fungsi digunakan maksimum data
-     ///@attention jika file diinput sudah melewati ukuran maka file tidak akan masuk
+    ///@note fungsi digunakan maksimum data
+    ///@attention jika file diinput sudah melewati ukuran maka file tidak akan masuk
     public function Max_data($mdate, $table)
     {
         $this->db->select_max('hdrid');
         $this->db->like('hdrid', $mdate);
         $query = $this->db->get($table);
-        return  $query;
+        return $query;
     }
 
     ///@see Input_Data()
@@ -286,86 +289,87 @@ class M_PCN extends CI_Model {
 
     /** -----------------------------Menginput Dari Table Lain Berdasarkan Wherenya-----------------------------------**/
 
-    function get_tables_where2($tables,$cari,$where,$iswhere)
-     {
+    function get_tables_where2($tables, $cari, $where, $iswhere)
+    {
         // Ambil data yang di ketik user pada textbox pencarian
         $search = htmlspecialchars($_POST['search']['value']);
         // Ambil data limit per page
         $limit = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['length']}");
         // Ambil data start
-        $start =preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}"); 
+        $start = preg_replace("/[^a-zA-Z0-9.]/", '', "{$_POST['start']}");
 
         $setWhere = array();
-        foreach ($where as $key => $value)
-        {
-              $setWhere[] = $key."='".$value."'"; //untuk setting code auto increnete
+        foreach ($where as $key => $value) {
+            $setWhere[] = $key . "='" . $value . "'"; //untuk setting code auto increnete
         }
 
         $fwhere = implode(' AND ', $setWhere);
 
-        if(!empty($iswhere)){
-              $sql = $this->db->query("SELECT * FROM ".$tables." WHERE $iswhere AND ".$fwhere); //untuk setting code auto increnete
-        }else{
-              $sql = $this->db->query("SELECT * FROM ".$tables." WHERE ".$fwhere);
+        if (!empty($iswhere)) {
+            $sql = $this->db->query("SELECT * FROM " . $tables . " WHERE $iswhere AND " . $fwhere); //untuk setting code auto increnete
+        } else {
+            $sql = $this->db->query("SELECT * FROM " . $tables . " WHERE " . $fwhere);
         }
         $sql_count = $sql->num_rows();
 
         $query = $tables;
-        $cari = implode(" LIKE '%".$search."%' OR ", $cari)." LIKE '%".$search."%'";
-        
+        $cari = implode(" LIKE '%" . $search . "%' OR ", $cari) . " LIKE '%" . $search . "%'";
+
         // Untuk mengambil nama field yg menjadi acuan untuk sorting
-        $order_field = $_POST['order'][0]['column']; 
+        $order_field = $_POST['order'][0]['column'];
 
         // Untuk menentukan order by "ASC" atau "DESC"
-        $order_ascdesc = $_POST['order'][0]['dir']; 
+        $order_ascdesc = $_POST['order'][0]['dir'];
         $order = " ORDER BY HDRID";
 
 
         //parameter jika data dicari maka data ditampilkan akan muncul
-        if(!empty($iswhere)){
-              $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE $iswhere AND ".$fwhere." AND (".$cari.")".$order." OFFSET ".$start." ROWS FETCH NEXT ". $limit . " ROWS only ");
-        }else{
-              $sql_data = $this->db->query("SELECT * FROM ".$query." WHERE ".$fwhere." AND (".$cari.")".$order." OFFSET ".$start." ROWS FETCH NEXT ". $limit . " ROWS only ");
+        if (!empty($iswhere)) {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")" . $order . " OFFSET " . $start . " ROWS FETCH NEXT " . $limit . " ROWS only ");
+        } else {
+            $sql_data = $this->db->query("SELECT * FROM " . $query . " WHERE " . $fwhere . " AND (" . $cari . ")" . $order . " OFFSET " . $start . " ROWS FETCH NEXT " . $limit . " ROWS only ");
         }
 
 
         //parameter jika data cari data ditampilkan
-        if(isset($search))
-        {
-              if(!empty($iswhere)){
-                 $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE $iswhere AND ".$fwhere." AND (".$cari.")");
-              }else{
-                 $sql_cari =  $this->db->query("SELECT * FROM ".$query." WHERE ".$fwhere." AND (".$cari.")");
-              }
-              $sql_filter_count = $sql_cari->num_rows();
-        }else{
+        if (isset($search)) {
+            if (!empty($iswhere)) {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE $iswhere AND " . $fwhere . " AND (" . $cari . ")");
+            } else {
+                $sql_cari = $this->db->query("SELECT * FROM " . $query . " WHERE " . $fwhere . " AND (" . $cari . ")");
+            }
+            $sql_filter_count = $sql_cari->num_rows();
+        } else {
 
-           //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
-              if(!empty($iswhere)){
-                 $sql_filter = $this->db->query("SELECT * FROM ".$tables." WHERE $iswhere AND ".$fwhere);
-              }else{
-                 $sql_filter = $this->db->query("SELECT * FROM ".$tables." WHERE ".$fwhere);
-              }
-              $sql_filter_count = $sql_filter->num_rows();
+            //parameter jika data cari dan menfilter maka data ditampilkan akan muncul
+            if (!empty($iswhere)) {
+                $sql_filter = $this->db->query("SELECT * FROM " . $tables . " WHERE $iswhere AND " . $fwhere);
+            } else {
+                $sql_filter = $this->db->query("SELECT * FROM " . $tables . " WHERE " . $fwhere);
+            }
+            $sql_filter_count = $sql_filter->num_rows();
         }
 
         //untuk menampilkan data sudah filter
         $data = $sql_data->result_array();
-        
-        $callback = array(    
-              'draw' => $_POST['draw'], // Ini dari datatablenya    
-              'recordsTotal' => $sql_count,   //ini record database
-              'recordsFiltered'=>$sql_filter_count,  //ini filter count  
-              'data'=>$data
+
+        $callback = array(
+            'draw' => $_POST['draw'],
+            // Ini dari datatablenya    
+            'recordsTotal' => $sql_count,
+            //ini record database
+            'recordsFiltered' => $sql_filter_count,
+            //ini filter count  
+            'data' => $data
         );
         return json_encode($callback); // Convert array $callback ke json
-     }
+    }
 
 
     ///@see Input_Data2()
     ///@note fungsi digunakan untuk input data di query
     ///@attention jika data tidak di input makan data tidak akan tampil
-    function Input_Data2($date_transaction,$problem_id, $problem_category_id, $product_id)
+    function Input_Data2($date_transaction, $problem_id, $problem_category_id, $product_id)
     {
 
         $query = $this->db->query("
@@ -394,7 +398,7 @@ class M_PCN extends CI_Model {
            ");
 
         //    Tambahkan initiator
-           $query = $this->db->query("
+        $query = $this->db->query("
            INSERT INTO tb_approval
             (transaction_date
             ,problem_id
@@ -419,8 +423,8 @@ class M_PCN extends CI_Model {
             WHERE hdrid = '$problem_id'
            ");
 
-            // Tambahkan Responsible
-           $query = $this->db->query("
+        // Tambahkan Responsible
+        $query = $this->db->query("
            INSERT INTO tb_approval
             (transaction_date
             ,problem_id
@@ -445,210 +449,183 @@ class M_PCN extends CI_Model {
             WHERE hdrid = '$problem_id'
            ");
 
-      
+
         return $query;
-        
+
     }
 
-     ///@see update Data Approve()
+    ///@see update Data Approve()
     ///@note fungsi digunakan untuk input update data di area approve
     ///@attention jika data tidak di update maka data tidak akan tampil dengan updatan terbaru
-    function Update_Data_Approve_ver2($where, $data, $table, $position_code, $nama){
+    function Update_Data_Approve_ver2($where, $data, $table, $position_code, $nama)
+    {
         $this->Update_Data($where, $data, $table);
 
         // mencari next approval
         $approval2 = $this->db->query("select TOP 1 * from tb_approval where stat='unapprove' and problem_id = '" . $data['problem_id'] . "'order by position_code asc");
-        if ($approval2->num_rows()==0) {
+        if ($approval2->num_rows() == 0) {
             $status = $this->db->query("select TOP 1 * from tb_approval where problem_id = '" . $data['problem_id'] . "' and position_code = '12'")->row();
-            
+
             $data3 = (object) array(
                 'status' => "<b>Approved</b>",
                 'current_flow_pic' => "Done",
-            ); 
+            );
             $where2 = array('no_dokumen' => $data['problem_id']);
             $this->Update_Data($where2, $data3, 'tb_PCNlist');
 
-             // Update tb_PCN
+            // Update tb_PCN
             $data4 = array(
                 'stat' => "approved"
-            ); 
+            );
             $where = array('hdrid' => $data['problem_id']);
             $this->Update_Data($where, $data4, 'tb_PCN');
 
 
-            
-        }else{
+
+        } else {
             $status_transaction = "Approved by " . $nama;
-            $approval2=$approval2->row();
+            $approval2 = $approval2->row();
 
             $next_position_code = $approval2->position_code;
-            
+
             $approval2 = $this->db->query("select * from tb_approval where position_code ='" . $next_position_code . "' and problem_id = '" . $data['problem_id'] . "'")->result();
-            
+
             $name = "";
-            foreach($approval2 as $key=>$app){
-                if($key == 0){
-                    $name = $name . $app->name; 
-                }else{
-                    $name = $name . ", " . $app->name; 
+            foreach ($approval2 as $key => $app) {
+                if ($key == 0) {
+                    $name = $name . $app->name;
+                } else {
+                    $name = $name . ", " . $app->name;
                 }
             }
-            
-            if($data['position_code'] < 6){
-                $status = "Not Yet Temporary Approval";
-            }else{
+
+            if ($data['position_code'] < 4) {
+                $status = "Not Yet Plan Approval";
+            } else {
                 $status = "Plan Approval";
             }
 
-            if($data['position_code'] == 1 ){
+            if ($data['position_code'] == 1) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'pic_proc' => $nama,
                     'registered' => $data['date_approve']
                 );
-            }else if ($data['position_code'] == 2){
+            } else if ($data['position_code'] == 2) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'checked_proc' => $nama
                 );
-            }
-            else if ($data['position_code'] == 3){
+            } else if ($data['position_code'] == 3) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'approved_proc' => $nama
                 );
-            }else if ($data['position_code'] == 4){
+            } else if ($data['position_code'] == 4) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'qa_pic' => $nama
                 );
-            }else if ($data['position_code'] == 5){
+            } else if ($data['position_code'] == 5) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'checked_qa' => $nama
                 );
-            }else if ($data['position_code'] == 6){
+            } else if ($data['position_code'] == 6) {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name,
                     'approved_qa' => $nama
                 );
-            }else{
+            } else {
                 $data3 = (object) array(
                     'status' => $status,
                     'current_flow_pic' => $name
                 );
             }
 
-            
+
             // Update tb_PCN
             $data4 = (object) array(
-                'stat' => 'process'
+                'stat' => $status
             );
             $where = array('hdrid' => $data['problem_id']);
             $this->Update_Data($where, $data4, 'tb_PCN');
+
+            $data_list = (object) array(
+                'status' => $status
+            );
+            $where2 = array('no_dokumen' => $data['problem_id']);
+            $this->Update_Data($where2, $data_list, 'tb_PCNlist');
         }
-        
-        return  "Approve Berhasil";
+
+        return "Approve Berhasil";
     }
 
-     ///@see update Data Approve()
+    ///@see update Data Approve()
     ///@note fungsi digunakan untuk input update data di area approve
     ///@attention jika data tidak di update maka data tidak akan tampil dengan updatan terbaru
-    function Send_Back_Data($where,$data,$reason ,$table, $nama){
-        $this->Update_Data($where, $data, $table);
+    function Send_Back_Data($where_pcn, $where, $data, $reason, $table, $nama)
+    {
 
-        $approval = $this->db->query("select TOP 1 * from tb_approval where stat='unapprove' and problem_id = '" . $data['problem_id'] . "'order by position_code asc")->row();
-        
         $where = array('no_dokumen' => $data['problem_id']);
+        $where2 = array('hdrid' => $data['problem_id']);
         $data = (object) array(
             'status' => "Send Back to Procurement PIC By <b>" . $nama . "</b><br> <b>Reason:</b> " . $reason,
-            'current_flow_pic' => $approval->name
+            'current_flow_pic' => $nama
+        );
+        $data2 = (object) array(
+            'stat' => "Send Back to Procurement PIC By <b>" . $nama . "</b><br> <b>Reason:</b> " . $reason
         );
 
         $this->Update_Data($where, $data, 'tb_PCNlist');
-        
-        return  "Send Back by " . $nama . "Berhasil";
+        $this->Update_Data($where2, $data2, 'tb_PCN');
+
+        return "Send Back by " . $nama . "Berhasil";
     }
 
     /** -----------------------------Menginput Dari Table Lain Berdasarkan Wherenya-----------------------------------**/
 
     // $post_data_transaction_date,$hdrid3,$this->input->post('nik'),$this->input->post('name'),$this->input->post('section1'),$this->input->post('email1'),$this->input->post('nik2'),$this->input->post('name2'),$this->input->post('section2'),$this->input->post('email2')
 
-    ///@see Input_Data_Approver()
-    ///@note fungsi digunakan untuk input data dengan approve
-    ///@attention jika data approver tidak di input makan data tidak akan tampil
-    // function Input_Data_Approver($date_transaction,$hdrid,$supplier)
-    // {
-    //     // *** procurement ***
-    //     $this->tb_approval_save($date_transaction,$hdrid,$supplier,'1','Procurement-Check 1');
-    //     $this->tb_approval_save_superior($date_transaction,$hdrid,$supplier,'2','Procurement-Check 2');
-    //     $this->tb_approval_save($date_transaction,$hdrid,$supplier,'2','Procurement-Check 2');
-    //     $this->tb_approval_save_superior($date_transaction,$hdrid,$supplier,'3','Procurement-Check 3');
-
-    //     // *** QA ***
-    //     $this->tb_approval_save_superior2($date_transaction,$hdrid,$supplier,'4','QA-Check 1');
-    //     $this->tb_approval_save($date_transaction,$hdrid,$supplier,'4','QA-Check 1');
-    //     $this->tb_approval_save_superior($date_transaction,$hdrid,$supplier,'4','QA-Check 1');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'5','QA-Check 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'5','QA-Check 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'6','QA-Check 3');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'6','QA-Check 3');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'7','QA-Final 1');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'7','QA-Final 1');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'7','QA-Final 1');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'8','QA-Final 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'8','QA-Final 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'9','QA-Final 3');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'9','QA-Final 3');
-
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'10','Procurement-Final 1');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'11','Procurement-Final 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'11','Procurement-Final 2');
-    //     $this->tb_approval_save_superior($$date_transaction,$hdrid,$supplier,'12','Procurement-Final 3');
-
-    //     // $query=array('berhasil'=>'berhasil');   
-    //     // return $query;
-        
-    // }
 
     ///@see Update_Data_Approver()
     ///@note fungsi digunakan untuk update data dengan approve
     ///@attention jika data tidak di update maka data tidak akan tampil dengan updatan terbaru
-    function Update_Data_Approver($problem_id,$nik)
+    function Update_Data_Approver($problem_id, $nik)
     {
- 
+
         // Update responsible
-        $this->tb_approval_update_supres($problem_id,$nik,'3');
+        $this->tb_approval_update_supres($problem_id, $nik, '3');
         // Simpan responsible approver 1
-        $this->tb_approval_update_superior($problem_id,$nik,'4','');
+        $this->tb_approval_update_superior($problem_id, $nik, '4', '');
         // Simpan responsible approver 2
-        $this->tb_approval_update_superior($problem_id,$nik,'5','2');
-                
+        $this->tb_approval_update_superior($problem_id, $nik, '5', '2');
+
     }
 
     ///@see input Update_stat()
     ///@note fungsi digunakan untuk update status agar muncul di application response
     ///@attention
-    function Update_stat($problem_id,$date)
+    function Update_stat($problem_id, $date)
     {
-        $query=$this->db->query("select stat from tb_approval where problem_id='$problem_id' and position_name='Procurement-Check3' and stat='Approved'");
-       
+        $query = $this->db->query("select stat from tb_approval where problem_id='$problem_id' and position_name='Procurement-Check3' and stat='Approved'");
+
         if ($query->num_rows() > 0) {
-            $where = array('pcn_number' =>$problem_id,'status'=>'Closed');
-            $data = array('status' =>'Open','reminder'=>$date);
-            $update=$this->Update_Data($where, $data, 'tb_application');
+            $where = array('pcn_number' => $problem_id, 'status' => 'Closed');
+            $data = array('status' => 'Open', 'reminder' => $date);
+            $update = $this->Update_Data($where, $data, 'tb_application');
             return $update;
-        }else{
+        } else {
             return "Not Found";
         }
         // $query = $this->db->query("");
-        
+
         // return  $application_res;
 
 
@@ -657,7 +634,7 @@ class M_PCN extends CI_Model {
     ///@see input tb_approval_save()
     ///@note fungsi digunakan untuk approve data di save ke database
     ///@attention
-     function tb_approval_save($date_transaction,$problem_id ,$nik,$name,$email,$sectionCode,$section,$sequence,$position)
+    function tb_approval_save($date_transaction, $problem_id, $nik, $name, $email, $sectionCode, $section, $sequence, $position)
     {
         $query = $this->db->query("
              INSERT INTO tb_approval
@@ -667,14 +644,14 @@ class M_PCN extends CI_Model {
 
     }
 
-    
+
     ///@see input tb_approval_save_superior()
     ///@note fungsi digunakan untuk approve data di save ke database tapi untuk superior
     ///@attention
-     function tb_approval_save_superior($date_transaction,$problem_id,$nik,$sequence,$position)
+    function tb_approval_save_superior($date_transaction, $problem_id, $nik, $sequence, $position)
     {
 
-       $query = $this->db->query("
+        $query = $this->db->query("
         INSERT INTO tb_approval
             (transaction_date
             ,problem_id
@@ -704,10 +681,10 @@ class M_PCN extends CI_Model {
     ///@see tb_approval_update_superior()
     ///@note fungsi digunakan untuk update approve data di save ke database tapi untuk superior
     ///@attention
-    function tb_approval_update_superior($problem_id,$nik,$sequence,$sup)
+    function tb_approval_update_superior($problem_id, $nik, $sequence, $sup)
     {
 
-       $query = $this->db->query("
+        $query = $this->db->query("
         update tb_approval
         set nik=isnull((select top 1 nik_superior$sup from tb_superior where nik='$nik'),nik)
         ,name=isnull((select top 1 name_superior$sup from tb_superior where nik='$nik'),name)
@@ -721,10 +698,10 @@ class M_PCN extends CI_Model {
     ///@see input tb_approval_update_supres()
     ///@note fungsi digunakan untuk update approve data di save ke database tapi untuk supres
     ///@attention
-    function tb_approval_update_supres($problem_id,$nik,$sequence)
+    function tb_approval_update_supres($problem_id, $nik, $sequence)
     {
 
-       $query = $this->db->query("
+        $query = $this->db->query("
         update tb_approval
         set nik=isnull((select top 1 nik2 from tb_input_problem where hdrid='$nik'),nik)
         ,name=isnull((select top 1 name2 from tb_input_problem where hdrid='$nik'),name)
@@ -736,13 +713,13 @@ class M_PCN extends CI_Model {
 
     }
 
-        ///@see tb_approval_save_superior2()
+    ///@see tb_approval_save_superior2()
     ///@note fungsi digunakan untuk update approve data di save ke database tapi untuk superior 2
     ///@attention
-     function tb_approval_save_superior2($date_transaction,$problem_id,$nik,$sequence,$position)
+    function tb_approval_save_superior2($date_transaction, $problem_id, $nik, $sequence, $position)
     {
 
-       $query = $this->db->query("
+        $query = $this->db->query("
         INSERT INTO tb_approval
             (transaction_date
             ,problem_id
@@ -771,56 +748,56 @@ class M_PCN extends CI_Model {
 
     /** -----------------------------Akhir Menginput Dari Table Lain Berdasarkan Wherenya-----------------------------------**/
 
-        ///@see insert_batch()
-     ///@note fungsi digunakan input batch data untuk masuk database
-     ///@attention 
+    ///@see insert_batch()
+    ///@note fungsi digunakan input batch data untuk masuk database
+    ///@attention 
     public function insert_batch($table, $data)
     {
         $this->db->insert_batch($table, $data);
         return $this->db->affected_rows();
     }
-  ///@see get update
-     ///@note fungsi digunakan untuk update data
-     ///@attention
+    ///@see get update
+    ///@note fungsi digunakan untuk update data
+    ///@attention
     function Update_Data($where, $data, $table)
     {
         $this->db->where($where);
         $this->db->update($table, $data);
     }
 
-       ///@see get delete
-     ///@note fungsi digunakan untuk delete data
-     ///@attention
+    ///@see get delete
+    ///@note fungsi digunakan untuk delete data
+    ///@attention
     function Delete_Data($where, $table)
     {
         $this->db->where($where);
         $this->db->delete($table);
     }
 
-       ///@see get where
-     ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
-     ///@attention
+    ///@see get where
+    ///@note fungsi digunakan untuk dimana data tersebut untuk data cari di database
+    ///@attention
     function Get_Where($where, $table)
     {
         return $this->db->get_where($table, $where);
     }
 
-             ///@see get_hybrid
-     ///@note fungsi digunakan untuk auto increnete
-     ///@attention jika sudah auto increnete maka setiap data ditambah akan bertambah setiap nomor increnete
+    ///@see get_hybrid
+    ///@note fungsi digunakan untuk auto increnete
+    ///@attention jika sudah auto increnete maka setiap data ditambah akan bertambah setiap nomor increnete
     function ajax_getbyhdrid($hdrid, $table)
     {
         return $this->db->get_where($table, array('hdrid' => $hdrid));
     }
 
-     ///@see get central user
+    ///@see get central user
     ///@note fungsi digunakan untuk username masuk web
     ///@attention
     function Get_central_user()
     {
 
-        $DB2 = $this->load->database('db_central_user', TRUE);   // Database central user   
-        $result = $DB2->get('Tb_user_login')->result();               // Untuk mengeksekusi dan mengambil data hasil query
+        $DB2 = $this->load->database('db_central_user', TRUE); // Database central user   
+        $result = $DB2->get('Tb_user_login')->result(); // Untuk mengeksekusi dan mengambil data hasil query
         $DB2->Close();
         return $result;
     }
@@ -831,31 +808,31 @@ class M_PCN extends CI_Model {
     function Get_departement()
     {
 
-        $DB2 = $this->load->database('db_central_user', TRUE);   // Database central user   
-        $result = $DB2->get('Tb_department')->result();               // Untuk mengeksekusi dan mengambil data hasil query
+        $DB2 = $this->load->database('db_central_user', TRUE); // Database central user   
+        $result = $DB2->get('Tb_department')->result(); // Untuk mengeksekusi dan mengambil data hasil query
         $DB2->Close();
         return $result;
     }
 
-  ///@seecari_inisiator_responsible
+    ///@seecari_inisiator_responsible
     ///@note fungsi digunakan untuk cari inisiator responsible
     ///@attention
     function cari_inisiator_responsible($hdrid)
     {
 
-      $query = $this->db->query("select top 1 * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
-      if ($query->num_rows() > 0) {
-          return $query->row();
-      }else{
-          $query = (object) array('nik'=>'not found','name'=>'not found','office_email'=>'not found','position_code'=>'not found');
-          return $query;
-      }
+        $query = $this->db->query("select top 1 * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            $query = (object) array('nik' => 'not found', 'name' => 'not found', 'office_email' => 'not found', 'position_code' => 'not found');
+            return $query;
+        }
 
     }
 
     ///@see send mail
-     ///@note fungsi mengirim email
-     ///@attention 
+    ///@note fungsi mengirim email
+    ///@attention 
     public function Send_mail($hdrid)
     {
 
@@ -914,14 +891,14 @@ class M_PCN extends CI_Model {
     //     //     }else{ //  Lari kembali ke responsible
     //     //          $this->db->query("Update tb_approval SET date_approve=NULL where problem_id='$hdrid' and position_code>2");
     //     //     }
-            
+
     //     // }
 
     // }
 
-        ///@see Send_mail_reject()
-     ///@note fungsi menolak email
-     ///@attention 
+    ///@see Send_mail_reject()
+    ///@note fungsi menolak email
+    ///@attention 
     public function Send_mail_reject($hdrid)
     {
 
@@ -938,54 +915,54 @@ class M_PCN extends CI_Model {
         }
     }
 
-    
+
 
     ///@see tampil_supplier_name()
-     ///@note untuk select filter
-     ///@attention 
+    ///@note untuk select filter
+    ///@attention 
     public function tampil_supplier_name()
     {
-        $query =  $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
+        $query = $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
         return $query;
     }
 
 
-        ///@see tampil_cost_impact()
-     ///@note untuk select filter
-     ///@attention 
+    ///@see tampil_cost_impact()
+    ///@note untuk select filter
+    ///@attention 
     public function tampil_cost_impact()
     {
-        $query =  $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
+        $query = $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
         return $query;
     }
-   
-        ///@see tampil_capactiy_impact()
-     ///@note untuk select filter
-     ///@attention 
+
+    ///@see tampil_capactiy_impact()
+    ///@note untuk select filter
+    ///@attention 
     public function tampil_capactiy_impact()
     {
-        $query =  $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
+        $query = $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
         return $query;
     }
 
     ///@see tampil_description()
-     ///@note untuk select filter
-     ///@attention 
-     public function tampil_description()
-     {
-         $query =  $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
-         return $query;
-     }
+    ///@note untuk select filter
+    ///@attention 
+    public function tampil_description()
+    {
+        $query = $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
+        return $query;
+    }
 
 
     ///@see tampil_email()
-     ///@note untuk select filter
-     ///@attention 
-     public function tampil_email()
-     {
-         $query =  $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
-         return $query;
-     }
+    ///@note untuk select filter
+    ///@attention 
+    public function tampil_email()
+    {
+        $query = $this->db->get('tb_pcn')->result(); //contoh dari tabel input problem nanti ganti table kalau sudah fiks
+        return $query;
+    }
 
 
     //     public function tampil_nik()
@@ -997,10 +974,10 @@ class M_PCN extends CI_Model {
     //         return  $query;
     //    }
 
-    
+
     ///@see tampil_nik()
-     ///@note untuk select filter
-     ///@attention 
+    ///@note untuk select filter
+    ///@attention 
     public function tampil_nik()
     {
         $this->db->select('user_name,name,department_name,office_email');
@@ -1008,9 +985,9 @@ class M_PCN extends CI_Model {
         return $this->db->get()->result();
     }
 
-         ///@see tampil_nik_from()
-     ///@note untuk select filter
-     ///@attention 
+    ///@see tampil_nik_from()
+    ///@note untuk select filter
+    ///@attention 
     public function tampil_nik_from()
     {
         // $this->db->select('user_name,name,department_name,office_email');
@@ -1018,7 +995,7 @@ class M_PCN extends CI_Model {
         // return $this->db->get()->result();
 
         $query = $this->db->query(" select * from Tb_user_login where user_name in ( select distinct nik from tb_superior)");
-        return $query ->result();
+        return $query->result();
 
     }
 
@@ -1029,97 +1006,97 @@ class M_PCN extends CI_Model {
     // {
 
     //     // return $this->db->get_where('tb_product', ['hdrid' => $product_id])->row_array();
-        // $this->db->select('report_no');
-        // $this->db->from('tb_product');
-        // $this->db->where('hdrid', $product_id);
-        // return $this->db->get()->row();
+    // $this->db->select('report_no');
+    // $this->db->from('tb_product');
+    // $this->db->where('hdrid', $product_id);
+    // return $this->db->get()->row();
 
     // }
 
     ///@see get_hdrid()
-     ///@note untuk code increnete
-     ///@attention 
-    public function get_hdrid($table,$column,$value)
+    ///@note untuk code increnete
+    ///@attention 
+    public function get_hdrid($table, $column, $value)
     {
 
-                // Cari email
+        // Cari email
         $query = $this->db->query("select hdrid from $table where $column='$value'");
         if ($query->num_rows() > 0) {
             $query = $query->row();
-        }else{
+        } else {
             $query = (object) array(
                 'hdrid' => "000"
-            );   
+            );
         }
 
         return $query;
 
     }
     ///@see get_superior1()
-     ///@note untuk superior mengisi data
-     ///@attention 
-    public function get_superior1($nik,$positioncode,$positionname,$date,$problemid,$dateapprove)
+    ///@note untuk superior mengisi data
+    ///@attention 
+    public function get_superior1($nik, $positioncode, $positionname, $date, $problemid, $dateapprove)
     {
-       
+
         $query = $this->db->query("INSERT INTO tb_approval select NULL as hdrid,'$date' as transaction_date,'$problemid' as problem_id ,nik_superior as nik,name_superior as name,kode_setion_superior as department_code,name_section_superior as department_name,email_superior as office_email,'$positioncode' as position_code,'$positionname' as position_name,'$dateapprove' as date_approve from tb_superior where nik ='$nik'");
         // $query = $query->row();
         // return $query;
 
     }
 
-      ///@see get_superior2()
-     ///@note untuk superior mengisi data
-     ///@attention 
-    public function get_superior2($nik,$positioncode,$positionname,$date,$problemid,$dateapprove)
+    ///@see get_superior2()
+    ///@note untuk superior mengisi data
+    ///@attention 
+    public function get_superior2($nik, $positioncode, $positionname, $date, $problemid, $dateapprove)
     {
-       
+
         $query = $this->db->query("INSERT INTO tb_approval select NULL as hdrid,'$date' as transaction_date,'$problemid' as problem_id ,nik_superior2 as nik,name_superior2 as name,kode_setion_superior2 as department_code,name_section_superior2 as department_name,email_superior2 as office_email,'$positioncode' as position_code,'$positionname' as position_name,'$dateapprove' as date_approve from tb_superior where nik ='$nik'");
         // $query = $query->row();
         // return $query;
 
     }
 
-    
-       ///@see get_report_no()
-     ///@note untuk mendapatkan report no
-     ///@attention 
+
+    ///@see get_report_no()
+    ///@note untuk mendapatkan report no
+    ///@attention 
     public function get_report_no($product_name)
     {
         // return $this->db->get_where('tb_product', ['hdrid' => $product_id])->row_array();
-         $query = $this->db->query("select report_no from tb_product where product_name='$product_name'");
+        $query = $this->db->query("select report_no from tb_product where product_name='$product_name'");
         if ($query->num_rows() > 0) {
             $query = $query->row();
-        }else{
+        } else {
             $query = (object) array(
                 'report_no' => "000"
-            );   
+            );
         }
 
-        return  $query;
+        return $query;
 
     }
 
-     ///@see get_PCN_Registrasi()
-     ///@note untuk pcn register mendapatkan no pcn
-     ///@attention 
-     public function get_PCN_Registrasi()
-     {
-         // return $this->db->get_where('tb_product', ['hdrid' => $product_id])->row_array();
-          $query = $this->db->query("select * from tb_PCN ");
-         if ($query->num_rows() > 0) {
-             $query = $query->row();
-         }else{
-             $query = (object) array(
-                 'supplier_name' => "not found"
-             );   
-         }
- 
-         return  $query;
- 
-     }
+    ///@see get_PCN_Registrasi()
+    ///@note untuk pcn register mendapatkan no pcn
+    ///@attention 
+    public function get_PCN_Registrasi()
+    {
+        // return $this->db->get_where('tb_product', ['hdrid' => $product_id])->row_array();
+        $query = $this->db->query("select * from tb_PCN ");
+        if ($query->num_rows() > 0) {
+            $query = $query->row();
+        } else {
+            $query = (object) array(
+                'supplier_name' => "not found"
+            );
+        }
+
+        return $query;
+
+    }
     ///@see getdatabysession()
-     ///@note fungsi digunakan menarik data tb_approval
-     ///@attention 
+    ///@note fungsi digunakan menarik data tb_approval
+    ///@attention 
     public function getdatabysession()
     {
         $namaSession = $this->session->userdata('nama');
@@ -1130,48 +1107,52 @@ class M_PCN extends CI_Model {
         return $query->result();
     }
 
-        ///@see number_of_data_per_month_PCNLIST()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap bulan
-     ///@attention 
-    public function number_of_data_per_month_PCNLIST($year, $month){
-        $query = $this->db->query("SELECT COUNT(*) num FROM tb_PCNLIST WHERE YEAR(transaction_date) = '".$year."' AND MONTH(transaction_date) = '".$month."' GROUP BY  MONTH(transaction_date)");
+    ///@see number_of_data_per_month_PCNLIST()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap bulan
+    ///@attention 
+    public function number_of_data_per_month_PCNLIST($year, $month)
+    {
+        $query = $this->db->query("SELECT COUNT(*) num FROM tb_PCNLIST WHERE YEAR(transaction_date) = '" . $year . "' AND MONTH(transaction_date) = '" . $month . "' GROUP BY  MONTH(transaction_date)");
         if ($query->num_rows() > 0) {
             $query = $query->row();
             return $query->num;
-        }else{
+        } else {
             return 0;
         }
     }
     ///@see last_5_month_name()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan terakhir
-     ///@attention 
-    public function last_5_month_name(){
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan terakhir
+    ///@attention 
+    public function last_5_month_name()
+    {
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
-            array_push($datas, date('F', strtotime('-'.$i.' month')));
+        for ($i = 0; $i < 5; $i++) {
+            array_push($datas, date('F', strtotime('-' . $i . ' month')));
         }
-        return array_reverse($datas); 
+        return array_reverse($datas);
     }
 
     ///@see upcoming_5_month_name()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan kedepan
-     ///@attention 
-    public function upcoming_5_month_name(){
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan kedepan
+    ///@attention 
+    public function upcoming_5_month_name()
+    {
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
-            array_push($datas, date('F', strtotime('+'.$i.' month')));
+        for ($i = 0; $i < 5; $i++) {
+            array_push($datas, date('F', strtotime('+' . $i . ' month')));
         }
-        return $datas; 
+        return $datas;
     }
 
-     ///@see last_5_month_PCNLIST()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan terakhir
-     ///@attention 
-    public function last_5_month_PCNLIST(){
+    ///@see last_5_month_PCNLIST()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan terakhir
+    ///@attention 
+    public function last_5_month_PCNLIST()
+    {
         $month = date('m');
         $year = date('Y');
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             if ($month > 0) {
                 array_push($datas, $this->number_of_data_per_month_PCNLIST($year, $month--));
             } else {
@@ -1182,14 +1163,15 @@ class M_PCN extends CI_Model {
         return array_reverse($datas);
     }
 
-        ///@see upcoming_5_month_name()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan kedepan
-     ///@attention 
-    public function upcoming_5_month_PCNLIST(){
+    ///@see upcoming_5_month_name()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 bulan kedepan
+    ///@attention 
+    public function upcoming_5_month_PCNLIST()
+    {
         $month = date('m');
         $year = date('Y');
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             if ($month > 0) {
                 array_push($datas, $this->number_of_data_per_month_PCNLIST($year, $month++));
             } else {
@@ -1200,50 +1182,54 @@ class M_PCN extends CI_Model {
         return $datas;
     }
 
-   ///@see number_of_data_per_year_PCNLIST()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap tahun
-     ///@attention 
-    public function number_of_data_per_year_PCNLIST($year){
-        $query = $this->db->query("SELECT COUNT(*) num FROM tb_PCNLIST WHERE YEAR(transaction_date) = '".$year."' GROUP BY  YEAR(transaction_date)");
+    ///@see number_of_data_per_year_PCNLIST()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap tahun
+    ///@attention 
+    public function number_of_data_per_year_PCNLIST($year)
+    {
+        $query = $this->db->query("SELECT COUNT(*) num FROM tb_PCNLIST WHERE YEAR(transaction_date) = '" . $year . "' GROUP BY  YEAR(transaction_date)");
         if ($query->num_rows() > 0) {
             $query = $query->row();
             return $query->num;
-        }else{
+        } else {
             return 0;
         }
     }
 
-     ///@see last_5_years()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun terakhir
-     ///@attention 
-    public function last_5_years(){
+    ///@see last_5_years()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun terakhir
+    ///@attention 
+    public function last_5_years()
+    {
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
-            array_push($datas, date('Y', strtotime('-'.$i.' year')));
+        for ($i = 0; $i > 5; $i++) {
+            array_push($datas, date('Y', strtotime('+' . $i . ' year')));
         }
-        return array_reverse($datas); 
-    }
-    
-     ///@see last_5_years()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun kedepan
-     ///@attention 
-    public function upcoming_5_years(){
-        $datas = array();
-        for ($i=0; $i < 5; $i++) {
-            array_push($datas, date('Y', strtotime('+'.$i.' year')));
-        }
-        return $datas; 
+        return array_reverse($datas);
     }
 
-    public function data_per_supplier(){
+    ///@see last_5_years()
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun kedepan
+    ///@attention 
+    public function upcoming_5_years()
+    {
+        $datas = array();
+        for ($i = 0; $i < 5; $i++) {
+            array_push($datas, date('Y', strtotime('-' . $i . ' year')));
+        }
+        return $datas;
+    }
+
+    public function data_per_supplier()
+    {
         $supplier = $this->db->query("SELECT nama_supplier FROM tb_PCNLIST WHERE nama_supplier IS NOT NULL GROUP BY  nama_supplier");
         $supplier_array = array();
-        for ($i=0; $i < $supplier->num_rows(); $i++) {
+        for ($i = 0; $i < $supplier->num_rows(); $i++) {
             array_push($supplier_array, $supplier->row($i)->nama_supplier);
         }
         $num = $this->db->query("SELECT COUNT(*) num FROM tb_PCNLIST WHERE nama_supplier IS NOT NULL GROUP BY  nama_supplier");
         $num_array = array();
-        for ($i=0; $i < $num->num_rows(); $i++) {
+        for ($i = 0; $i < $num->num_rows(); $i++) {
             array_push($num_array, $num->row($i)->num);
         }
         $datas = array();
@@ -1253,39 +1239,47 @@ class M_PCN extends CI_Model {
     }
 
     ///@see upcoming_5_years_PCNLIST()
-     ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun kedepan
-     ///@attention 
-    public function upcoming_5_years_PCNLIST(){
+    ///@note fungsi digunakan menarik data pcnlist ke table tiap 5 tahun kedepan
+    ///@attention 
+    public function upcoming_5_years_PCNLIST()
+    {
         $year = date('Y');
         $datas = array();
-        for ($i=0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             array_push($datas, $this->number_of_data_per_year_PCNLIST($year++));
         }
         return $datas;
     }
-    
-    public function get_product_name(){
-        $product_name = $this->db->query("SELECT product_name FROM tb_PCNlist GROUP BY  product_name");
 
-        foreach ($product_name->result() as $key=>$product){
+    public function get_product_name()
+    {
+        $product_name = $this->db->query("SELECT product_name FROM tb_PCN GROUP BY  product_name");
+
+        foreach ($product_name->result() as $key => $product) {
             $name[$key] = $product->product_name;
-            
-            $status = $this->db->query("SELECT * FROM tb_PCNlist WHERE product_name = '" . $product->product_name . "'");
+
+            $status = $this->db->query("SELECT * FROM tb_PCN WHERE product_name = '" . $product->product_name . "'");
             // var_dump($status);
             $unapproved[$key] = 0;
             $approved[$key] = 0;
             $process[$key] = 0;
             $rejected[$key] = 0;
+            $plan[$key] = 0;
+            $not_yet[$key] = 0;
             $total[$key] = 0;
-            foreach ($status->result() as $stat){
+            foreach ($status->result() as $stat) {
                 $total[$key] += 1;
-                if ($stat->status == "unapproved"){
+                if ($stat->stat == "unapproved") {
                     $unapproved[$key] += 1;
-                }elseif($stat->status == "approved"){
+                } elseif ($stat->stat == "approved") {
                     $approved[$key] += 1;
-                }elseif($stat->status == "rejected"){
-                    $rejected[$key] +=1;
-                }else{
+                } elseif ($stat->stat == "rejected") {
+                    $rejected[$key] += 1;
+                } elseif ($stat->stat == "Plan Approval") {
+                    $plan[$key] += 1;
+                } elseif ($stat->stat == "Not yet Temporary") {
+                    $not_yet[$key] += 1;
+                } else {
                     $process[$key] += 1;
                 }
             }
@@ -1296,35 +1290,45 @@ class M_PCN extends CI_Model {
             'unapproved' => $unapproved,
             'approved' => $approved,
             'process' => $process,
-            'rejected' => $rejected
+            'rejected' => $rejected,
+            'Plan Approval' => $plan,
+            'Not yet Temporary' => $not_yet
         ]);
         return $data;
     }
 
-    public function get_supplier_name(){
-        $supplier_name = $this->db->query("SELECT supplier_name FROM tb_PCNlist GROUP BY  supplier_name");
-    
-        foreach ($supplier_name->result() as $key=>$supplier){
+    public function get_supplier_name()
+    {
+        $supplier_name = $this->db->query("SELECT supplier_name FROM tb_PCN GROUP BY  supplier_name");
+
+        foreach ($supplier_name->result() as $key => $supplier) {
             $name[$key] = $supplier->supplier_name;
-            
-            $status = $this->db->query("SELECT * FROM tb_PCNlist WHERE supplier_name = '" . $supplier->supplier_name . "'");
+
+            $status = $this->db->query("SELECT * FROM tb_PCN WHERE supplier_name = '" . $supplier->supplier_name . "'");
             // var_dump($status);
             $unapproved[$key] = 0;
             $approved[$key] = 0;
             $process[$key] = 0;
             $rejected[$key] = 0;
+            $plan[$key] = 0;
+            $not_yet[$key] = 0;
             $total[$key] = 0;
-            foreach ($status->result() as $stat){
+            foreach ($status->result() as $stat) {
                 $total[$key] += 1;
-                if ($stat->status == "unapproved"){
+                if ($stat->stat == "unapproved") {
                     $unapproved[$key] += 1;
-                }elseif($stat->status == "approved"){
+                } elseif ($stat->stat == "approved") {
                     $approved[$key] += 1;
-                }elseif($stat->status == "rejected"){
-                    $rejected[$key] +=1;
-                }else{
+                } elseif ($stat->stat == "rejected") {
+                    $rejected[$key] += 1;
+                } elseif ($stat->stat == "Plan Approval") {
+                    $plan[$key] += 1;
+                } elseif ($stat->stat == "Not yet Temporary") {
+                    $not_yet[$key] += 1;
+                } else {
                     $process[$key] += 1;
                 }
+
             }
         }
         $data = ([
@@ -1333,69 +1337,78 @@ class M_PCN extends CI_Model {
             'unapproved' => $unapproved,
             'approved' => $approved,
             'process' => $process,
-            'rejected' => $rejected
+            'rejected' => $rejected,
+            'Plan Approval' => $plan,
+            'Not yet Temporary' => $not_yet
         ]);
         return $data;
     }
 
-    public function get_pcn_need_approve(){
+
+    public function get_pcn_need_approve()
+    {
         $data = $this->db->query("SELECT * FROM tb_PCN WHERE stat LIKE  '%" . $this->session->userdata('nama') . "%' AND stat NOT LIKE  '%Cancel%' AND stat NOT LIKE  '%Close%' AND stat NOT LIKE  '%Final Approve%'")->result();
         return $data;
     }
-    
-    public function get_pcn($hdrid){
+
+    public function get_pcn($hdrid)
+    {
         $data = $this->db->query("SELECT * FROM tb_PCN WHERE hdrid = '" . $hdrid . "'")->row();
 
-        $data->trial_manufacturing = date("d F Y", strtotime($data->trial_manufacturing)); 
+        $data->trial_manufacturing = date("d F Y", strtotime($data->trial_manufacturing));
         // $data->trial_manufacturing_completed_finish = date("d F Y", strtotime($data->trial_manufacturing_completed_finish));
-        
+
         $data->process_capability_study = date("d F Y", strtotime($data->process_capability_study));
         // $data->process_capability_study_completed_finish = date("d F Y", strtotime($data->process_capability_study_completed_finish));
-        
+
         $data->initial_sample_inspection_completed = date("d F Y", strtotime($data->initial_sample_inspection_completed));
         // $data->initial_sample_inspection_completed_finish = date("d F Y", strtotime($data->initial_sample_inspection_completed_finish));
-        
+
         $data->initial_sample_submission = date("d F Y", strtotime($data->initial_sample_submission));
         // $data->initial_sample_submission_finish = date("d F Y", strtotime($data->initial_sample_submission_finish));
-        
+
         $data->timing_denso_approval = date("d F Y", strtotime($data->timing_denso_approval));
         // $data->timing_denso_approval_finish = date("d F Y", strtotime($data->timing_denso_approval_finish));
-        
+
         $data->m_or_p_starts = date("d F Y", strtotime($data->m_or_p_starts));
         // $data->mass_production_starts_finish = date("d F Y", strtotime($data->mass_production_starts_finish));
-        
+
         $data->m_or_p_shipment = date("d F Y", strtotime($data->m_or_p_shipment));
         // $data->mass_production_shipment_finish = date("d F Y", strtotime($data->mass_production_shipment_finish));
-        
+
         $data->entry_example_start = date("d F Y", strtotime($data->entry_example_start));
         // $data->entry_example_finish = date("d F Y", strtotime($data->entry_example_finish));
         return $data;
     }
 
-    public function get_tooling(){
+    public function get_tooling()
+    {
         $data = $this->db->query("SELECT * FROM tb_tooling ")->row();
-        
+
         $data->start_delivery_to_aine = date("d F Y", strtotime($data->start_delivery_to_aine));
         $data->new_dies_mold_finish = date("d F Y", strtotime($data->new_dies_mold_finish));
-        
+
         return $data;
     }
 
-    public function get_attachment($hdrid){
+    public function get_attachment($hdrid)
+    {
         $data = $this->db->query("SELECT * FROM tb_attachment  WHERE pcn_number = '" . $hdrid . "' AND type = 'PCN'")->result();
         return $data;
     }
 
-    public function ajaxGet_pcn_list($value){
-        if($value != "all"){
+    public function ajaxGet_pcn_list($value)
+    {
+        if ($value != "all") {
             $pcnListUnapproved = $this->db->query("SELECT * FROM tb_PCN WHERE stat LIKE  '%" . $this->session->userdata('nama') . "%' AND (hdrid LIKE '%" . $value . "%' OR supplier_name LIKE '%" . $value . "%' OR object_type LIKE '%" . $value . "%' OR product_name LIKE '%" . $value . "%' OR part_name LIKE '%" . $value . "%' OR criteria_critical_item LIKE '%" . $value . "%' OR stat LIKE '%" . $value . "%' ) ORDER BY transaction_date ASC;")->result();
-        }else{
+        } else {
             $pcnListUnapproved = $this->db->query("SELECT * FROM tb_PCN WHERE stat LIKE  '%" . $this->session->userdata('nama') . "%' ORDER BY transaction_date ASC;")->result();
         }
         return $pcnListUnapproved;
     }
 
-    public function get_group_product(){
+    public function get_group_product()
+    {
         $groups = $this->db->query("SELECT group_product_name, COUNT(group_product_name) count FROM tb_product WHERE group_product_name IS NOT NULL GROUP BY  group_product_name")->result();
         $group_product_name = array();
         foreach ($groups as $group) {
@@ -1414,244 +1427,245 @@ class M_PCN extends CI_Model {
 
 
 
-    function Input_Data_proc($supplier,$hdrid){
-    $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
-
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorprocurement;
-            $nama=$value->name_superiorprocurement;
-            $kode=$value->kode_section_superiorprocurement;
-            $section=$value->name_section_superiorprocurement;
-            $email=$value->email_superiorprocurement;
-            $position=$value->position;
-            if ($position=='written') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '1', 'Written Proc', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '1', 'Written Proc', null, null,'unapprove')");
-                }
-            }elseif ($position=='checked') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '2', 'Checked Proc', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '2', 'Checked Proc', null, null,'unapprove')");
-                }
-            }elseif ($position=='checked 2') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Checked 2 Proc', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Checked 2 Proc', null, null,'unapprove')");
-                }
-            }else {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Approved Proc', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Approved Proc', null, null,'unapprove')");
-                }
-            }
-    }
-}   
-    function Input_Data_qa($product,$hdrid){
-    $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
-
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorqa;
-            $nama=$value->name_superiorqa;
-            $kode=$value->kode_section_superiorqa;
-            $section=$value->name_section_superiorqa;
-            $email=$value->email_superiorqa;
-            $position=$value->position;
-            if ($position=='written') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Written QA', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Written QA', null, null,'unapprove')");
-                }
-            }elseif ($position=='checked') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Checked QA', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Checked QA', null, null,'unapprove')");
-                }
-            }else {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Approved QA', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Approved QA', null, null,'unapprove')");
-                }
-            }
-}
-}
-    function Input_Data_finalproc($supplier,$hdrid){
-    $query= $this->db->query( "select * from tb_superiorprocurement where supplier='$supplier' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
-
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorprocurement;
-            $nama=$value->name_superiorprocurement;
-            $kode=$value->kode_section_superiorprocurement;
-            $section=$value->name_section_superiorprocurement;
-            $email=$value->email_superiorprocurement;
-            $position=$value->position;
-            if ($position=='written') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Written Proc Final', $current_date, null,'Approved')");
-                }else {
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Written Proc Final', null, null,'unapprove')");
-                }
-            }elseif ($position=='checked') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Checked Proc Final', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Checked Proc Final', null, null,'unapprove')");
-                }
-            }elseif ($position=='checked 2') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Checked 2 Proc Final', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Checked 2 Proc Final', null, null,'unapprove')");
-                }
-            }else {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Approved Proc Final', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Approved Proc Final', null, null,'unapprove')");
-                }
-            }
-}
-}
-    function Input_Data_finalqa($product,$hdrid){
-    $query= $this->db->query( "select * from tb_superiorqa where product='$product' order by position ");
-    $hsl=$query->result();
-    $current_date = mdate('%Y-%m-%d', time());
-
-    foreach ($hsl as $value) {
-            $nik=$value->nik_superiorqa;
-            $nama=$value->name_superiorqa;
-            $kode=$value->kode_section_superiorqa;
-            $section=$value->name_section_superiorqa;
-            $email=$value->email_superiorqa;
-            $position=$value->position;
-            if ($position=='approved') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '14', 'Approved QA Final', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '14', 'Approved QA Final', null, null,'unapprove')");
-                }
-             }
-             elseif ($position=='checked') {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '13', 'Checked QA Final', $current_date, null,'Approved')");
-                }else{
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '13', 'Checked QA Final', null, null,'unapprove')");
-                }
-            }else {
-                if($nik=='DM11111'){
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Written QA Final', $current_date, null,'Approved')");
-                }else {
-                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
-                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Written QA Final', null, null,'unapprove')");
-                }
-            }
-}
-}
-    function Input_Data_application($product,$hdrid,$part_name,$part_no,$criteria,$supplier_name,$perubahan_lama,$nik,$name,$comparison){
-
-    $where = array('product' =>$product);
-    $this->db->select('*');
-    $this->db->from('tb_settingapp');
-    $this->db->where($where);
-    $query=$this->db->get()->row();
-
-    $current_date = mdate('%Y-%m-%d', time());
-    $pe_nik=$query->pe_nik;
-    $qc_nik=$query->qc_nik;
-    $mfg_nik=$query->mfg_nik;
-    $pc_nik=$query->pc_nik;
-    $qa_nik=$query->qa_nik;
-    
-    $pe_name=$query->pe_name;
-    $qc_name=$query->qc_name;
-    $mfg_name=$query->mfg_name;
-    $pc_name=$query->pc_name;
-    $qa_name=$query->qa_name;
-
-    $pe_pic=$query->pe_pic;
-    $qc_pic=$query->qc_pic;
-    $mfg_pic=$query->mfg_pic;
-    $pc_pic=$query->pc_pic;
-    $qa_pic=$query->qa_pic;
-    // var_dump($qa_pic);
-
-    $this->db->query("INSERT INTO tb_application(hdrid,transaction_date,pcn_number,supplier,part_number,part_name,product_name,criteria_critical_item,current_process,comparison_detail,qc_inspection_departement,pe_departement,mfg_departement,pc_departement,qa_departement,qc_nik,pe_nik,mfg_nik,pc_nik,qa_nik,qc_name,pe_name,mfg_name,pc_name,qa_name,user_nik,user_name)
-    values ('$hdrid','$current_date','$hdrid','$supplier_name','$part_no','$part_name','$product','$criteria','$perubahan_lama','$comparison','$qc_pic','$pe_pic','$mfg_pic','$pc_pic','$qa_pic','$qc_nik','$pe_nik','$mfg_nik','$pc_nik','$qa_nik','$qc_name','$pe_name','$mfg_name','$pc_name','$qa_name','$nik','$name')");
-    
-}
-
-
-    function send_email($hdrid){
-        $query= $this->db->query( "select * from tb_approval where problem_id='$hdrid'");
-        $hsl=$query->result();
+    function Input_Data_proc($supplier, $hdrid)
+    {
+        $query = $this->db->query("select * from tb_superiorprocurement where supplier='$supplier' order by position ");
+        $hsl = $query->result();
         $current_date = mdate('%Y-%m-%d', time());
 
         foreach ($hsl as $value) {
-            $nik=$value->nik;
-            $nama=$value->name;
-            $department_code=$value->department_code;
-            $department_name=$value->department_name;
-            $email=$value->office_email;
-            $position_code=$value->position_code;
-            $position_name=$value->position_name;
-            
-            $this->db->query("INSERT INTO tb_mail_trigger(hdrid, transaction_date, nik, name, department_code, department_name, office_email, position_code, position_name, status_transaction, subject_email, body_content, comment, cc_email)
-            values ('$hdrid', '$current_date', '$nik', '$nama', '$department_code', '$department_name', '$email', '$position_code', '$position_name', null, 'New Pcn Registration', 'Please Check PCN', '-', '-')");
+            $nik = $value->nik_superiorprocurement;
+            $nama = $value->name_superiorprocurement;
+            $kode = $value->kode_section_superiorprocurement;
+            $section = $value->name_section_superiorprocurement;
+            $email = $value->email_superiorprocurement;
+            $position = $value->position;
+            if ($position == 'written') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '1', 'Written Proc', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '1', 'Written Proc', null, null,'unapprove')");
+                }
+            } elseif ($position == 'checked') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '2', 'Checked Proc', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '2', 'Checked Proc', null, null,'unapprove')");
+                }
+            } else {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Approved Proc', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '3', 'Approved Proc', null, null,'unapprove')");
+                }
+            }
+        }
     }
+    function Input_Data_qa($product, $hdrid)
+    {
+        $query = $this->db->query("select * from tb_superiorqa where product='$product' order by position ");
+        $hsl = $query->result();
+        $current_date = mdate('%Y-%m-%d', time());
+
+        foreach ($hsl as $value) {
+            $nik = $value->nik_superiorqa;
+            $nama = $value->name_superiorqa;
+            $kode = $value->kode_section_superiorqa;
+            $section = $value->name_section_superiorqa;
+            $email = $value->email_superiorqa;
+            $position = $value->position;
+            if ($position == 'written') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Written QA', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '4', 'Written QA', null, null,'unapprove')");
+                }
+            } elseif ($position == 'checked') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Checked QA', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '5', 'Checked QA', null, null,'unapprove')");
+                }
+            } else {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Approved QA', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '6', 'Approved QA', null, null,'unapprove')");
+                }
+            }
+        }
     }
 
-    function update_send_email($hdrid){
+    function Input_Data_finalqa($product, $hdrid)
+    {
+        $query = $this->db->query("select * from tb_superiorqa where product='$product' order by position ");
+        $hsl = $query->result();
+        $current_date = mdate('%Y-%m-%d', time());
+
+        foreach ($hsl as $value) {
+            $nik = $value->nik_superiorqa;
+            $nama = $value->name_superiorqa;
+            $kode = $value->kode_section_superiorqa;
+            $section = $value->name_section_superiorqa;
+            $email = $value->email_superiorqa;
+            $position = $value->position;
+            if ($position == 'approved') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Approved QA Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '9', 'Approved QA Final', null, null,'unapprove')");
+                }
+            } elseif ($position == 'checked') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Checked QA Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '8', 'Checked QA Final', null, null,'unapprove')");
+                }
+            } else {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Written QA Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '7', 'Written QA Final', null, null,'unapprove')");
+                }
+            }
+        }
+    }
+
+    function Input_Data_finalproc($supplier, $hdrid)
+    {
+        $query = $this->db->query("select * from tb_superiorprocurement where supplier='$supplier' order by position ");
+        $hsl = $query->result();
+        $current_date = mdate('%Y-%m-%d', time());
+
+        foreach ($hsl as $value) {
+            $nik = $value->nik_superiorprocurement;
+            $nama = $value->name_superiorprocurement;
+            $kode = $value->kode_section_superiorprocurement;
+            $section = $value->name_section_superiorprocurement;
+            $email = $value->email_superiorprocurement;
+            $position = $value->position;
+            if ($position == 'written') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Written Proc Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '10', 'Written Proc Final', null, null,'unapprove')");
+                }
+            } elseif ($position == 'checked') {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Checked Proc Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '11', 'Checked Proc Final', null, null,'unapprove')");
+                }
+            } else {
+                if ($nik == 'DM11111') {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Approved Proc Final', $current_date, null,'Approved')");
+                } else {
+                    $this->db->query("INSERT INTO tb_approval(transaction_date,problem_id,nik,name,department_code,department_name,office_email,position_code,position_name,date_approve,reason,stat)
+                    values ('$current_date','$hdrid', '$nik','$nama','$kode','$section', '$email', '12', 'Approved Proc Final', null, null,'unapprove')");
+                }
+            }
+        }
+    }
+
+    function Input_Data_application($product, $hdrid, $part_name, $part_no, $criteria, $supplier_name, $perubahan_lama, $nik, $name, $comparison)
+    {
+
+        $where = array('product' => $product);
+        $this->db->select('*');
+        $this->db->from('tb_settingapp');
+        $this->db->where($where);
+        $query = $this->db->get()->row();
+
+        $current_date = mdate('%Y-%m-%d', time());
+        $pe_nik = $query->pe_nik;
+        $qc_nik = $query->qc_nik;
+        $mfg_nik = $query->mfg_nik;
+        $pc_nik = $query->pc_nik;
+        $qa_nik = $query->qa_nik;
+
+        $pe_name = $query->pe_name;
+        $qc_name = $query->qc_name;
+        $mfg_name = $query->mfg_name;
+        $pc_name = $query->pc_name;
+        $qa_name = $query->qa_name;
+
+        $pe_pic = $query->pe_pic;
+        $qc_pic = $query->qc_pic;
+        $mfg_pic = $query->mfg_pic;
+        $pc_pic = $query->pc_pic;
+        $qa_pic = $query->qa_pic;
+        // var_dump($qa_pic);
+
+        $this->db->query("INSERT INTO tb_application(hdrid,transaction_date,pcn_number,supplier,part_number,part_name,product_name,criteria_critical_item,current_process,comparison_detail,qc_inspection_departement,pe_departement,mfg_departement,pc_departement,qa_departement,qc_nik,pe_nik,mfg_nik,pc_nik,qa_nik,qc_name,pe_name,mfg_name,pc_name,qa_name,user_nik,user_name)
+    values ('$hdrid','$current_date','$hdrid','$supplier_name','$part_no','$part_name','$product','$criteria','$perubahan_lama','$comparison','$qc_pic','$pe_pic','$mfg_pic','$pc_pic','$qa_pic','$qc_nik','$pe_nik','$mfg_nik','$pc_nik','$qa_nik','$qc_name','$pe_name','$mfg_name','$pc_name','$qa_name','$nik','$name')");
+
+    }
+
+
+    function send_email($hdrid)
+    {
+        $query = $this->db->query("select * from tb_approval where problem_id='$hdrid'");
+        $hsl = $query->result();
+        $current_date = mdate('%Y-%m-%d', time());
+
+        foreach ($hsl as $value) {
+            $nik = $value->nik;
+            $nama = $value->name;
+            $department_code = $value->department_code;
+            $department_name = $value->department_name;
+            $email = $value->office_email;
+            $position_code = $value->position_code;
+            $position_name = $value->position_name;
+
+            $this->db->query("INSERT INTO tb_mail_trigger(hdrid, transaction_date, nik, name, department_code, department_name, office_email, position_code, position_name, status_transaction, subject_email, body_content, comment, cc_email)
+            values ('$hdrid', '$current_date', '$nik', '$nama', '$department_code', '$department_name', '$email', '$position_code', '$position_name', null, 'New Pcn Registration', 'Please Check PCN', '-', '-')");
+        }
+    }
+
+    function update_send_email($hdrid)
+    {
         $current_date = mdate('%Y-%m-%d', time());
         $this->db->query("UPDATE tb_mail_trigger SET status_transaction='Email Sent' WHERE hdrid='$hdrid' and position_code=(SELECT MIN(position_code) FROM tb_mail_trigger WHERE hdrid='$hdrid');");
     }
-    
 
-    function update_approve_email($hdrid){
+
+    function update_approve_email($hdrid)
+    {
         $current_date = mdate('%Y-%m-%d', time());
         $query = "UPDATE tb_mail_trigger SET status_transaction='Email Sent' WHERE hdrid='$hdrid' and position_code=(SELECT MIN(position_code) FROM tb_mail_trigger WHERE hdrid='$hdrid' and position_code>(SELECT MIN(position_code) FROM tb_mail_trigger WHERE hdrid='$hdrid'));";
         $this->db->query($query);
     }
-    
+
+    function get_data()
+    {
+        $this->db->select('*');
+        $this->db->from('my_table');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     ///@see cari_tb_approver
     ///@note fungsi digunakan untuk mencari 1 next apporver
@@ -1659,29 +1673,29 @@ class M_PCN extends CI_Model {
     function cari_tb_approver($hdrid)
     {
 
-      $query = $this->db->query("select top 1 * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
-      if ($query->num_rows() > 0) {
-          return $query->row();
-      }else{
-          $query = (object) array('nik'=>'not found','name'=>'All','office_email'=>'not found','position_code'=>'not found');
-          return $query;
-      }
+        $query = $this->db->query("select top 1 * from tb_approval where problem_id='$hdrid' and date_approve is null order by position_code asc");
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            $query = (object) array('nik' => 'not found', 'name' => 'All', 'office_email' => 'not found', 'position_code' => 'not found');
+            return $query;
+        }
 
     }
 
     ///@see cari_all_approver
     ///@note fungsi digunakan untuk mencari semua next approver
     ///@attention
-    function cari_all_approver($hdrid,$poscode)
+    function cari_all_approver($hdrid, $poscode)
     {
 
-      $query = $this->db->query("select string_agg(office_email+';','') WITHIN GROUP (ORDER BY position_code)office_email  from tb_approval where problem_id='$hdrid' and position_code='$poscode' and date_approve is null ");
-      if ($query->num_rows() > 0) {
-          return $query->row();
-      }else{
-          $query = (object) array('nik'=>'not found','name'=>'All','office_email'=>'not found','position_code'=>'not found');
-          return $query;
-      }
+        $query = $this->db->query("select string_agg(office_email+';','') WITHIN GROUP (ORDER BY position_code)office_email  from tb_approval where problem_id='$hdrid' and position_code='$poscode' and date_approve is null ");
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            $query = (object) array('nik' => 'not found', 'name' => 'All', 'office_email' => 'not found', 'position_code' => 'not found');
+            return $query;
+        }
 
     }
 
@@ -1694,8 +1708,8 @@ class M_PCN extends CI_Model {
         $query = $this->db->query("select top 1 * from tb_superiorprocurement where nik_superiorprocurement='$nik'");
         if ($query->num_rows() > 0) {
             return $query->row();
-        }else{
-            $query = (object) array('name'=>'not found','position_code'=>'not found','nik'=>'not found');
+        } else {
+            $query = (object) array('name' => 'not found', 'position_code' => 'not found', 'nik' => 'not found');
             return $query;
         }
 
@@ -1718,7 +1732,7 @@ class M_PCN extends CI_Model {
 
     public function update_application($hdrid)
     {
-        $data="UPDATE tb_application set 
+        $data = "UPDATE tb_application set 
         comment_qc=null, hold_or_go_qc=null, confirm_qc=null
         comment_pe=null, hold_or_go_pe=null, confirm_pc=null
         comment_qa=null, hold_or_go_qa=null, confirm_qa=null
@@ -1742,13 +1756,27 @@ class M_PCN extends CI_Model {
         // $this->db->query('product');
         return $this->db->distinct()->select('product')->get('tb_superiorqa')->result();
     }
+    public function get_part_number()
+    {
+        // $query=$this->db->get('tb_superiorqa');
+        // return $query->result();
+        // $this->db->query('product');
+        return $this->db->distinct()->select('part_number')->get('tb_group_product')->result();
+    }
+    public function get_part_name()
+    {
+        // $query=$this->db->get('tb_superiorqa');
+        // return $query->result();
+        // $this->db->query('product');
+        return $this->db->distinct()->select('part_name')->get('tb_group_product')->result();
+    }
     // ,$category,$supplier_name,$product_name,$part_name,$part_no,$description,$perubahan_baru,$perubahan_lama,$start,$shipment,$post_data_transaction_date,$commodity
     public function update_pcnlist($hdrid)
-    {   
+    {
         $this->db->select('tb_PCNlist.no_dokumen');
         $this->db->from('tb_PCN');
-        $this->db->join('tb_PCNlist','tb_PCN.hdrid=tb_PCNlist.no_dokumen');
-        $this->db->where('tb_PCN.hdrid',$hdrid);
+        $this->db->join('tb_PCNlist', 'tb_PCN.hdrid=tb_PCNlist.no_dokumen');
+        $this->db->where('tb_PCN.hdrid', $hdrid);
         return $this->db->get()->result_array();
 
         // $query=("UPDATE tb_PCNlist set 
@@ -1770,11 +1798,4 @@ class M_PCN extends CI_Model {
         // var_dump($query);
     }
 
-    // public function update_tbapplication(){
-    //     $this->db->select('tb_application.hdrid');
-    //     $this->db->from('tb_PCN');
-    //     $this->db->join('tb_application','tb_PCN.hdrid=tb_application.hdrid');
-    //     $this->db->where('tb_PCN.hdrid',$hdrid);
-    //     return $this->db->get()->result_array();
-    // }
 }

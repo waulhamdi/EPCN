@@ -109,7 +109,7 @@ class C_application extends CI_Controller {
     {
 
         $nik= $this->session->userdata('user_name'); // Menarik username dari session dan menampung nya sebagai nik
-
+    
         if($this->session->userdata('rolename')=='Administrator PCN'){
             $tables = "fn_view_application('')"; // Terbuka semua tanpa user
         }else{

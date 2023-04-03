@@ -187,7 +187,10 @@
             .hidePrint{
                 display: none !important;
             }
-
+            /* .table-bordered{
+                margin-bottom: -1000rem;
+                padding-bottom: -1000rem;
+            } */
         }
         /* @page {
             size:A4;
@@ -198,6 +201,7 @@
             margin: 0.05rem;
             /* border-collapse: separate !important; */
             border:0.5px solid #000 !important;
+            margin-bottom: 0rem;
         }
         h6{
             padding: 0.05rem;
@@ -209,7 +213,8 @@
         }
         .form-group {
     margin-bottom: 0rem;
-}
+        }
+        
     </style>
 </head>
 
@@ -231,33 +236,33 @@
                         <div class="hidePrint">
                          <?php if ($nik->name == 'not found') {
                              echo $nik->status;
+                         } else if ($tb_PCN->stat == 'Rejected' || substr($tb_PCN->stat,0,9)=='Send Back') {
+                            echo $tb_PCNlist->status;
                          } else if ($tb_application->status == 'Open') {
                              echo 'Waiting Response from Application Response';
                          } else if ($tb_isir_list->status_isir == 'Open') {
                             echo $tb_isir_list->status;
+                         } else if ($tb_qcr->status == 'Open' || $tb_qcr->status == 'not found' && $nik->position_name=='Written QA Final' ) {
+                            echo 'On Progress QCR';
                          } else {
-                             echo 'Need Approve By    <b>' . $nik->name . '</b> ' . $nik->position_name . ' <b>(' . $nik->position_code . ' of 14)</b>';
+                             echo 'Need Approve By    <b>' . $nik->name . '</b> ' . $nik->position_name . ' <b>(' . $nik->position_code . ' of 12)</b>';
                          } ?> 
 
                             <?php if ($this->session->userdata('user_name') == '') // function untuk user name untuk print
                                         echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-login'> Login </button>";
-                                    ?>
+                            ?>
                     
                             <?php
-                            // var_dump($tb_application);
+                            // var_dump($nik->position_name , $tb_qcr->status);
                             
-                            if ( $tb_isir_list->status_isir == 'Open') {
+                            if ( $tb_qcr->status == 'Open' || $tb_qcr->status == 'not found' && $nik->position_name=='Written QA Final' || $tb_PCN->stat=='Rejected' || substr($tb_PCN->stat,0,9)=='Send Back' || $tb_application->status == 'Open' || $tb_isir_list->status_isir == 'Open' ) {
                                
                                     echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
                                     echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-approve' hidden > Approved</button>"; //button approved
                                     echo "<button class='mr-1 btn btn-danger float-right' data-toggle='modal' data-target='#modal-reject' hidden >Reject</button> "; //button reject
                                    
-                            } elseif ($tb_application->status == 'Open') {
-
-                                    echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
-                                    echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-approve' hidden > Approved</button>"; //button approved
-                                    echo "<button class='mr-1 btn btn-danger float-right' data-toggle='modal' data-target='#modal-reject' hidden >Reject</button> "; //button reject
-                            } else {
+                            }  else {
+                                
                                 if (strpos($nik->nik, $this->session->userdata('user_name'))) // function untuk user name untuk print datanya sudah ada di database
                                 {
                                     // redirect('Auth');
@@ -267,6 +272,13 @@
                                     if ($nik->position_code > 1) {
                                         echo "<button class='mr-1 btn float-right' style='background-color:#FA9228;' data-toggle='modal' data-target='#modal-confirm-send-back' > <span style='color:white;'>Send Back</span> </button>"; //button send_back
                                     }
+                                
+                                } else if ( $tb_qcr->status == 'not found') {
+
+                                    echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
+                                    echo "<button class='btn btn-success float-right' data-toggle='modal' data-target='#modal-confirm-approve' hidden > Approved</button>"; //button approved
+                                    echo "<button class='mr-1 btn btn-danger float-right' data-toggle='modal' data-target='#modal-reject' hidden >Reject</button> "; //button reject
+                                   
                                 } else {
                                     // redirect('Auth');
                                     echo "<button class='btn btn-warning float-right' data-toggle='modal' data-target='#modal-confirm-send-back' hidden > Send Back</button>"; //button send_back
@@ -466,7 +478,7 @@
                                                 </tr>
                                             </table>
                                             <br>
-                                            <a class="btn btn-primary" href=" http://10.73.142.69/PCN/C_application?Number=<?= $hdrid ?>" target="_blank">Please click to response</a>
+                                            <a class="btn btn-primary" href=" http://10.73.142.69/PCN/C_application?Number=<?= $hdrid ?>&var=1.2&var2=Application Response" target="_blank">Please click to response</a> <br>
                                             <a class="btn btn-secondary btn-sm mr-2" href=" http://10.73.142.69/PCN/C_application/print_report2_approved?var1=<?= $hdrid ?>&var2=1&var2=1" target="_blank">Open A4 Application Response</a>
                                         </div>
                                     </div>
@@ -516,6 +528,24 @@
                                             </table>";
                                                 };
                                             } ?>
+                                            <?php foreach ($approve_qa as $qa) {
+                                                if ($qa != 'not found') {
+                                                    echo "<table class='table table-bordered table-hover'>
+                                                <tr>
+                                                    <th>Approved</th>
+                                                    <td>$qa->name</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date Approve/Reject</th>
+                                                    <td>$qa->date_approve</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <td>$qa->stat</td>
+                                                </tr>
+                                            </table>";
+                                                };
+                                            } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -531,7 +561,7 @@
                                     </div>
                             <?php } ?>
 
-                            <?php if ($tb_isir_list->status_isir == 'Open' || $tb_isir_list->status_isir == 'Closed') { ?>                                    
+                            <?php if ($tb_isir_list->status_isir == 'Open' || $tb_isir_list->status_isir == 'Closed') { ?>
                                 <div class="timeline-item">
                                     <div class="timeline-icon"></div>
                                     <div class="timeline-content">
@@ -554,7 +584,7 @@
                                                 echo "Not Found ISIR";
                                             }
                                         } ?> <br>
-                                        <a class="btn btn-primary" href=" http://10.73.142.69/PCN/C_ISIR?Number=<?= $hdrid ?>" target="_blank">Please click to ISIR List</a> </br>
+                                        <a class="btn btn-primary" href=" http://10.73.142.69/PCN/C_ISIR?Number=<?= $hdrid ?>&var=2.1&var2=ISIR" target="_blank">Please click to ISIR List</a> </br>
                                         <a class="btn btn-secondary btn-sm mr-2"  href="http://10.73.142.69/PCN/C_PrintA4_isir/print_report2_approved?Number=<?= $hdrid ?>"  target="_blank">View ISIR</a>
                                     </div>
                                     </div>
@@ -577,7 +607,7 @@
                                                 <p class="timeline-content-date" id="status4"></p>
                                                 <button class="collapse-toggle">Trial Assembly (QCR)</button>
                                                     <div class="collapse-content">
-                                                        <?php if ($tb_qcr != NULL) {
+                                                        <?php if ($tb_qcr->status != 'not found') {
                                                             echo "<table class='table table-bordered table-hover'>
                                                     <tr>
                                                         <th> QCR Number </th>
@@ -591,10 +621,7 @@
                                                         <th> Drawing Attachment </th>
                                                         <td> $tb_qcr->hdrid </td>
                                                     </tr>
-                                                    <tr>
-                                                        <th> PIC Proc </th>
-                                                        <td> $tb_qcr->pic_pro </td>
-                                                    </tr>
+                                                    
                                                     <tr>
                                                         <th> PIC QC </th>
                                                         <td> $tb_qcr->pic_qc </td>
@@ -632,47 +659,84 @@
                                     </div> 
                             <?php } ?>
                         
-
-                            <?php if ($final_checked_qa[0]->date_approve == '') { ?>
-                                    <div class="timeline-icon"></div>
-                                        <div class="timeline-content">
-                                            <p class="timeline-content-date" id="status6"></p>
-                                            <button class="collapse-toggle bg-light">Final Approval</button>
-                                            <div class="collapse-content">
-                                            </div>
-                                        </div>
-                                    </div>
-                            <?php } else { ?>
-                                    <div class="timeline-icon"></div>
-                                        <div class="timeline-content">
-                                            <p class="timeline-content-date" id="status6"></p>
-                                            <button class="collapse-toggle">Final Approval</button>
-                                            <div class="collapse-content">
-                                                <?php foreach ($final_approve_qa as $final_qa):
-                                                    if ($final_qa != 'not found') {
+                            <?php if ($tb_qcr->status == 'Closed') { ?>
+                                        <div class="timeline-item">
+                                            <div class="timeline-icon"></div>
+                                            <div class="timeline-content">
+                                                <p class="timeline-content-date" id="status4"></p>
+                                                <button class="collapse-toggle">Final Approval</button>
+                                                    <div class="collapse-content">
+                                                    <?php foreach ($final_written_qa as $written_qa_final):
+                                                    if ($written_qa_final != 'not found') {
                                                         echo "<table class='table table-bordered table-hover'>
                                                             <tr>
-                                                                <th>Approved</th>
-                                                                <td>$final_qa->name</td>
+                                                                <th>Written</th>
+                                                                <td>$written_qa_final->name</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Date Approve/Reject</th>
-                                                                <td>$final_qa->date_approve</td>
+                                                                <td>$written_qa_final->date_approve</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Status</th>
-                                                                <td>$final_qa->stat</td>
+                                                                <td>$written_qa_final->stat</td>
                                                             </tr>
                                                         </table>";
                                                     };
                                                 endforeach; ?>
+                                                <?php foreach ($final_checked_qa as $checked_qa_final):
+                                                    if ($checked_qa_final != 'not found') {
+                                                        echo "<table class='table table-bordered table-hover'>
+                                                            <tr>
+                                                                <th>Checked</th>
+                                                                <td>$checked_qa_final->name</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Date Approve/Reject</th>
+                                                                <td>$checked_qa_final->date_approve</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Status</th>
+                                                                <td>$checked_qa_final->stat</td>
+                                                            </tr>
+                                                        </table>";
+                                                    };
+                                                endforeach; ?>
+                                                <?php foreach ($final_approve_qa as $approver_qa_final):
+                                                    if ($approver_qa_final != 'not found') {
+                                                        echo "<table class='table table-bordered table-hover'>
+                                                            <tr>
+                                                                <th>Approved</th>
+                                                                <td>$approver_qa_final->name</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Date Approve/Reject</th>
+                                                                <td>$approver_qa_final->date_approve</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Status</th>
+                                                                <td>$approver_qa_final->stat</td>
+                                                            </tr>
+                                                        </table>";
+                                                    };
+                                                endforeach; ?>
+                                                    </div>
                                             </div>
+                                        </div> 
+                                <?php } else { ?>
+                                    <div class="timeline-item">
+                                        <div class="timeline-icon"></div>
+                                        <div class="timeline-content">
+                                        <p class="timeline-content-date" id="status4"></p>
+                                        <button class="collapse-toggle bg-light">Final Approval</button>
                                         </div>
-                                    <?php } ?>
-                                </div>
+                                    </div> 
+                            <?php } ?>
+
+                        </div>                                    
                             
                                 <div class="hidePrint">
-                                    <!-- <center><button class="btn btn-primary" data-toggle="modal" data-target="#modal-attachment" onclick="view_modal_attach('<php echo $tb_PCN->hdrid ?>','')">view all attachment</button></center> -->
+                                    
                                     <!--***************** View All Attachment BATAS SINI *****************-->
                                     <div class="col-md-6"  style="margin-top: -20px;">
                                         <div class="card" >
@@ -1186,7 +1250,7 @@
                                     
                                     </tr>
                                     <tr>
-                                        <td style="vertical-align:bottom;font-size:10pt;height:5vh">
+                                        <td style="vertical-align:middle;font-size:10pt;height:5vh">
                                             <?php foreach ($written_proc as $proc):
                                                 if ($proc != 'not found') {
                                                     echo "<p style='text-align:center;'>" . $proc->name . "</p>";
@@ -1204,7 +1268,11 @@
                                                 }
                                             endforeach; ?>
                                             <p style="text-align:center;">
-                                                <?= $checked_proc[0]->date_approve; ?>
+                                                <?php if ($checked_proc[0]->date_approve=='') {
+                                                   echo $written_proc[0]->date_approve;
+                                                }else {
+                                                    echo $checked_proc[0]->date_approve;
+                                                }  ?>
                                             </p>
                                         </td>
                                         <td style="vertical-align:middle;font-size:10pt;height:5vh">
@@ -1470,7 +1538,9 @@
                                     <td style="text-align:center" colspan="4">
                                         <h6>(Entry example)</h6>
                                     </td>
-                                    <td colspan="10" style="width:3px">                                </td>
+                                    <td colspan="10" style="width:3px">
+                                        <h6 style="text-align:right">&nbsp; &#10230; &nbsp;2/20(Completed</h6>
+                                    </td>
                                 </tr>
                             </table>
 
@@ -1724,7 +1794,7 @@
                                         <div class="row" style="margin-left:3vh">
                                             <div class="col-md-4">
                                                 <div class="form-group text-left form-check">
-                                                    <input type="checkbox" name="NC-Minor" class="form-check-input mr-3" id="will"  <?php if ($final_approve->stat == 'Approved' && $final_approve->reason == '') {
+                                                    <input type="checkbox" name="NC-Minor" class="form-check-input mr-3" id="will"  <?php if ($final_approve_checkbox->stat == 'Approved' && $final_approve_checkbox->reason == '') {
                                                         echo 'checked';
                                                     } ?>>
                                                     <label for="normal" class="form-check-label" style="text-align:left">
@@ -1740,7 +1810,7 @@
                                         <div class="row" style="margin-left:3vh">
                                             <div class="col-md-6">
                                                 <div class="form-group text-left form-check">
-                                                    <input type="checkbox" name="NC-Minor" class="form-check-input mr-3" id="will" <?php if ($final_approve->stat == 'Approved' && !$final_approve->reason == '') {
+                                                    <input type="checkbox" name="NC-Minor" class="form-check-input mr-3" id="will" <?php if ($final_approve_checkbox->stat == 'Approved' && !$final_approve_checkbox->reason == '') {
                                                         echo 'checked';
                                                     } ?>>
                                                     <label for="normal" class="form-check-label" style="text-align:left">
@@ -1751,8 +1821,8 @@
 
                                             <div class="col-md-6">
                                                 <label for="normal" class="form-check-label" style="text-align:left">
-                                                    : <?php if ($final_approve->stat == 'Approved' && !$final_approve->reason == '') {
-                                                        echo $final_approve->reason;
+                                                    : <?php if ($final_approve_checkbox->stat == 'Approved' && !$final_approve_checkbox->reason == '') {
+                                                        echo $final_approve_checkbox->reason;
                                                     } else {
                                                         echo "...........................";
                                                     }
@@ -1764,7 +1834,7 @@
                                         <div class="row" style="margin-left:3vh">
                                             <div class="col-md-6">
                                                 <div class="form-group text-left form-check">
-                                                    <input type="checkbox" class="form-check-input mr-3" id="will" <?php if ($final_approve->stat == 'Rejected') {
+                                                    <input type="checkbox" class="form-check-input mr-3" id="will" <?php if ($final_approve_checkbox->stat == 'Rejected') {
                                                         echo 'checked';
                                                     } ?>>
                                                     <label for="normal" class="form-check-label" style="text-align:left" >
@@ -1775,8 +1845,8 @@
 
                                             <div class="col-md-6">
                                                 <label for="normal" class="form-check-label" style="text-align:left">
-                                                    : <?php if ($final_approve->stat == 'Rejected') {
-                                                        echo $final_approve->reason;
+                                                    : <?php if ($final_approve_checkbox->stat == 'Rejected') {
+                                                        echo $final_approve_checkbox->reason;
                                                     } else {
                                                         echo "...........................";
                                                     }
@@ -1822,8 +1892,43 @@
                                             endforeach; ?>    <?= $final_approve_qa[0]->date_approve; ?>
                                         </h6>
                                     </td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>
+                                        <p style="text-align:center;">Checked</p><br>  
+                                        <h6 style="text-align:center;font-size:10pt">
+                                            <?php foreach ($final_checked_proc as $key => $checked_final_proc) {
+                                                if ($checked_final_proc!='not found') {
+                                                    if ($checked_final_proc->date_approve != '') {
+                                                        echo "<p style='text-align:center;'>" . $checked_final_proc->name . "</p>";
+                                                        echo  $checked_final_proc->date_approve;
+                                                    } 
+                                                }                                                
+                                            } ?>
+                                        </h6>
+                                        <h6 style="text-align:center;font-size:10pt">
+                                            <?php foreach ($final_checked2_proc as $key => $checked2_final_proc) {
+                                                if ($checked2_final_proc!='not found') {
+                                                    if ($checked2_final_proc->date_approve != '') {
+                                                        echo "<p style='text-align:center;'>" . $checked2_final_proc->name . "</p>";
+                                                        echo $checked2_final_proc->date_approve;
+                                                    } 
+                                                }                                                
+                                            } ?>
+                                        </h6>
+                                    </td>
+                                    <td>
+                                    <p style="text-align:center;">Approved</p><br>  
+                                        <h6 style="text-align:center;font-size:10pt">
+                                            <?php foreach ($final_approve_proc as $key => $approved_final_proc) {
+                                                if ($approved_final_proc!='not found') {
+                                                    if ($approved_final_proc->date_approve != '') {
+                                                        echo "<p style='text-align:center;'>" . $approved_final_proc->name . "</p>";
+                                                        echo $approved_final_proc->date_approve;
+                                                    } 
+                                                }
+                                                
+                                            } ?>
+                                        </h6>
+                                    </td>
                                 </tr>
                             </table>
                         
@@ -2802,21 +2907,6 @@
         // fdata.append('position_code', "<php echo $nik->position_code; ?>");//position_code username
         // fdata.append('position_name', "<php echo $nik->position_name; ?>");//position_name username
         fdata.append('nikreq', "<?php echo $tb_PCN->nik; ?>");//update position code
-
-        var fdata2 = new FormData();
-
-        fdata2.append("hdrid","<?php echo $hdrid; ?>");//update hdrid
-        // fdata2.append("problem_name","<php echo $tb_input_problem->problem_name ?>"); //update problem_name
-        // fdata2.append("group_product_name","<php echo $tb_input_problem->group_product_name ?>"); //update group_product_name
-        // fdata2.append("product_name","<php echo $tb_input_problem->product_name ?>"); //update product_name
-        // fdata2.append("name2","<php echo $tb_input_problem->name2 ?>"); //update name2
-        // fdata2.append("problem_category_name","<php echo $tb_input_problem->problem_category_name ?>"); //update problem_category_name
-
-        // fdata2.append("body_content",""); //body content approve
-        // fdata2.append("comment","");  //comment preview
-        // fdata2.append("status_subject",""); //status di preview
-        fdata2.append('position_code', "<?php echo $nik->position_code; ?>");//posisi code di preview
-
         // Url Post Untuk Approve
         vurl = "<?php echo base_url('C_PCN/ajax_send_back') ?>";
 
@@ -2838,28 +2928,6 @@
             window.location.reload();
             $('#modal-default').modal('hide');
             // berhasil(data.status);
-
-            // var vurl2; 
-            // vurl2 = "<?php //echo base_url('C_Email/ajax_send_mail_v2')?>";// Url Post untuk send email
-
-            // $.ajax({
-            //     url: vurl, //url
-            //     method: "post", //method post
-            //     processData: false,
-            //     contentType: false,
-            //     data: fdata2,
-            //     success: function (data) {                 
-            //         // Pesan berhasil  
-
-            //     },
-            //     error: function (e) {
-            //         gagal(e);
-            //         //location.reload();
-            //         //error
-            //     }
-            // });
-
-
         },
         error: function(e) {
             //Pesan Gagal
@@ -2879,17 +2947,19 @@
         // Form data
         var fdata = new FormData();
         // var fdata2 = new FormData();
-        var form_data = $('#modal-confirm-approve').serializeArray();
-        $.each(form_data, function (key, input) {
-            fdata.append(input.name, input.value);
-        });
+        // var form_data = $('#modal-confirm-approve').serializeArray();
+        // $.each(form_data, function (key, input) {
+        //     fdata.append(input.name, input.value);
+        // });
 
         // Update by Hdrid
         fdata.append('problem_id',"<?php echo $hdrid ?>");//update problem_id
         // fdata.append('nik', "<?php //echo $nik->nik; ?>");//update nik
         fdata.append('name', "<?php echo $this->session->nama; ?>");//update name
+        
+        
         fdata.append('position_code', "<?php echo $nik->position_code; ?>");//position_code username
-        fdata.append('position_name', "<?php echo $nik->position_name; ?>");//position_name username
+        // fdata.append('position_name', "<php echo $nik->position_name; ?>");//position_name username
         fdata.append('reason', $('#reason').val());//reason
         
         // Url Post Untuk Approve0

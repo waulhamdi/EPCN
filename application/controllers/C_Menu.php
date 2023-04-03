@@ -211,7 +211,6 @@ class C_Menu extends CI_Controller {
     public function ajax_delete()
 	{
 
-         
         $where = array('hdrid' => $this->input->post('hdrid'));
         $this->M_Menu->Delete_Data($where,'a_menu');
         $data['status']="berhasil dihapus";

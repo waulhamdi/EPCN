@@ -594,6 +594,17 @@
                 </a>
               </li>
             <?php } ?>
+
+            <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
+              <li class="nav-item">
+                <a href="<?php echo base_url() ?>C_setting_app_member" class="nav-link">
+                  <i class="nav-icon fas fa-cogs"></i>
+                  <p>
+                    Setting Application Response Member
+                  </p>
+                </a>
+              </li>
+            <?php } ?>
             
             <?php if ($this->session->userdata('rolename') == 'Administrator EPCN' || $this->session->userdata('MN202103012')) { ?>
               <li class="nav-item">

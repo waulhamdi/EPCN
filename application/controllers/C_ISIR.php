@@ -69,7 +69,7 @@ class C_ISIR extends CI_Controller
         $data['menu_name'] =  $menu_name; 
         $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
         $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
-       
+        // var_dump($data['hak_akses']);
         $this->load->view('templates/header'); //Tampil header
         $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar        
         // $this->load->view('ISIR/V_ISIR',$data); // Tampil data
@@ -133,10 +133,11 @@ class C_ISIR extends CI_Controller
     }
 
     /// @see Ajax_Add_Row()
-    /// @note Tambah data cicilan
-    /// @attention HDRID Bisa berupa nik apabila masih dalam tahap ajax_Add()
+    /// @note Tambah data ISIR
+    /// @attention 
     function Ajax_Add_Row(){      
 
+        $creator=$this->session->userdata('user_name');
         $hdridm=$this->input->post('hdrid'); //mengambil dari hdrid
         $hdrid2=$this->M_ISIR->Max_data_isir($hdridm,'tb_isir')->row();   // Mengambil row dari database
         // var_dump($hdrid2->no_cicilan);      
@@ -151,7 +152,7 @@ class C_ISIR extends CI_Controller
 
         }
         $no_isir=$no_cil;  // Deklarasi $hdrid = $hdrid3
-        $post_data = array('hdrid' =>$hdridm ,'transaction_date' => mdate('%Y-%m-%d',time()),'no_isir' => $no_isir);
+        $post_data = array('hdrid' =>$hdridm ,'transaction_date' => mdate('%Y-%m-%d',time()),'no_isir' => $no_isir,'pic_pro'=>$creator,'pic_qc'=>'DM1901091','cc_to1'=>'DM1901004','cc_to2'=>'DM1901762');
         // ********************* 4. Merge data post *********************        
         $post_datamerge=array_merge($post_data,$post_data); // Menggabungkan semua data 
 
@@ -305,6 +306,10 @@ class C_ISIR extends CI_Controller
             {
                 $this->upload_file_attach('deviasi',$hdrid,$no_isir,'tb_isir');
             }
+        if(!empty($_FILES['deviasi_result']['name']))
+            {
+                $this->upload_file_attach('deviasi_result',$hdrid,$no_isir,'tb_isir');
+            }
 
         // *********************  Merge data All post *********************
         if ($status == 'Unaccepted') {
@@ -315,7 +320,7 @@ class C_ISIR extends CI_Controller
             $where = array('hdrid' => $hdrid);// Buat kondisi where untuk dikirim ke model   
             $data = array('status' => "$no_isir Unaccepted On Progress $no_cil",'remark'=>$remark);
             $this->M_ISIR->Update_Data($where,$data,'tb_isir_list');// Buat kondisi where untuk dikirim ke model
-        } else if ($status='Accepted' || $status='Deviation Item(Temp.Dev)' || $status='Die Deviation(Permanent Dev)') {
+        } else if ($status=='Accepted' || $status=='Deviation Item(Temp.Dev)' || $status=='Die Deviation(Permanent Dev)') {
             $where = array('hdrid' => $hdrid);// Buat kondisi where untuk dikirim ke model   
             $data = array('status_isir' =>'Closed','status' => "$no_isir $status ISIR Complete",'remark'=>$remark);
             $this->M_ISIR->Update_Data($where,$data,'tb_isir_list');// Buat kondisi where untuk dikirim ke model
@@ -518,21 +523,20 @@ class C_ISIR extends CI_Controller
     }
 
 
-     ///@see ajax_delete()
-     ///@note fungsi digunakan untuk delete data
-     ///@attention
-     public function ajax_delete()
-     {
-   
-            
+    ///@see ajax_delete()
+    ///@note fungsi digunakan untuk delete data
+    ///@attention
+    public function ajax_delete()
+    {
            $where = array('hdrid' => $this->input->post('hdrid'));//untuk delete auto increnete
            $this->M_ISIR->Delete_Data($where,'tb_isir_list');//untuk delete table ISIR
            $this->M_ISIR->Delete_Data($where,'tb_isir');//untuk delete table ISIR
            $data['status']="berhasil dihapus";//jika sudah berhasil dihapus maka data akan kosong
            // return value array
            $this->output->set_content_type('application/json')->set_output(json_encode($data));
-   
-       }
+    }
+
+
 
     /// @see ajax_delete_isir()
     /// @note Delete Data
@@ -549,18 +553,18 @@ class C_ISIR extends CI_Controller
 
     }
 
-         ///@see ajax_getbyhdrid1()
-     ///@note fungsi digunakan untuk auto increnete
-     ///@attention jika sudah auto increnete maka setiap data ditambah akan bertambah setiap nomor increnete
-     function ajax_getbyhdrid1(){      
+    ///@see ajax_getbyhdrid1()
+    ///@note fungsi digunakan untuk auto increnete
+    ///@attention jika sudah auto increnete maka setiap data ditambah akan bertambah setiap nomor increnete
+    function ajax_getbyhdrid1(){      
 
       $hdrid=$this->input->get('hdrid');//untuk auto increnete
       $data=$this->M_ISIR->ajax_getbyhdrid1($hdrid,'tb_isir')->row();//untuk request auto increnete
       echo json_encode($data);
 
-  }
+    }
 
-
+   
 
 
     ///@see upload_file_attach
@@ -795,8 +799,8 @@ class C_ISIR extends CI_Controller
 
 
       /// @see View_detail_isir()
-      /// @note Tampil List Cicilan
-      /// @attention Menampilkan list cicilan berdasarkan hdrid di view 
+      /// @note Tampil List ISIR
+      /// @attention Menampilkan list ISIR berdasarkan hdrid di view 
       function View_detail_isir()
       {
           
@@ -805,7 +809,7 @@ class C_ISIR extends CI_Controller
           // $nikSession=$this->session->userdata('user_name');
           
           $hdrid = $this->input->post('hdrid'); // Tarik input post hdrid
-          $search = array('hdrid','transaction_date','isir','isir_imp','submit_date','pic_pro','qc_result','qc_submit_date','pic_qc','remark','status');
+          $search = array('hdrid','transaction_date','isir','isir_imp','submit_date','pic_pro','qc_result','qc_submit_date','pic_qc','remark','status','deviasi','deviasi_result');
           
   
           $where  = array('hdrid' => $hdrid); // Array untuk menjadi kondisi yang akan dikirimkan ke model

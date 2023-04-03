@@ -2,9 +2,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class C_Print_approvedDummy extends CI_Controller
 {
-        ///@see __construct()
-     ///@note fungsi digunakan untuk username
-     ///@attention
+    ///@see __construct()
+    ///@note fungsi digunakan untuk username
+    ///@attention
     public function __construct()
     {
         parent::__construct();
@@ -22,8 +22,8 @@ class C_Print_approvedDummy extends CI_Controller
     }
 
     ///@see index()
-     ///@note fungsi untuk view print
-     ///@attention
+    ///@note fungsi untuk view print
+    ///@attention
     public function index()
     {
         $data['username'] = $this->session->userdata('username');
@@ -33,9 +33,9 @@ class C_Print_approvedDummy extends CI_Controller
         $this->load->view('Print/v_print', $data);
     }
 
-        ///@see ajax_getbyhdrid()
-     ///@note fungsi untuk code hdrid ditarik ke web
-     ///@attention
+    ///@see ajax_getbyhdrid()
+    ///@note fungsi untuk code hdrid ditarik ke web
+    ///@attention
     function ajax_getbyhdrid()
     {
 
@@ -45,8 +45,8 @@ class C_Print_approvedDummy extends CI_Controller
     }
 
     ///@see print_show()
-     ///@note fungsi untuk menampilkan hasil print
-     ///@attention
+    ///@note fungsi untuk menampilkan hasil print
+    ///@attention
     function print_show()
     {
         $hdrid = $this->input->get('var1');
@@ -129,8 +129,8 @@ class C_Print_approvedDummy extends CI_Controller
     }
 
     ///@see print_report2_approved()
-     ///@note fungsi untuk report hasil print ingin diprint
-     ///@attention
+    ///@note fungsi untuk report hasil print ingin diprint
+    ///@attention data index yang akan di output pada A4
     function print_report2_approved()
     {
         
@@ -144,30 +144,35 @@ class C_Print_approvedDummy extends CI_Controller
         // $data['username'] = $this->session->userdata('username');
         $where1 = array('hdrid' =>$hdrid);
 
+        // get table batas sini
         $data['tb_PCN'] = $this->m_printDummy->ajax_getbyhdrid($hdrid, 'tb_PCN')->row();
         $data['tb_PCNlist'] = $this->m_printDummy->ajax_getbyno_dokumen($no_dokumen, 'tb_PCNlist')->row();
         $data['tb_approval'] = $this->m_printDummy->ajax_getbyproblem_id($problem_id, 'tb_approval')->result();
         $data['tb_isir'] = $this->m_printDummy->ajax_getTbIsir($hdrid);
         $data['tb_isir_list'] = $this->m_printDummy->Get_Where($where1,'tb_isir_list');
-        // var_dump($data['tb_isir_list']);
-        $data['tb_qcr'] = $this->m_printDummy->ajax_getQCR($no_dokumen, 'tb_QCR')->row();
+        $data['tb_qcr'] = $this->m_printDummy->ajax_getQCR($no_dokumen, 'tb_QCR');
         $data['tb_application'] = $this->m_printDummy->ajax_getbypcn_number($hdrid, 'tb_application')->row();
+        // get table batas sini
         
-        $data['status_isir'] = $this->m_printDummy->ajax_getStatusIsir($hdrid);
-        
-        $data['written_proc'] = $this->m_printDummy->getListWrittenProc($hdrid);            // position_name writte qa
-        $data['checked_proc'] = $this->m_printDummy->getListCheckedProc($hdrid);            // position_name checked qa
-        $data['checked2_proc'] = $this->m_printDummy->getListChecked2Proc($hdrid);          // position_name checked2 qa
-        $data['approve_proc'] = $this->m_printDummy->getListApproveProc($hdrid);            // position_name approve qa
+        // get data approver by position_name batas sini
+        $data['written_proc'] = $this->m_printDummy->getListWrittenProc($hdrid);            // position_name writte procurement
+        $data['checked_proc'] = $this->m_printDummy->getListCheckedProc($hdrid);            // position_name checked procurement
+        $data['checked2_proc'] = $this->m_printDummy->getListChecked2Proc($hdrid);          // position_name checked2 procurement
+        $data['approve_proc'] = $this->m_printDummy->getListApproveProc($hdrid);            // position_name approve procurement
         $data['written_qa'] = $this->m_printDummy->getListWrittenQA($hdrid);                // position_name written qa
         $data['checked_qa'] = $this->m_printDummy->getListCheckedQA($hdrid);                // position_name checked qa
         $data['approve_qa'] = $this->m_printDummy->getListApproveQA($hdrid);                // position_name approve qa
+        $data['final_checked_proc'] = $this->m_printDummy->getListFinalCheckedProc($hdrid);     // position_name final checked procurement
+        $data['final_checked2_proc'] = $this->m_printDummy->getListFinalChecked2Proc($hdrid);     // position_name final checked procurement
+        $data['final_approve_proc'] = $this->m_printDummy->getListFinalApproveProc($hdrid);     // position_name final approve procurement
         $data['final_written_qa'] = $this->m_printDummy->getListFinalWrittenQA($hdrid);     // position_name final written qa
         $data['final_checked_qa'] = $this->m_printDummy->getListFinalCheckedQA($hdrid);     // position_name final checked qa
         $data['final_approve_qa'] = $this->m_printDummy->getListFinalApproveQA($hdrid);     // position_name final approve qa
-        
-        $data['final_approve'] = $this->m_printDummy->getFinalApprove($hdrid);              // position_code =>10
-        // var_dump($data['final_approve']);
+        // /get data approver by position_name batas sini
+
+        // get kondisi
+        $data['final_approve_checkbox'] = $this->m_printDummy->getFinalApprove($hdrid);              //checkbox final approver jika position_code =>10
+        // $data['status_isir'] = $this->m_printDummy->ajax_getStatusIsir($hdrid);
         
         if($data['tb_PCN'] == null){
             $data['nik'] = null;
@@ -185,9 +190,9 @@ class C_Print_approvedDummy extends CI_Controller
 
     }
 
-        ///@see ajax_login()
-     ///@note fungsi untuk user login untuk print data tersebut
-     ///@attention
+    ///@see ajax_login()
+    ///@note fungsi untuk user login untuk print data tersebut
+    ///@attention
     function ajax_login()
     {
 
@@ -203,16 +208,36 @@ class C_Print_approvedDummy extends CI_Controller
             $data['status'] = "NG User ID tidak ditemukan"; //User ID tidak ditemukan
         }else{
              if($password == $user->password){
+                 $role_id=$this->UserModel->getroleid($username);
+                 if (isset($role_id)) {
+                    $session = array(
+                        'authenticated'=>true, // Buat session authenticated dengan value true      
+                        // Ambil dari database central
+                        'user_name'=>$user->user_name, // Buat session nama          
+                        'nama'=>$user->name, // Buat session nama
+                        'dept_id'=>$user->kode_department, // Buat session nama                   
+                        'email'=>$email->email, // Buat session role
+                        'officeemail'=>$email->office_email,
+                        //  Ambil dari tabel role
+                        'role_id'=>$role_id->role_id, // Buat session role
+                        'rolename'=>$role_id->role_name // Buat session role
+                        );
+                 }else{
+                    $session = array(
+                        'authenticated'=>true, // Buat session authenticated dengan value true      
+                        // Ambil dari database central
+                        'user_name'=>$user->user_name, // Buat session nama          
+                        'nama'=>$user->name, // Buat session nama
+                        'dept_id'=>$user->kode_department, // Buat session nama                   
+                        'email'=>$email->email, // Buat session role
+                        'officeemail'=>$email->office_email,
+                        //  Ambil dari tabel role
+                        'role_id'=>"Not User System", // Buat session role
+                        'rolename'=>"Not User System" // Buat session role
+                        );
+                 }
                  $data['status'] = "OK";
-                 $session = array(
-                    'authenticated'=>true, // Buat session authenticated dengan value true      
-                    // Ambil dari database central
-                    'user_name'=>$user->user_name, // Buat session nama          
-                    'nama'=>$user->name, // Buat session nama
-                    'dept_id'=>$user->kode_department, // Buat session nama                   
-                    'email'=>$email->email, // Buat session role
-                    'officeemail'=>$email->office_email
-                    );
+               
                  $this->session->set_userdata($session); // Buat session sesuai $session
              }else{
                  $data['status'] = "NG password salah"; //Password salah

@@ -12,6 +12,9 @@
   <!-- ########## CSS ##########-->
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/fontawesome-free/css/all.min.css">  
+  <!-- DataTables New-->
+  <!-- <link rel="stylesheet" href="<php echo base_url() ?>assets/plugins/datatables/css/jquery.dataTables.min.css"> -->
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/fixedCol/css/fixedColumns.dataTables.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -60,6 +63,8 @@
   <script src="<?php echo base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
   <script src="<?php echo base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
   <script src="<?php echo base_url() ?>assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <!-- Fixed Columns -->
+  <script src="<?php echo base_url() ?>assets/plugins/fixedCol/js/dataTables.fixedColumns.min.js"></script>
  
   <!-- DataTables Button--> 
   <script src="<?php echo base_url() ?>assets/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
@@ -132,16 +137,17 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>   <!-- Navbar menu -->
       </li>
       <li class="nav-item d-none d-sm-inline-block">
+       
         <a href="<?php echo base_url('C_Dashboard_new') ?>" class="nav-link"><i class="fa fa-home"></i> Home PCN</a>   <!-- link ke home pcn -->
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo base_url('assets/userguide/userguide.pdf') ?>" class="nav-link" ><i class="fa fa-id-card"></i> Guide Application</a>   <!--link ke guide application -->
-        <?php 
+        <!-- <php 
 
           $command = escapeshellcmd('python '.base_url().'test.py');
           $output = shell_exec($command);
           echo $output;
-          ?>
+          ?> -->
       </li>
     </ul>
     
@@ -152,7 +158,7 @@
         <div class="input-group-append"> 
           <button class="btn btn-navbar" type="submit">   <!-- tombol submit -->
             <i class="fas fa-search"></i> 
-            <a href="#" class="PCN REGISTER FORM">  <!-- logo search -->
+            <!-- <a href="#" class="PCN REGISTER FORM">   -->
           </button>
         </div>
       </div>

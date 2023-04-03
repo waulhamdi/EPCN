@@ -16,7 +16,7 @@
           <div class="col-sm-6"><!--untuk ukuran panjang container-->
             <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
             <li class="breadcrumb-item"><a href="C_dashboard_new">Dashboard PCN</a></li><!-- judul dashboard-->
-          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</li><!-- untuk container dashboard-->
+          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</a></li><!-- untuk container dashboard-->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -1038,7 +1038,8 @@
             $('#summernote').summernote('code', ''); // reset form with summernote 
             $("#criteria_critical_item").val(null).trigger("change"); // reset select filter
             $('#btnsubmit').text('Save'); // name Save
-            document.getElementById("btnsubmit").style.visibility = "visible";    // Visible button              
+            document.getElementById("btnsubmit").style.visibility = "visible";    // Visible button    
+
             //Ajax kosongkan data
 
           }else {
@@ -1366,7 +1367,13 @@
         tabel = $('#example1').DataTable({ //table
             "processing": true, //processing true jika data masuk table
             // "responsive":true, //respon jika data masuk akan muncul pop up data
-            "scrollX" : true,
+            scrollY : '450px',
+            scrollX : true,
+            scrollCollapse: true,
+            paging: true,
+            fixedColumns: {
+                leftColumns: 2
+            },
             "serverSide": true,//untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)

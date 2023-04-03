@@ -11,7 +11,7 @@
           <div class="col-sm-6"><!--untuk ukuran panjang container-->
             <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
             <li class="breadcrumb-item"><a href="C_dashboard_new">Dashboard PCN</a></li><!-- judul dashboard-->
-          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</li><!-- untuk container dashboard-->
+          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</a></li><!-- untuk container dashboard-->
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -52,11 +52,13 @@
 
                                 <!-- <php } ?> -->
 
-                                <?php if(!empty($hak_akses)){ if ($hak_akses->allow_import=='on') { ?>
-                                  <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
-                                    <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
-                                  </a>
-                                <?php } }?>
+                                <?php if (!empty($hak_akses)) {
+                                  if ($hak_akses->allow_import == 'on') { ?>
+                                              <a data-toggle="modal" data-target="#modal-import"  href="#"><!--fungsi import data-->
+                                                <i class="fa fa-upload"></i> Import Data <!--judul import  data-->
+                                              </a>
+                                      <?php }
+                                } ?>
                                   <!-- <a data-toggle="modal" data-target="#modal-import"  href="#"> fungsi add data -->
                                     <!-- <i class="fa fa-upload"></i> Import Datajudul add data -->
                                   <!-- </a> -->
@@ -151,10 +153,6 @@
                       <th>MASSPRO SCHEDULE</th>
                       <th>ATTACHMENT</th>
                       <th>OTHER ATTACHMENT</th>
-                      <th>OTHER ATTACHMENT</th>
-                      <th>OTHER ATTACHMENT</th>
-                      <th>ISIR</th>
-                      <th>QCR</th>
                       <!-- <th>Detail Of Process Change (6M+EAS)</th> -->
                       <!-- /Th Macro Batas Sini -->
                     </tr>
@@ -369,7 +367,7 @@
                         <label for="attachment">ATTACHMENT</label>
                       </div>
                       <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach" onclick="delete_attachment()"> <i class="fa fa-unlink"></i></a>
+                        <a class="btn btn-danger" data-id="attachment" target="_blank" data-value="attach" onclick="delete_attachment()"> <i class="fa fa-trash"></i></a>
                       </div>
                       <div class="col-md-1">
                         <a class="btn btn-success" id="attachment_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -388,7 +386,7 @@
                         <label for="attachment1" >OTHER ATTACHMENT</label>
                       </div>
                       <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="attachment1" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
+                        <a class="btn btn-danger" data-id="attachment1" target="_blank" data-value="attach1" onclick="delete_attachment()"> <i class="fa fa-trash"></i> </a>
                       </div>
                       <div class="col-md-1">
                         <a class="btn btn-success" id="attachment1_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
@@ -401,102 +399,6 @@
                       </div>
                     </div>
                   </div>
-                <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label for="attachment2" >OTHER ATTACHMENT</label>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="attachment2" target="_blank" data-value="attach2" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="attachment2_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="attachment2" multiple="" name="attachment2">
-                          <label class="custom-file-label" for="attachment2" id="attachment2_label">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label for="attachment3">OTHER ATTACHMENT</label>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="attachment3" target="_blank" data-value="attach3" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="attachment3_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="attachment3" multiple="" name="attachment3">
-                          <label class="custom-file-label" for="attachment3" id="attachment3_label">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label for="isir">ISIR</label>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="isir" target="_blank" data-value="isir" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="isir_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="isir" multiple="" name="isir">
-                          <label class="custom-file-label" for="isir" id="isir_label">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label for="qcr">QCR</label>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="qcr" target="_blank" data-value="qcr" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="qcr_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="qcr" multiple="" name="qcr">
-                          <label class="custom-file-label" for="qcr" id="qcr_label">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label for="report_pe">Technical Report PE</label>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-danger" data-id="report_pe" target="_blank" data-value="report_pe" onclick="delete_attachment()"> <i class="fa fa-unlink"></i> </a>
-                      </div>
-                      <div class="col-md-1">
-                        <a class="btn btn-success" id="report_pe_view" target="_blank"> <i class="fa fa-paperclip"></i> </a>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file" class="custom-file-input" id="report_pe" multiple="" name="report_pe">
-                          <label class="custom-file-label" for="report_pe" id="report_pe_label">Choose file</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                   <!--Style dan Tombol View all attachment-->
                   <style>
                     #myBtn {
@@ -1295,7 +1197,7 @@
     $('#quickForm').validate({
       rules: {
 
-				// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
+        // ---------------------------------- Rule input Macro Batas sini 1---------------------------------
         // no_dokumen: {
         // required: true,
         // },
@@ -1365,7 +1267,7 @@
       },
       messages: {
     
-				// ---------------------------------- Rule input Macro Batas sini 2---------------------------------
+        // ---------------------------------- Rule input Macro Batas sini 2---------------------------------
         no_dokumen: {
         required: "Please Input no_dokumen",
         minlength: 3
@@ -1488,13 +1390,13 @@
 
             // Ajax isi data
             $.ajax({
-              url: "<?php echo base_url('C_PCNLIST/ajax_getbyno_dokumen')?>",
+              url: "<?php echo base_url('C_PCNLIST/ajax_getbyno_dokumen') ?>",
               method: "get",
               dataType : "JSON",              
               data: {no_dokumen:no_dokumen1},
               success: function (data) {
 
-   		            // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
+                   // ---------------------------------- Data val Macro Batas sini ---------------------------------                  
                   $('#no_dokumen').val(data.no_dokumen);
                   $('#status').val(data.status);
                   $('#category').val(data.category);
@@ -2110,7 +2012,7 @@
                       $('#attach29').show();
                   }
 
-                  vurl2 = "<?php echo base_url('C_PCNLIST/ajax_getbyno_hdrid')?>";
+                  vurl2 = "<?php echo base_url('C_PCNLIST/ajax_getbyno_hdrid') ?>";
                     $.ajax({
                     url: vurl2,
                     method: "get",
@@ -2420,7 +2322,7 @@
           if($trigger == 'Add') {            
             vurl = "<?php echo base_url('C_PCNLIST/ajax_add'); ?>"; //link simpan data
           } else {           
-            vurl = "<?php echo base_url('C_PCNLIST/ajax_update')?>";//link update data
+            vurl = "<?php echo base_url('C_PCNLIST/ajax_update') ?>";//link update data
           }
          
           //untuk aja data sudah bisa dipost
@@ -2464,7 +2366,7 @@
       // Delete by no_dokumen
       fdata.append('no_dokumen',$('#iddelete').text());
       // Url Post delete
-      vurl = "<?php echo base_url('C_PCNLIST/ajax_delete')?>";//link untuk delete
+      vurl = "<?php echo base_url('C_PCNLIST/ajax_delete') ?>";//link untuk delete
 
 
           $.ajax({//ajax delete
@@ -2496,7 +2398,7 @@
   function Send_mail(){
 
     // Url Post delete
-    vurl = "<?php echo base_url('C_Email/Send_mail')?>";
+    vurl = "<?php echo base_url('C_Email/Send_mail') ?>";
     // Form data
     var fdata = new FormData();
     fdata.append('no_dokumen','no_dokumen123');
@@ -2536,14 +2438,18 @@
   function delete_attachment(value){
     console.log(value);
     // Url Post delete
-    vurl = "<?php echo base_url('C_PCNLIST/ajax_delete_attachment')?>";
+    vurl = "<?php echo base_url('C_PCNLIST/ajax_delete_attachment') ?>";
     // Form data
     var fdata = new FormData();
     fdata.append('no_dokumen', $('#no_dokumen').val());
     if (value=='attach') {
       fdata.append('attachment', 1 );
+      $("#attachment").val('');
+      $("#attachment_label").text('Choose file');
     } else if (value=='attach1'){
       fdata.append('attachment', 2 );
+      $("#attachment1").val('');
+      $("#attachment1_label").text('Choose file');
     }else if (value=='attach2'){
       fdata.append('attachment', 3 );
     }else if (value=='attach3'){
@@ -2563,7 +2469,7 @@
             data: fdata,
             success: function (data) {
               // Hide modal delete
-              $('#modal-default').modal('hide').draw();
+              // $('#modal-default').modal('hide').draw();
       },
       error: function (e) {
           //Pesan Gagal
@@ -2645,57 +2551,68 @@
     $(document).ready(function() {
 
         tabel = $('#example1').DataTable({ //table
-            "processing": true, //processing true jika data masuk table
             // "responsive":true, //respon jika data masuk akan muncul pop up data
             scrollY : '600px',
-            scrollX : '200px',
+            scrollX : true,
             scrollCollapse: true,
             paging: true,
-            "serverSide": true,//untuk data masuk server 
+            fixedColumns: {
+                left: 2
+            },
+            "processing": true,//processing true jika data masuk table
+            // "responsive":true,//respon jika data masuk akan muncul pop up data
+            
+            "serverSide": true, //untuk data masuk server 
             "ordering": true, // Set true agar bisa di sorting
             "order": [[ 0, 'asc' ]], // Default sortingnya berdasarkan kolom / field ke 0 (paling pertama)
-            dom: "lfBrtip",
-            buttons: [
-            {
-              extend: 'copyHtml5', //extend html
-              className: 'btn btn-secondary', //button
-              text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',//untuk copy cliboard
-            },
-            {
-              extend: 'csvHtml5',//extend html
-              className: 'btn btn-info',//button
-              text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',//untuk export data ke csv
-            },
-            {
-              extend: 'excelHtml5',//extend html
-              className: 'btn btn-success',//button
-              text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',//untuk export data ke excel
-              customize: function ( xlsx ){ //type data excel
-                var sheet = xlsx.xl.worksheets['sheet1.xml'];
-                // jQuery selector to add a border
-                $( 'row c', sheet ).attr( 's', '25' );
-              }
-            },
-            {
-              extend : 'pdfHtml5',   //extend html           
-              className: 'btn btn-danger', //button
-              text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF', //untuk export data ke pdf
-              orientation : 'landscape', //type landscape
-              pageSize : 'A4', //ukuran kertas
-              download: 'open' //download 
-            }
-          ],
-            "ajax": 
-            {
-                "url": "<?= base_url('C_PCNLIST/view_data_where');?>", // URL file untuk proses select datanya
-                "type": "POST", //post select datanya
-                "data": function(data){     
-                  data.searchByFromdate = $('#search_fromdate').val(); //value from date
-                  data.searchByTodate = $('#search_todate').val(); //value to date
-                  data.Number = "<?= $Number ?>";
-                }
+            
+            <?php if (!empty($hak_akses)) {
+              if ($hak_akses->allow_export == 'on') { ?>
+                        dom: "lfBrtip",
+                        buttons: [
+                        {
+                          extend: 'copyHtml5', //extend html
+                          className: 'btn btn-secondary', //button
+                          text: '<i class="fas fa-copy">&nbsp</i> Copy Data to Clipboard',//untuk copy cliboard
+                        },
+                        {
+                          extend: 'csvHtml5',//extend html
+                          className: 'btn btn-info',//button
+                          text: '<i class="fas fa-file-csv">&nbsp</i> Export Data to CSV',//untuk export data ke csv
+                        },
+                        {
+                          extend: 'excelHtml5',//extend html
+                          className: 'btn btn-success',//button
+                          text: '<i class="fas fa-file-excel">&nbsp</i> Export Data to Excel',//untuk export data ke excel
+                          customize: function ( xlsx ){ //type data excel
+                            var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                            // jQuery selector to add a border
+                            $( 'row c', sheet ).attr( 's', '25' );
+                          }
+                        },
+                        {
+                          extend : 'pdfHtml5',   //extend html           
+                          className: 'btn btn-danger', //button
+                          text: '<i class="fas fa-file-pdf">&nbsp</i> Export Data to PDF', //untuk export data ke pdf
+                          orientation : 'landscape', //type landscape
+                          pageSize : 'A4', //ukuran kertas
+                          download: 'open' //download 
+                        }
+                      ],
+                        "ajax": 
+                        {
+                            "url": "<?= base_url('C_PCNLIST/view_data_where'); ?>", // URL file untuk proses select datanya
+                            "type": "POST", //post select datanya
+                            "data": function(data){     
+                              data.searchByFromdate = $('#search_fromdate').val(); //value from date
+                              data.searchByTodate = $('#search_todate').val(); //value to date
+                              data.Number = "<?= $Number ?>";
+                            }
 
-            },
+                        },
+                  <?php }
+            } ?>
+
             "deferRender": true,
             "aLengthMenu": [[10, 5, 100,1000,10000,100000,1000000,1000000000],[ 10, 5,  100,1000,10000,100000,1000000,"All"]], // Combobox Limit
             "columns": [
@@ -2705,20 +2622,18 @@
                         // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
                         mnu='';
                         mnu=mnu+'<div class="btn btn-success btn-sm konfirmasiView  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div>';
-                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_edit=='on') { ?>
-                        mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; 
-                      <?php } }?>
-                      <?php if(!empty($hak_akses)){ if ($hak_akses->allow_delete=='on') { ?>
-                        mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                      <?php } }?>
-                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +'")  ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>';
-                        // <php if ($this->session->userdata('WT202105008Edit'||$this->session->userdata('rolename')=='Administrator Quality')) { ?>
-                        //   mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> <div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div> <div class="btn btn-primary btn-sm konfirmasiEdit" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>';
-                        // <php } if ($this->session->userdata('WT202105008Delete')||$this->session->userdata('rolename')=='Administrator Quality') { ?>
-                        //   mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
-                        //   // return '<div class="btn btn-success btn-sm konfirmasiView" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default" > <i class="fa fa-eye"></i></div> ';
-                        // <php } ?>
+                      <?php if (!empty($hak_akses)) {
+                        if ($hak_akses->allow_edit == 'on') { ?>
+                                    mnu=mnu+'<div class="btn btn-primary btn-sm konfirmasiEdit  mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-default"> <i class="fa fa-edit"></i></div>'; 
+                            <?php }
+                      } ?>
+                      <?php if (!empty($hak_akses)) {
+                        if ($hak_akses->allow_delete == 'on') { ?>
+                                    mnu=mnu + '<div class="btn btn-danger btn-sm konfirmasiHapus mr-2" data-id="'+ data +'" data-toggle="modal" data-target="#modal-delete" > <i class="fa fa-trash"></i></div>';
+                            <?php }
+                      } ?>
+                        mnu = mnu + '<a class="btn btn-secondary btn-sm mr-2"  href="<?php echo base_url('C_Print_approvedDummy/print_report2_approved?var1=' . "'+ data +'") ?>"  target="_blank"> <i class="fas fa-print mr-1"></i>A4</a>';
+                     
                         
                         return mnu;
 
@@ -2749,14 +2664,10 @@
                 {"data":"masspro_schedule"},
                 {"data":"attachment"},
                 {"data":"attachment1"},
-                {"data":"attachment2"},
-                {"data":"attachment3"},
-                {"data":"isir"},
-                {"data":"qcr"},
                 // ---------------------------------- / Datatables Macro Batas sini --------------------------------
             ],
         });
-
+      
         // Search button
         $('#search').click(function(){
 

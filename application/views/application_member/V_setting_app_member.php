@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Setting Application Response</h1>
+            <h1 class="m-0 text-dark">Setting Application Response Member</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -128,23 +128,21 @@
                     <th>ACTION</th>
                     <th>TRANSACTION ID</th>
                     <th>PRODUCT</th>
-                    <th>PE_NIK</th>
-                    <th>PE_PIC</th>
-                    <th>PE_NAME</th>
-                    <th>QC_NIK</th>
-                    <th>QC_PIC</th>
-                    <th>QC_NAME</th>
-                    <th>MFG_NIK</th>
-                    <th>MFG_PIC</th>
-                    <th>MFG_NAME</th>
-                    <th>PC_NIK</th>
-                    <th>PC_PIC</th>
-                    <th>PC_NAME</th>
-                    <th>QA_NIK</th>
-                    <th>QA_PIC</th>
-                    <th>QA_NAME</th>
-
-
+                    <th>PE MEMBER 1</th>
+                    <th>PE MEMBER 2</th>
+                    <th>PE MEMBER 3</th>
+                    <th>QC MEMBER 1</th>
+                    <th>QC MEMBER 2</th>
+                    <th>QC MEMBER 3</th>
+                    <th>MFG MEMBER 1</th>
+                    <th>MFG MEMBER 2</th>
+                    <th>MFG MEMBER 3</th>
+                    <th>PC MEMBER 1</th>
+                    <th>PC MEMBER 2</th>
+                    <th>PC MEMBER 3</th>
+                    <th>QA MEMBER 1</th>
+                    <th>QA MEMBER 2</th>
+                    <th>QA MEMBER 3</th>
 
                     <!-- /Th Macro Batas Sini -->
                           
@@ -191,300 +189,290 @@
                 <!---------------------------------- Form Macro Batas sini ---------------------------------->
 
                 <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="hdrid">TRANSACTION ID</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="hdrid" class="form-control" id="hdrid" placeholder="auto generate" readonly>
-                      </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>PRODUCT</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="hdrid">TRANSACTION ID</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="hdrid" class="form-control" id="hdrid" placeholder="auto generate" readonly>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="product" name="product" onchange="handleSelectChange_product(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($product as $value) {
-                          echo "<option value='$value->product'>$value->product</option>";
-                          }
-                        ?>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="product">PRODUCT</label>
+                        </div>
+                        <div class="col-md-8">
+                        <select class="form-control select2" id="product" name="product" onchange="handleSelectChange_product(event)" style="width: 100%;">
+                            <option value='' selected="selected">-Select-</option>
+                            <?php
+                                foreach ($product as $value) {
+                                echo "<option value='$value->product'>$value->product</option>";
+                                }
+                            ?>
                       </select>
+                        </div>
                     </div>
-                  </div>
-                </div>
-
-                <!-- Card Start -->
-                <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
-                    PE Department
-                  </h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>PE NIK</label>
                     </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="pe_nik" name="pe_nik" onchange="handleSelectChange_pe_nik(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
-                          }
-                        ?>
-                      </select>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pe_member_1">PE MEMBER 1</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="pe_member_1" name="pe_member_1" onchange="handleSelectChange_pe_member_1(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="pe_name">PE NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="pe_name" class="form-control" id="pe_name" >
-                      </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="pe_pic">PE PIC</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="pe_pic" class="form-control" id="pe_pic" >
-                      </div>
-                  </div>
-                </div>
-              </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pe_member_2">PE MEMBER 2</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="pe_member_2" name="pe_member_2" onchange="handleSelectChange_pe_member_2(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pe_member_3">PE MEMBER 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="pe_member_3" name="pe_member_3" onchange="handleSelectChange_pe_member_3(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qc_member_1">QC MEMBER 1</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="qc_member_1" name="qc_member_1" onchange="handleSelectChange_qc_member_1(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qc_member_2">QC MEMBER 2</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="qc_member_2" name="qc_member_2" onchange="handleSelectChange_qc_member_2(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qc_member_3">QC MEMBER 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="qc_member_3" name="qc_member_3" onchange="handleSelectChange_qc_member_3(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="mfg_member_1">MFG MEMBER 1</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="mfg_member_1" name="mfg_member_1" onchange="handleSelectChange_mfg_member_1(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="mfg_member_2">MFG MEMBER 2</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="mfg_member_2" name="mfg_member_2" onchange="handleSelectChange_mfg_member_2(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="mfg_member_3">MFG MEMBER 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="mfg_member_3" name="mfg_member_3" onchange="handleSelectChange_mfg_member_3(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pc_member_1">PC MEMBER 1</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="pc_member_1" name="pc_member_1" onchange="handleSelectChange_pc_member_1(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pc_member_2">PC MEMBER 2</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="pc_member_2" name="pc_member_2" onchange="handleSelectChange_pc_member_2(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="pc_member_3">PC MEMBER 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="pc_member_3" name="pc_member_3" onchange="handleSelectChange_pc_member_3(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qa_member_1">QA MEMBER 1</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="qa_member_1" name="qa_member_1" onchange="handleSelectChange_qa_member_1(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qa_member_2">QA MEMBER 2</label>
+                        </div>
+                        <div class="col-md-8">
+                           <select class="form-control select2" id="qa_member_2" name="qa_member_2" onchange="handleSelectChange_qa_member_2(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="qa_member_3">QA MEMBER 3</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select class="form-control select2" id="qa_member_3" name="qa_member_3" onchange="handleSelectChange_qa_member_3(event)" style="width: 100%;">
+                                <option value='' selected="selected">-Select-</option>
+                                <?php
+                                    foreach ($nik as $value) {
+                                    echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
               <!-- /.card-body -->
             </div>
             <!-- /.card End -->
-
-            <!-- Card Start -->
-            <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
-                    QC Department
-                  </h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>QC NIK</label>
-                    </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="qc_nik" name="qc_nik" onchange="handleSelectChange_qc_nik(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="qc_name">QC NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="qc_name" class="form-control" id="qc_name" >
-                      </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="qc_pic">QC PIC</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="qc_pic" class="form-control" id="qc_pic" >
-                      </div>
-                  </div>
-                </div>
-                </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card End -->
-
-               <!-- Card Start -->
-               <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
-                    MFG Department
-                  </h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>MFG NIK</label>
-                    </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="mfg_nik" name="mfg_nik" onchange="handleSelectChange_mfg_nik(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="mfg_name">MFG NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="mfg_name" class="form-control" id="mfg_name" >
-                      </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="mfg_pic">MFG PIC</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="mfg_pic" class="form-control" id="mfg_pic" >
-                      </div>
-                  </div>
-                </div>
-                </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card End -->
-
-               <!-- Card Start -->
-               <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
-                    PC Department
-                  </h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>PC NIK</label>
-                    </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="pc_nik" name="pc_nik" onchange="handleSelectChange_pc_nik(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="pc_name">PC NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="pc_name" class="form-control" id="pc_name" >
-                      </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="pc_pic">PC PIC</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="pc_pic" class="form-control" id="pc_pic" >
-                      </div>
-                  </div>
-                </div>
-                </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card End -->
-
-                   <!-- Card Start -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">
-                    <i class="fas fa-text-width"></i>
-                      QA Department
-                  </h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>QA NIK</label>
-                    </div>
-                    <div class="col-md-8">
-                      <select class="form-control select2" id="qa_nik" name="qa_nik" onchange="handleSelectChange_qa_nik(event)" style="width: 100%;">
-                        <option value='' selected="selected">-Select-</option>
-                        <?php
-                          foreach ($nik as $value) {
-                          echo "<option value='$value->user_name'>$value->user_name-$value->name-$value->office_email</option>";
-                          }
-                        ?>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="qa_name">QA NAME</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="qa_name" class="form-control" id="qa_name" >
-                      </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="row">
-                      <div class="col-md-4">
-                        <label for="qa_pic">QA PIC</label>
-                      </div>
-                      <div class="col-md-8">
-                        <input type="text" name="qa_pic" class="form-control" id="qa_pic" >
-                      </div>
-                  </div>
-                </div>
-                </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card End -->
+            
 
 
 
@@ -510,6 +498,7 @@
         </div>
         <!-- Close modal-dialog -->  
       </div>
+                        
       <!-- Close modal-Add / Update -->  
 
       <!-- modal-delete -->
@@ -554,7 +543,7 @@
 
             <div class="modal-body">
                
-              <form method="POST" action="<?php echo base_url('c_sys_set_app/import'); ?>" enctype="multipart/form-data">
+              <form method="POST" action="<?php echo base_url('C_setting_app_member/import'); ?>" enctype="multipart/form-data">
 
                   <div class="input-group form-group">
                     <span class="input-group-addon" id="sizing-addon2">
@@ -623,54 +612,55 @@
 
 				// ---------------------------------- Rule input Macro Batas sini 1---------------------------------
 
-        // product: {
-        // required: true,
-        // },
-        // pe_nik: {
-        // required: true,
-        // },
-        // pe_pic: {
-        // required: true,
-        // },
-        // pe_name: {
-        // required: true,
-        // },
-        // qc_nik: {
-        // required: true,
-        // },
-        // qc_pic: {
-        // required: true,
-        // },
-        // qc_name: {
-        // required: true,
-        // },
-        // mfg_nik: {
-        // required: true,
-        // },
-        // mfg_pic: {
-        // required: true,
-        // },
-        // mfg_name: {
-        // required: true,
-        // },
-        // pc_nik: {
-        // required: true,
-        // },
-        // pc_pic: {
-        // required: true,
-        // },
-        // pc_name: {
-        // required: true,
-        // },
-        // qa_nik: {
-        // required: true,
-        // },
-        // qa_pic: {
-        // required: true,
-        // },
-        // qa_name: {
-        // required: true,
-        // },
+                // product: {
+                // required: true,
+                // },
+                // pe_member_1: {
+                // required: true,
+                // },
+                // pe_member_2: {
+                // required: true,
+                // },
+                // pe_member_3: {
+                // required: true,
+                // },
+                // qc_member_1: {
+                // required: true,
+                // },
+                // qc_member_2: {
+                // required: true,
+                // },
+                // qc_member_3: {
+                // required: true,
+                // },
+                // mfg_member_1: {
+                // required: true,
+                // },
+                // mfg_member_2: {
+                // required: true,
+                // },
+                // mfg_member_3: {
+                // required: true,
+                // },
+                // pc_member_1: {
+                // required: true,
+                // },
+                // pc_member_2: {
+                // required: true,
+                // },
+                // pc_member_3: {
+                // required: true,
+                // },
+                // qa_member_1: {
+                // required: true,
+                // },
+                // qa_member_2: {
+                // required: true,
+                // },
+                // qa_member_3: {
+                // required: true,
+                // },
+
 
 
         // ---------------------------------- / Rule input Macro Batas sini 1--------------------------------
@@ -680,70 +670,71 @@
     
 				// ---------------------------------- Rule input Macro Batas sini 2---------------------------------
 
-        product: {
-        required: "Please Input product",
-        minlength: 3
-        },
-        pe_nik: {
-        required: "Please Input pe_nik",
-        minlength: 3
-        },
-        pe_pic: {
-        required: "Please Input pe_pic",
-        minlength: 3
-        },
-        pe_name: {
-        required: "Please Input pe_name",
-        minlength: 3
-        },
-        qc_nik: {
-        required: "Please Input qc_nik",
-        minlength: 3
-        },
-        qc_pic: {
-        required: "Please Input qc_pic",
-        minlength: 3
-        },
-        qc_name: {
-        required: "Please Input qc_name",
-        minlength: 3
-        },
-        mfg_nik: {
-        required: "Please Input mfg_nik",
-        minlength: 3
-        },
-        mfg_pic: {
-        required: "Please Input mfg_pic",
-        minlength: 3
-        },
-        mfg_name: {
-        required: "Please Input mfg_name",
-        minlength: 3
-        },
-        pc_nik: {
-        required: "Please Input pc_nik",
-        minlength: 3
-        },
-        pc_pic: {
-        required: "Please Input pc_pic",
-        minlength: 3
-        },
-        pc_name: {
-        required: "Please Input pc_name",
-        minlength: 3
-        },
-        qa_nik: {
-        required: "Please Input qa_nik",
-        minlength: 3
-        },
-        qa_pic: {
-        required: "Please Input qa_pic",
-        minlength: 3
-        },
-        qa_name: {
-        required: "Please Input qa_name",
-        minlength: 3
-        },
+                product: {
+                required: "Please Input product",
+                minlength: 3
+                },
+                pe_member_1: {
+                required: "Please Input pe_member_1",
+                minlength: 3
+                },
+                pe_member_2: {
+                required: "Please Input pe_member_2",
+                minlength: 3
+                },
+                pe_member_3: {
+                required: "Please Input pe_member_3",
+                minlength: 3
+                },
+                qc_member_1: {
+                required: "Please Input qc_member_1",
+                minlength: 3
+                },
+                qc_member_2: {
+                required: "Please Input qc_member_2",
+                minlength: 3
+                },
+                qc_member_3: {
+                required: "Please Input qc_member_3",
+                minlength: 3
+                },
+                mfg_member_1: {
+                required: "Please Input mfg_member_1",
+                minlength: 3
+                },
+                mfg_member_2: {
+                required: "Please Input mfg_member_2",
+                minlength: 3
+                },
+                mfg_member_3: {
+                required: "Please Input mfg_member_3",
+                minlength: 3
+                },
+                pc_member_1: {
+                required: "Please Input pc_member_1",
+                minlength: 3
+                },
+                pc_member_2: {
+                required: "Please Input pc_member_2",
+                minlength: 3
+                },
+                pc_member_3: {
+                required: "Please Input pc_member_3",
+                minlength: 3
+                },
+                qa_member_1: {
+                required: "Please Input qa_member_1",
+                minlength: 3
+                },
+                qa_member_2: {
+                required: "Please Input qa_member_2",
+                minlength: 3
+                },
+                qa_member_3: {
+                required: "Please Input qa_member_3",
+                minlength: 3
+                },
+
 
 
         // ---------------------------------- / Rule input Macro Batas sini 2--------------------------------
@@ -787,7 +778,7 @@
 
             // Ajax isi data
               $.ajax({
-              url: "<?php echo base_url('C_sys_set_app/ajax_getbyhdrid')?>",
+              url: "<?php echo base_url('C_setting_app_member/ajax_getbyhdrid')?>",
               method: "get",
               dataType : "JSON",              
               data: {hdrid:hdrid1},
@@ -795,22 +786,23 @@
 
    		            // ---------------------------------- Data val Macro Batas sini ---------------------------------    
 
-                  $('#product').select2().val(data.product).trigger('change');
-                  $('#pe_nik').select2().val(data.pe_nik).trigger('change');
-                  $('#pe_pic').val(data.pe_pic);
-                  $('#pe_name').val(data.pe_name);
-                  $('#qc_nik').select2().val(data.qc_nik).trigger('change');
-                  $('#qc_pic').val(data.qc_pic);
-                  $('#qc_name').val(data.qc_name);
-                  $('#mfg_nik').select2().val(data.mfg_nik).trigger('change');
-                  $('#mfg_pic').val(data.mfg_pic);
-                  $('#mfg_name').val(data.mfg_name);
-                  $('#pc_nik').select2().val(data.pc_nik).trigger('change');
-                  $('#pc_pic').val(data.pc_pic);
-                  $('#pc_name').val(data.pc_name);
-                  $('#qa_nik').select2().val(data.qa_nik).trigger('change');
-                  $('#qa_pic').val(data.qa_pic);
-                  $('#qa_name').val(data.qa_name);
+                    $('#product').select2().val(data.product).trigger('change');
+                    $('#pe_member_1').select2().val(data.pe_member_1).trigger('change');
+                    $('#pe_member_2').select2().val(data.pe_member_2).trigger('change');
+                    $('#pe_member_3').select2().val(data.pe_member_3).trigger('change');
+                    $('#qc_member_1').select2().val(data.qc_member_1).trigger('change');
+                    $('#qc_member_2').select2().val(data.qc_member_2).trigger('change');
+                    $('#qc_member_3').select2().val(data.qc_member_3).trigger('change');
+                    $('#mfg_member_1').select2().val(data.mfg_member_1).trigger('change');
+                    $('#mfg_member_2').select2().val(data.mfg_member_2).trigger('change');
+                    $('#mfg_member_3').select2().val(data.mfg_member_3).trigger('change');
+                    $('#pc_member_1').select2().val(data.pc_member_1).trigger('change');
+                    $('#pc_member_2').select2().val(data.pc_member_2).trigger('change');
+                    $('#pc_member_3').select2().val(data.pc_member_3).trigger('change');
+                    $('#qa_member_1').select2().val(data.qa_member_1).trigger('change');
+                    $('#qa_member_2').select2().val(data.qa_member_2).trigger('change');
+                    $('#qa_member_3').select2().val(data.qa_member_3).trigger('change');
+
                 
               
 
@@ -873,9 +865,9 @@
           // Simpan or Update data          
           var vurl; 
           if($trigger == 'Add') {            
-            vurl = "<?php echo base_url('C_sys_set_app/ajax_add')?>";
+            vurl = "<?php echo base_url('C_setting_app_member/ajax_add')?>";
           } else {           
-            vurl = "<?php echo base_url('C_sys_set_app/ajax_update')?>";
+            vurl = "<?php echo base_url('C_setting_app_member/ajax_update')?>";
           }
                   
           $.ajax({
@@ -890,12 +882,12 @@
                    berhasil(data.status);
                    // Reset Form
                    $('#quickForm')[0].reset();               
-                   // location.reload();
                     tabel.draw();
 
                    if(!vurl=="Add"){
                      $("#modal-default").modal('hide');
                    }
+                   location.reload();
                  
               },
               error: function (e) {
@@ -916,7 +908,7 @@
       // Delete by Hdrid
       fdata.append('hdrid',$('#iddelete').text());
       // Url Post delete
-      vurl = "<?php echo base_url('C_sys_set_app/ajax_delete')?>";
+      vurl = "<?php echo base_url('C_setting_app_member/ajax_delete')?>";
 
       // Post data
       $.ajax({
@@ -1075,7 +1067,7 @@
           ],
             "ajax":
             {
-                "url": "<?= base_url('C_sys_set_app/view_data_where');?>", // URL file untuk proses select datanya
+                "url": "<?= base_url('C_setting_app_member/view_data_where');?>", // URL file untuk proses select datanya
                 "type": "POST",
                 "data": function(data){     
                   data.searchByFromdate = $('#search_fromdate').val();
@@ -1112,23 +1104,21 @@
                  
                 {"data":"hdrid"},
                 {"data":"product"},
-                {"data":"pe_nik"},
-                {"data":"pe_name"},
-                {"data":"pe_pic"},
-                {"data":"qc_nik"},
-                {"data":"qc_pic"},
-                {"data":"qc_name"},
-                {"data":"mfg_nik"},
-                {"data":"mfg_pic"},
-                {"data":"mfg_name"},
-                {"data":"pc_nik"},
-                {"data":"pc_pic"},
-                {"data":"pc_name"},
-                {"data":"qa_nik"},
-                {"data":"qa_pic"},
-                {"data":"qa_name"},
-
-
+                {"data":"pe_member_1"},
+                {"data":"pe_member_2"},
+                {"data":"pe_member_3"},
+                {"data":"qc_member_1"},
+                {"data":"qc_member_2"},
+                {"data":"qc_member_3"},
+                {"data":"mfg_member_1"},
+                {"data":"mfg_member_2"},
+                {"data":"mfg_member_3"},
+                {"data":"pc_member_1"},
+                {"data":"pc_member_2"},
+                {"data":"pc_member_3"},
+                {"data":"qa_member_1"},
+                {"data":"qa_member_2"},
+                {"data":"qa_member_3"},
 
                 // ---------------------------------- / Datatables Macro Batas sini --------------------------------
 
@@ -1194,77 +1184,161 @@
 <script type="text/javascript">
 
 
-        /// @see handleSelectChange_pe_nik()
+        /// @see handleSelectChange_pe_member_1()
         /// @note Mengisi field name,email
         /// @attention Select Filter
-        function handleSelectChange_pe_nik(event) {
+        function handleSelectChange_pe_member_1(event) {
       
         // //  By Text
-        var value = $("#pe_nik option:selected").text();  
+        var value = $("#pe_member_1 option:selected").text();  
         var res = value.split("-");
 
-        $('#pe_name').val(res[1]);
-        $('#pe_pic').val(res[2]);
+        }
+        /// @see handleSelectChange_pe_member_2()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_pe_member_2(event) {
+      
+        // //  By Text
+        var value = $("#pe_member_2 option:selected").text();  
+        var res = value.split("-");
+
+        }
+        /// @see handleSelectChange_pe_member_3()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_pe_member_3(event) {
+      
+        // //  By Text
+        var value = $("#pe_member_3 option:selected").text();  
+        var res = value.split("-");
 
         }
 
 
-        /// @see handleSelectChange_qc_nik()
+        /// @see handleSelectChange_qc_member_1()
         /// @note Mengisi field name,email
         /// @attention Select Filter
-        function handleSelectChange_qc_nik(event) {
+        function handleSelectChange_qc_member_1(event) {
       
         //  By Text
-        var value = $("#qc_nik option:selected").text();  
+        var value = $("#qc_member_1 option:selected").text();  
         var res = value.split("-");
+        }
+        /// @see handleSelectChange_qc_member_2()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_qc_member_2(event) {
+      
+        //  By Text
+        var value = $("#qc_member_2 option:selected").text();  
+        var res = value.split("-");
+        }
 
-        $('#qc_name').val(res[1]);
-        $('#qc_pic').val(res[2]);
+        /// @see handleSelectChange_qc_member_3()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_qc_member_3(event) {
+      
+        //  By Text
+        var value = $("#qc_member_3 option:selected").text();  
+        var res = value.split("-");
 
         }
 
 
-        /// @see handleSelectChange_mfg_nik()
+        /// @see handleSelectChange_mfg_member_1()
         /// @note Mengisi field name,email
         /// @attention Select Filter
-        function handleSelectChange_mfg_nik(event) {
+        function handleSelectChange_mfg_member_1(event) {
       
         //  By Text
-        var value = $("#mfg_nik option:selected").text();  
+        var value = $("#mfg_member_1 option:selected").text();  
         var res = value.split("-");
 
-        $('#mfg_name').val(res[1]);
-        $('#mfg_pic').val(res[2]);
+        }
+        /// @see handleSelectChange_mfg_member_2()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_mfg_member_2(event) {
+      
+        //  By Text
+        var value = $("#mfg_member_2 option:selected").text();  
+        var res = value.split("-");
+
+        }
+        /// @see handleSelectChange_mfg_member_3()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_mfg_member_3(event) {
+      
+        //  By Text
+        var value = $("#mfg_member_3 option:selected").text();  
+        var res = value.split("-");
 
         }
 
 
-        /// @see handleSelectChange_pc_nik()
+        /// @see handleSelectChange_pc_member_1()
         /// @note Mengisi field name,email
         /// @attention Select Filter
-        function handleSelectChange_pc_nik(event) {
+        function handleSelectChange_pc_member_1(event) {
       
         //  By Text
-        var value = $("#pc_nik option:selected").text();  
+        var value = $("#pc_member_1 option:selected").text();  
         var res = value.split("-");
 
-        $('#pc_name').val(res[1]);
-        $('#pc_pic').val(res[2]);
+        }
+        /// @see handleSelectChange_pc_member_2()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_pc_member_2(event) {
+      
+        //  By Text
+        var value = $("#pc_member_2 option:selected").text();  
+        var res = value.split("-");
+
+        }
+        /// @see handleSelectChange_pc_member_3()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_pc_member_3(event) {
+      
+        //  By Text
+        var value = $("#pc_member_3 option:selected").text();  
+        var res = value.split("-");
 
         }
 
 
-        /// @see handleSelectChange_qa_nik()
+        /// @see handleSelectChange_qa_member_1()
         /// @note Mengisi field name,email
         /// @attention Select Filter
-        function handleSelectChange_qa_nik(event) {
+        function handleSelectChange_qa_member_1(event) {
       
         //  By Text
-        var value = $("#qa_nik option:selected").text();  
+        var value = $("#qa_member_1 option:selected").text();  
         var res = value.split("-");
 
-        $('#qa_name').val(res[1]);
-        $('#qa_pic').val(res[2]);
+        }
+        /// @see handleSelectChange_qa_member_2()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_qa_member_2(event) {
+      
+        //  By Text
+        var value = $("#qa_member_2 option:selected").text();  
+        var res = value.split("-");
+
+        }
+        /// @see handleSelectChange_qa_member_3()
+        /// @note Mengisi field name,email
+        /// @attention Select Filter
+        function handleSelectChange_qa_member_3(event) {
+      
+        //  By Text
+        var value = $("#qa_member_3 option:selected").text();  
+        var res = value.split("-");
 
         }
 
@@ -1276,19 +1350,6 @@
 
         }
 
-  function handleSelectChange_nik_sys_set_app2(event) {
- 
-  //  By Text
-  var value = $("#nik_sys_set_app2 option:selected").text();  
-  var res = value.split("-");
-  // $('#acc_number').val(res[0]);
-  $('#name_sys_set_app2').val(res[1]);
-  $('#kode_setion_sys_set_app2').val(res[2]);
-  $('#name_section_sys_set_app2').val(res[3]);
-  $('#email_sys_set_app2').val(res[4]);
-
-
-  }
 
 
   

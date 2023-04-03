@@ -11,7 +11,7 @@
       <div class="col-sm-6"><!--untuk ukuran panjang container-->
         <ol class="breadcrumb float-sm-right"><!-- untuk tampilan dashboard aplikasi-->
           <li class="breadcrumb-item"><a href="C_dashboard_new">Dashboard PCN</a></li><!-- judul dashboard-->
-          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</li><!-- untuk container dashboard-->
+          <li class="breadcrumb-item active"><a href="C_dashboard_new">DMIA E-PCN SYSTEM</a></li><!-- untuk container dashboard-->
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->

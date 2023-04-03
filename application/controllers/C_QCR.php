@@ -56,6 +56,12 @@ class C_QCR extends CI_Controller {
         $menu_akses['menu_akses']=$this->UserModel->get_menu_access($this->session->userdata('role_id'));           //Menu akses untuk munculkan menu   
         $data['hak_akses']=$this->UserModel->get_hak_access($this->session->userdata('role_id'), $menu_code);       //button akses(Add,Adit,View,Delete,Import,Export)
        
+         // External link filter
+         $data['Number'] = '';
+         if (isset($_GET['Number'])) {
+             $data['Number'] = $_GET['Number'];
+         }
+
         // // $data['QCR'] = $this->M_QCR->Tampil_Data();
         $this->load->view('templates/header'); //Tampil header
         $this->load->view('templates/sidebar_new',$menu_akses); //Tampil Sidebar
@@ -89,7 +95,7 @@ class C_QCR extends CI_Controller {
     function view_data_where()
     {
       $tables = "tb_QCR";//untuk data bisa masuk ke table QCR ke database
-      $search = array('hdrid','reason','note','drawing_attached','qcr_reply','date_reply','other_attached','pic_qc','cc_to1','cc_to2','check_point','judgment','comment');//untuk data table QCR bisa masuk sesuai input
+      $search = array('hdrid','reason','note','drawing_attached','qcr_reply','date_reply','other_attached','pic_qc','cc_to1','cc_to2','check_point','judgment','comment','remark_qa','approval_comment');//untuk data table QCR bisa masuk sesuai input
       
       
       
@@ -99,6 +105,10 @@ class C_QCR extends CI_Controller {
         }else{
             $where  = array('transaction_date >' => $_POST['searchByFromdate'],'transaction_date <' => $_POST['searchByTodate']);//menunjukkan tanggal transaksi
         };
+
+        if ($_POST['Number'] !='') { // due_date -2 filter
+          $where = array('reason'=> $_POST['Number']);
+        }
         
         // jika memakai IS NULL pada where sql
         $isWhere = null;
@@ -174,11 +184,13 @@ class C_QCR extends CI_Controller {
                 
          // ******************** 3. Collect all data post *********************     
         $post_data = $this->input->post();   
+        $reason = $this->input->post('reason');   
 
         $msg = "success save";
               
-        // ********************* 4. Merge data post *********************        
-        $post_datamerge=array_merge($post_data,$post_data2,$post_data3);
+        // ********************* 4. Merge data post *********************    
+        $status = array('status' =>'Open');    
+        $post_datamerge=array_merge($post_data,$status,$post_data2,$post_data3);
 
         // ********************* 5. Simpan data     *********************
 
@@ -206,6 +218,8 @@ class C_QCR extends CI_Controller {
        
 
         $data['status']= $msg; //cek status
+        $data['hdrid']= $hdrid; //cek status
+        $data['reason']= $reason; //cek status
 
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
@@ -221,6 +235,8 @@ class C_QCR extends CI_Controller {
          // ********************* 1. Collect data post *********************
         $post_data = $this->input->post(); //untuk parameter update
         $hdrid=$this->input->post('hdrid');//untuk parameter update tapi number auto increnete tetap tidak berubah
+        $reason=$this->input->post('reason');//untuk parameter update tapi number auto increnete tetap tidak berubah
+        $judgment=$this->input->post('judgment');//untuk parameter update tapi number auto increnete tetap tidak berubah
        
         $msg = "success Update"; //jika sudah diupdate maka berhasil
 
@@ -251,8 +267,15 @@ class C_QCR extends CI_Controller {
         $where = array('hdrid' => $hdrid);//mencari data sudah diupdate        
         $this->M_QCR->Update_Data($where,$post_datamerge,'tb_QCR');//untuk merge data sudah diupdate
 
-        $data['status']="berhasil update";//jika data sudah berhasil diupdate
+        if ($judgment == 'OK') {
+          $where = array('reason' => $reason);// Buat kondisi where untuk dikirim ke model   
+          $data = array('status' =>'Closed');
+          $this->M_QCR->Update_Data($where,$data,'tb_qcr');// Buat kondisi where untuk dikirim ke model
+        }
 
+        $data['status']="berhasil update";//jika data sudah berhasil diupdate
+        $data['hdrid']= $hdrid; //cek status
+        $data['reason']= $reason; //cek status
         // return value array
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
 
@@ -471,6 +494,29 @@ class C_QCR extends CI_Controller {
 			}
 		}
 	}
+
+    public function updateStatus() {
+        //menerima data dari form
+        $received = $this->input->post('received');
+        $sendback = $this->input->post('sendback');
+        $hdrid = $this->input->post('hdrid');
+
+        //menjalankan fungsi update pada model
+        if(isset($received)){
+            $this->M_QCR->update_received($hdrid);
+            $message = "Data has been received/processed";
+        }
+        else if(isset($sendback)){
+            $this->M_QCR->update_sendback($hdrid);
+            $message = "Data has been sent back";
+        }
+        else{
+            $message = "No data received";
+        }
+
+        //menampilkan pesan pada view
+        $data['message'] = $message;
+    }
     
     /** ---------------------------------------------- /Close controller----------------------------------------------**/
 

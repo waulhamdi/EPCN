@@ -1,10 +1,10 @@
 <style>
   #background {
       /* background-image: url('https://dev.azure.com/fitakwima3a/9dd192e4-e504-495a-8599-0a21852a9e5f/_apis/wit/attachments/f932e401-e06a-4dc6-97a3-d90439a8b406?fileName=internal-audit%20(2).jpg&download=true&api-version=5.0-preview.2'); */
-      background-image: url("<?php echo base_url() ?>assets/dist/img/Doc.control5.JPG");
+      /* background-image: url("<php echo base_url() ?>assets/dist/img/Doc.control5.JPG");
       background-repeat: no-repeat;
       background-attachment: fixed;  
-      background-size: cover;
+      background-size: cover; */
     }
 </style>
 
